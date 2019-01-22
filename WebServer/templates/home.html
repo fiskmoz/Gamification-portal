@@ -1,0 +1,15 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+<!-- Loads the static files-->
+{% block title %}Home{% endblock %}
+<h3> WeLCOME</h3>
+{% block content %}
+{% if user.is_authenticated %}
+<h3> WeLCOME</h3>
+{% else %}
+<h2>You are not logged in</h2>
+<form action="{% url 'login' %}">
+    <input type="submit" value="To the login page!" />
+</form>
+{% endif %}
+{% endblock %}
