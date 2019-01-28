@@ -10,3 +10,11 @@ def login(request):
         template = loader.get_template('login.html')
         context = {}
         return HttpResponse(template.render(context,request))
+
+def homepage(request):
+    if request.method == "POST":
+        r = requests.get(APIaddr + 'home/', )
+    if request.method == "GET":
+        template = loader.get_template('home.html')
+        context = {}
+        return HttpResponse(template.render(context, request))

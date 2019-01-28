@@ -2,14 +2,12 @@
 {% extends 'base.html' %}
 <!-- Loads the static files-->
 {% block title %}Home{% endblock %}
-<h3> WeLCOME</h3>
 {% block content %}
-{% if user.is_authenticated %}
-<h3> WeLCOME</h3>
-{% else %}
-<h2>You are not logged in</h2>
-<form action="{% url 'login' %}">
-    <input type="submit" value="To the login page!" />
-</form>
-{% endif %}
+<p>Welcome to this amazing Education Portal, where knowledge will be your best friend!</p>
+<h2>Quiz
+    ASD
+</h2>
+<h2>Online courses
+    MATTE
+</h2>
 {% endblock %}
