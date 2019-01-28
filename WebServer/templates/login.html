@@ -4,8 +4,13 @@
 {% block content %}
     {% csrf_token %}
     <div id="content-container" class="container p-none">
+    <h1>Welcome to the best information gamification page of all time.</h1>
+    </div>
+
+    <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
             <form id="login-form" method="post" >
+                <h2>Time to login!</h2>
                 {% csrf_token %}
                 <table class="table">
                     <tr>
