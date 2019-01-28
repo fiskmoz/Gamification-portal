@@ -15,10 +15,5 @@
 <a href="{% url 'logout' %}">
     <button>Logout</button>
  </a>
-{% else %}
-<h2>You are not logged in</h2>
-<form action="{% url 'login' %}">
-    <input type="submit" value="To the login page!" />
-</form>
 {% endif %}
 {% endblock %}

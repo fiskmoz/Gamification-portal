@@ -6,3 +6,7 @@ django-rest-auth (pip install django-rest-auth) - Authentication
 
 We currently have to use the web server db for the following things: 
 admin, auth, contenttypes, sessions
+
+
+VIsual template: 
+https://templated.co/visualize

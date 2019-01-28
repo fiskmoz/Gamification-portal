@@ -23,6 +23,9 @@ def login_view(request):
                 return redirect('login')
             auth.login(request, user)
             return redirect('home')
+        template = loader.get_template('404.html')
+        context = {}
+        return HttpResponse(template.render(context,request))
 
     if request.method == "GET": 
         template = loader.get_template('login.html')
@@ -30,8 +33,6 @@ def login_view(request):
         return HttpResponse(template.render(context,request))
 
 def homepage(request):
-    if request.method == "POST":
-        r = requests.get(APIaddr + 'home/', )
     if request.method == "GET":
         template = loader.get_template('home.html')
         context = {}

@@ -19,7 +19,7 @@ from django.views.generic.base import TemplateView
 from . import customauth
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('login/', customauth.login_view, name='login'),
     path('logout/', customauth.logout_view, name= 'logout'),
 ]

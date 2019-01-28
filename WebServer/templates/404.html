@@ -1,0 +1,10 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+<!-- Loads the static files-->
+{% block title %}404{% endblock %}
+{% block content %}
+<h2>Something went wrong</h2>
+<form action="{% url 'login' %}">
+    <input type="submit" value="To the login page!" />
+</form>
+{% endblock %}
