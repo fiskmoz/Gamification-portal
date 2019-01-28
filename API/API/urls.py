@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
+from . import auth
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' ,views.Home.as_view()),
-    path('auth/', views.Auth.as_view()),
+    path('auth/', auth.Auth.as_view()),
 ]
