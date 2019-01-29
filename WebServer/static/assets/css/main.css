@@ -15,7 +15,6 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 9999;
 }
 .navbar-expand-lg .navbar-brand,
 .navbar-expand-lg .navbar-text {
@@ -2436,7 +2435,12 @@
 
 			.thumbnails a img {
 				display: block;
-				width: 100%;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 20px;
+				margin-bottom: auto;
+				width: 70%;
+				height: 70%;
 				border-top-left-radius: 4px;
 				border-top-right-radius: 4px;
 			}
@@ -2519,7 +2523,7 @@
 
 	#wrapper {
 		max-width: 68em;
-		width: 100%;
+		width: 70%;
 		margin: 0 auto;
 		padding: 0 2em;
 		opacity: 1;

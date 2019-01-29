@@ -24,7 +24,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg">
-    <a href="{% url 'home' %}" class="navbar-left"><img src="{% static 'images/navbarpicture.jpg' %}" width="50" height="50"></a>
+    <a href="{% url 'home' %}" class="navbar-left"><img src="{% static 'images/png/home.png' %}" width="50" height="50"></a>
     <a href="{% url 'home' %}" class="navbar-brand">Home</a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
       <span class="navbar-toggler-icon"></span>
@@ -50,6 +50,11 @@
         {% endblock %}
       </main>
       <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+            <!-- Footer -->
+        <footer id="footer">
+          <p>&copy; Untitled. All rights reserved. Design: <a href="http://templated.co">TEMPLATED</a>. Demo Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+          <div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        </footer>
     </div>
   </div>
 </body>
