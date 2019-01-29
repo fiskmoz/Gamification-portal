@@ -7,6 +7,8 @@ from API.auth import validate
 
 class Home(APIView): 
     def get(self, request, format=None): 
+        if request.user.is_anonymous:
+            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
         if not validate(request.user.username, request.user.password):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         usernames = [user.username for user in User.objects.all()]
