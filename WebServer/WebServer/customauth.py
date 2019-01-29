@@ -32,11 +32,6 @@ def login_view(request):
         context = {}
         return HttpResponse(template.render(context,request))
 
-def homepage(request):
-    if request.method == "GET":
-        template = loader.get_template('home.html')
-        context = {}
-        return HttpResponse(template.render(context, request))
 def logout_view(request):
     logout(request)
     return redirect('login')

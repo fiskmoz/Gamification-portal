@@ -14,10 +14,9 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Education portal{% endblock %}</title>
-  <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-  <script src="{% static 'assets/js/skel.min.js' %}"></script>
-  <script src="{% static 'assets/js/main.js' %}"></script>
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"> -->
+  <script src="{% static 'assets/js/swiped/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/js/swiped/skel.min.js' %}"></script>
+  <script src="{% static 'assets/js/swiped/main.js' %}"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
 </head>
@@ -58,20 +57,17 @@
       </ul>
     </div>
   </nav>
-  <div class="main">
-    <div class="container-fluid p-15">
-      <main>
-        {% block content %}
-        {% endblock %}
-      </main>
-      <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
-            <!-- Footer -->
-        <footer id="footer">
-          <p>&copy; Untitled. All rights reserved. Design: <a href="http://templated.co">TEMPLATED</a>. Demo Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-          <div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-        </footer>
-    </div>
+  <div class="container-fluid p-15">
+    <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <p>&copy; Untitled. All rights reserved. Design: <a href="http://templated.co">TEMPLATED</a>. Demo Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+      <div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </footer>
   </div>
 </body>
-
 </html>

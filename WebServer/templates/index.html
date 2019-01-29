@@ -1,79 +1,65 @@
 {% extends 'base.html' %}
-<!-- Loads the static files-->
+{% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
-{% load static %}
+
 <!DOCTYPE HTML>
-<!--
-	Visualize by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
+
 <html>
+	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
 		<meta charset="utf-8" />
-		<!-- <meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" /> -->
 	</head>
+	<!-- Body -->
 	<body>
+	<!-- Wrapper -->
+		<div id="wrapper">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+			<!-- Header -->
+				<header id="header">
+					<h1>Welcome <strong>{{ user.username }}</strong> to the best information gamification page of all time.</h1>
+				</header>
 
-				<!-- Header -->
-					<header id="header">
-					<!-- <ul class="icons">
-							<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
-							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
-						</ul>
-						<span class="avatar"><img src="{% static 'images/avatar.jpg' %}" alt="" /></span> -->
-						<h1>Welcome <strong>{{ user.username }}</strong> to the best information gamification page of all time.</h1>
+			<!-- Main -->
+				<section id="main">
+					<!-- Thumbnails -->
+					<section class="thumbnails">
+						<div>
+							<a href="{% url 'news' %}">
+								<img src="{% static 'images/png/chat.png' %}" alt="" />
+								<h3>News</h3>
+							</a>
+							<a href="images/fulls/02.jpg">
+								<img src="{% static 'images/png/gamepad.png' %}" alt="" />
+								<h3>Weekly mission</h3>
+							</a>
+						</div>
+						<div>
+							<a href="images/fulls/03.jpg">
+								<img src="{% static 'images/png/book.png' %}" alt="" />
+								<h3>Courses</h3>
+							</a>
+							<a href="images/fulls/04.jpg">
+								<img src="{% static 'images/png/trophy.png' %}" alt="" />
+								<h3>Highscores</h3>
+							</a>
 
-					</header>
-
-				<!-- Main -->
-					<section id="main">
-						<!-- Thumbnails -->
-							<section class="thumbnails">
-								<div>
-									<a href="{% url 'news' %}">
-										<img src="{% static 'images/png/chat.png' %}" alt="" />
-										<h3>News</h3>
-									</a>
-									<a href="images/fulls/02.jpg">
-										<img src="{% static 'images/png/gamepad.png' %}" alt="" />
-										<h3>Weekly mission</h3>
-									</a>
-								</div>
-								<div>
-									<a href="images/fulls/03.jpg">
-										<img src="{% static 'images/png/book.png' %}" alt="" />
-										<h3>Courses</h3>
-									</a>
-									<a href="images/fulls/04.jpg">
-										<img src="{% static 'images/png/trophy.png' %}" alt="" />
-										<h3>Highscores</h3>
-									</a>
-
-								</div>
-								<div>
-									<a href="images/fulls/06.jpg">
-										<img src="{% static 'images/png/atomic.png' %}" alt="" />
-										<h3>Create weekly mission</h3>
-									</a>
-									<a href="images/fulls/05.jpg">
-										<img src="{% static 'images/png/line-chart.png' %}" alt="" />
-										<h3>Create course</h3>
-									</a>
-								</div>
-							</section>
+						</div>
+						<div>
+							<a href="images/fulls/06.jpg">
+								<img src="{% static 'images/png/atomic.png' %}" alt="" />
+								<h3>Create weekly mission</h3>
+							</a>
+							<a href="images/fulls/05.jpg">
+								<img src="{% static 'images/png/line-chart.png' %}" alt="" />
+								<h3>Create course</h3>
+							</a>
 						</div>
 					</section>
-			</div>
+				</div>
+			</section>
+		</div>
 	</body>
 </html>
 
