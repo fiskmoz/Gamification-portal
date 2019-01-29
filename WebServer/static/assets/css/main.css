@@ -8,6 +8,33 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 
+/* YOUR CODE HERE */
+.navbar-expand-lg{
+    background-color: rgba(94, 63, 63, 0.8); 
+	border-color: rgba(10, 9, 9, 0.8);
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+.navbar-expand-lg .navbar-brand,
+.navbar-expand-lg .navbar-text {
+	/* color: rgba(58, 54, 54, 0.8); */
+}
+
+/* change the link color */
+.navbar-expand-lg .navbar-nav .nav-link {
+	/* color: rgba(7, 7, 7, 0.5); */
+}
+/* change the color of active or hovered links */
+.navbar-expand-lg .nav-item.active .nav-link,
+.navbar-expand-lg .nav-item:hover .nav-link {
+	/* color: #ffffff; */
+}
+.main {
+	margin-top: 30px;
+	padding: 16px;
+	height: 1500px;
+}
 /* Reset */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -2216,7 +2243,7 @@
 		background-color: #FF6382;
 		border-radius: 4px;
 		border: 0;
-		color: !important;
+		color: rgb(255, 255, 255)!important;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 200;
@@ -2326,7 +2353,7 @@
 		button.special,
 		.button.special {
 			background-color: #FF6382;
-			color: !important;
+			color: rgb(255, 255, 255) !important;
 		}
 
 			input[type="submit"].special:hover,

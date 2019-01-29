@@ -17,7 +17,7 @@
   <script src="{% static 'assets/js/jquery.min.js' %}"></script>
   <script src="{% static 'assets/js/skel.min.js' %}"></script>
   <script src="{% static 'assets/js/main.js' %}"></script>
-  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
 </head>
@@ -43,12 +43,14 @@
       </ul>
     </div>
   </nav>
-  <div class="container-fluid p-15">
-    <main>
-      {% block content %}
-      {% endblock %}
-    </main>
-    <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+  <div class="main">
+    <div class="container-fluid p-15">
+      <main>
+        {% block content %}
+        {% endblock %}
+      </main>
+      <input type=button value="Previous Page" onClick="javascript:history.go(-1);">
+    </div>
   </div>
 </body>
 
