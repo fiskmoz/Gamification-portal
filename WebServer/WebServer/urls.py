@@ -17,10 +17,11 @@ from django.contrib import admin, auth
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 from . import customauth
+from . import views
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('', views.homepage_view, name='home'),
     path('login/', customauth.login_view, name='login'),
     path('logout/', customauth.logout_view, name= 'logout'),
-    path('news/', TemplateView.as_view(template_name='index.html'), name='news'),
+    path('news/', views.homepage_view, name='news'),
 ]
