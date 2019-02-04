@@ -8,28 +8,31 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
 
-/* YOUR CODE HERE */
 .navbar-expand-lg{
     background-color: rgba(94, 63, 63, 0.8); 
 	border-color: rgba(10, 9, 9, 0.8);
 	position: fixed;
 	top: 0;
 	width: 100%;
+	text-decoration: None;
 	z-index: 999;
 }
 .navbar-expand-lg .navbar-brand,
 .navbar-expand-lg .navbar-text {
 	/* color: rgba(58, 54, 54, 0.8); */
+	text-decoration: None;
 }
 
 /* change the link color */
 .navbar-expand-lg .navbar-nav .nav-link {
 	/* color: rgba(7, 7, 7, 0.5); */
+	text-decoration: None;
 }
 /* change the color of active or hovered links */
 .navbar-expand-lg .nav-item.active .nav-link,
 .navbar-expand-lg .nav-item:hover .nav-link .dropdown:hover .dropbtn{
 	 color: #ffffff; 
+	 text-decoration: None;
 }
 .main {
 	margin-top: 30px;
