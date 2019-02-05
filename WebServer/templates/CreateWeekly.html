@@ -6,47 +6,58 @@
 <!DOCTYPE HTML>
 
 <html>
+    <script src="{% static "assets/js/Create.js" %}"></script>
 	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
 		<meta charset="utf-8" />
 	</head>
 	<!-- Body -->
-	<body>
+	<body onload="onload();">
+    
 	<!-- Wrapper -->
 		<div id="wrapper">
 
 			<!-- Header -->
 				<header id="header">
-                    <h1>Select a name for the mission!</h1>
-                    <table class="table">
-                        <tr>
-                            <td><label for="id_missionname">Mission name:</label></td>
-                            <td><input id="id_missionname" name="missionname" 
-                                       type="text" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="id_missiondescription">Mission description:</label></td>
-                            <td><input id="id_missiondescription" name="missiondescription" 
-                                       type="text" class="form-control"></td>
-                        </tr>
-                    </table>
+                    <h1 id = "id_headertext">Select a mission type!</h1>
 				</header>
 
 			<!-- Main -->
 				<section id="main">
+
+                    <table class="table" id="id_quiztable">
+                        <tr>
+                            <td><label for="id_missionname">Mission name: </label></td>
+                            <td><input id="id_missionname" name="missionname" 
+                                        type="text" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_missiondescription">Mission description: </label></td>
+                            <td><input id="id_missiondescription" name="missiondescription" 
+                                        type="text" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_numberofquestions">How many questions for the quiz? </label></td>
+                            <td><input id="id_numberofquestions" name="id_numberofquestions" 
+                                        type="text" class="form-control"></td>
+                        </tr>
+                    </table>
+                    <button id="id_quizsubmitstage1" onclick="quizstage1();"> Submit </button>
+
 					<!-- Thumbnails -->
-					<section class="thumbnails">
+					<section class="thumbnails" id="alternatives">
 						<div>
-							<a name ="quiz">
+							<a name ="quiz" onclick="validate(this.name);">
 								<img src="{% static 'images/png/share.png' %}" alt="" />
 								<h3>Quiz</h3>
                             </a>
 						</div>
 					</section>
 				</div>
-			</section>
-		</div>
+            </section>
+            <!-- <script>onload();</script> -->
+        </div>
 	</body>
 </html>
 
