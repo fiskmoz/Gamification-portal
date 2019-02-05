@@ -24,4 +24,5 @@ urlpatterns = [
     path('login/', customauth.login_view, name='login'),
     path('logout/', customauth.logout_view, name= 'logout'),
     path('news/', views.homepage_view, name='news'),
+    path('create/weekly', views.weeklymission_view, name="createweekly"),
 ]

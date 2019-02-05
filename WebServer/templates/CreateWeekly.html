@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<!DOCTYPE HTML>
+
+<html>
+	<!-- Head -->
+	<head>
+		<title>Visualize by TEMPLATED</title>
+		<meta charset="utf-8" />
+	</head>
+	<!-- Body -->
+	<body>
+	<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+				<header id="header">
+                    <h1>Select a name for the mission!</h1>
+                    <table class="table">
+                        <tr>
+                            <td><label for="id_missionname">Mission name:</label></td>
+                            <td><input id="id_missionname" name="missionname" 
+                                       type="text" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_missiondescription">Mission description:</label></td>
+                            <td><input id="id_missiondescription" name="missiondescription" 
+                                       type="text" class="form-control"></td>
+                        </tr>
+                    </table>
+				</header>
+
+			<!-- Main -->
+				<section id="main">
+					<!-- Thumbnails -->
+					<section class="thumbnails">
+						<div>
+							<a name ="quiz">
+								<img src="{% static 'images/png/share.png' %}" alt="" />
+								<h3>Quiz</h3>
+                            </a>
+						</div>
+					</section>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>
+
+{% endblock %}
