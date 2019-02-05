@@ -7,9 +7,12 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
-
+.navbar-expand-lg .nav-link{
+	color: "green";
+}
+/* YOUR CODE HERE */
 .navbar-expand-lg{
-    background-color: rgba(94, 63, 63, 0.8); 
+    background-color: rgba(53, 50, 50, 0.8); 
 	border-color: rgba(10, 9, 9, 0.8);
 	position: fixed;
 	top: 0;
@@ -55,7 +58,7 @@
 .dropdown-content {
 	display: none;
 	position: absolute;
-	background-color: #f1f1f1;
+	background-color:transparent;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	z-index: 20;
