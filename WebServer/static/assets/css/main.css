@@ -7,76 +7,63 @@
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 */
-.navbar-expand-lg .nav-link{
-	color: "green";
-}
+
 /* YOUR CODE HERE */
 .navbar-expand-lg{
-    background-color: rgba(53, 50, 50, 0.8); 
+    background-color: transparent; 
 	border-color: rgba(10, 9, 9, 0.8);
 	position: fixed;
 	top: 0;
 	width: 100%;
+	padding: 0px 0px;
 	text-decoration: None;
 	z-index: 999;
 }
-.navbar-expand-lg .navbar-brand,
-.navbar-expand-lg .navbar-text {
-	/* color: rgba(58, 54, 54, 0.8); */
-	text-decoration: None;
+.navbar-expand-lg ul li{
+	list-style-type: none;
+	overflow: hidden;
+}
+.navbar-expand-lg .nav-link{
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 0px 0px;
+	background-color: none;
+	border: none;
+	text-decoration: none;
+	font-size: 17px;
+}
+.navbar-expand-lg .nav-link:hover{
+	background-color: floralwhite;
+	font-style: bold;
+	font-size:20px;
+	color: black;
+}
+.navbar-left{
+	display: block;
+	text-decoration: none;
+	margin: 10px;
+	border: none;
+}
+.navbar-left:hover{
+	background-color: floralwhite;
+	font-size: 20px;
+	color: #000;
+}
+.navbar-toggler{
+	border: transparent;
+	text-decoration: none;
+}
+.navbar-toggler:hover{
+	background-color: floralwhite;
 }
 
-/* change the link color */
-.navbar-expand-lg .navbar-nav .nav-link {
-	/* color: rgba(7, 7, 7, 0.5); */
-	text-decoration: None;
-}
-/* change the color of active or hovered links */
-.navbar-expand-lg .nav-item.active .nav-link,
-.navbar-expand-lg .nav-item:hover .nav-link .dropdown:hover .dropbtn{
-	 color: #ffffff; 
-	 text-decoration: None;
-}
 .main {
 	margin-top: 30px;
 	padding: 16px;
 	height: 1500px;
 }
-
-.dropbtn {
-	background-color:transparent;
-	color: white;
-	padding: 16px;
-	font-size: 16px;
-	border: none;
-}
-.dropdown {
-	position: relative;
-	display: inline-block;
-}
-  
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color:transparent;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 20;
-}
-/* Links inside the dropdown */
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
-  .dropdown:hover .dropdown-content {
-	display: block;
-}
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color:white;}
 /* Reset */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {

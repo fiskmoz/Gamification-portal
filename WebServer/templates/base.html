@@ -19,7 +19,7 @@
   <nav class="navbar navbar-expand-lg">
     <a href="{% url 'home' %}" class="navbar-left">Home <img src="{% static 'images/png/home.png' %}" width="40" height="40"></a>
     <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"><img src="{% static 'images/png/dropdown-icon.png' %}" width="40" height="40"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarMenu">
       <ul class="navbar-nav mr-auto">
@@ -28,16 +28,6 @@
         </li>
         <li class="nav-item">
           <a href="{% url 'home' %}" class="nav-link">Scoreboard<img src="{% static 'images/png/trophy.png' %}" width="40" height="40"></a>
-        </li>
-        <li>
-          <div class="dropdown">
-            <button class= "dropbtn">ASDASD</button>
-            <div class="dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-            </div>
-          </div> 
         </li>
         <li class="nav-item">
           <a href="{% url 'home' %}" class="nav-link">Settings<img src="{% static 'images/png/settings.png' %}" width="40" height="40"></a>
