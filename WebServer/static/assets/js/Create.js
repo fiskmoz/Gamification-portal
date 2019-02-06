@@ -45,7 +45,46 @@ function quiz()
     quiztable.style.display = "table";
     quizsubmitstage1.style.display ="block";
     header.innerHTML = "You have chosen: " + missionType;
-    
+}
+
+function view()
+{
+    const inputOptions = new Promise((resolve) => {
+          resolve({
+            'A': 'A',
+            'B': 'B',
+            'C': 'C'
+          })
+      })
+      
+
+    const {value: answer} =  Swal.mixin({
+    input: 'radio',
+    confirmButtonText: 'Next &rarr;',
+    progressSteps: ['1', '2', '3'],
+    inputOptions: inputOptions,
+    inputValidator: (answer) => {
+      return !answer && 'You need to choose something!'
+    }
+    }).queue([
+    {
+        title: 'Is chaining easy?',
+        text: 'A: yes! B: no! C: none of above'
+    },
+    'Question 2',
+    'Question 3'
+    ]).then((result) => {
+    if (result.value) {
+        Swal.fire({
+        title: 'All done!',
+        html:
+            'Your answers: <pre><code>' +
+            JSON.stringify(result.value) +
+            '</code></pre>',
+        confirmButtonText: 'Lovely!'
+        })
+    }
+    })
 }
 
 function quizstage1()
