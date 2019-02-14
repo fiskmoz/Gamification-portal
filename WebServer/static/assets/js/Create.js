@@ -11,6 +11,7 @@ var quiztable = "";
 var missionName = "";
 var missionDesc = "";
 var quizsubmitstage1 = "";
+var quizform = "";
 
 
 function onload()
@@ -22,6 +23,9 @@ function onload()
     missionName = document.getElementById('id_missionname');
     missionDesc = document.getElementById('id_missiondescription');
     quizsubmitstage1 = document.getElementById('id_quizsubmitstage1');
+    quizform = document.getElementById('quizform');
+    
+    quizform.style.display = "none";
     quiztable.style.display = "none";
     quizsubmitstage1.style.display = "none";
 }
@@ -51,13 +55,23 @@ function quiz()
 function quizstage1()
 {
     // CHECK MISSION NAME UNIQUE
-    var repeatsString = document.getElementById('id_numberofquestions'); 
-    var repeats = parseInt(repeatsString + "<br>");
+    var repeats = document.getElementById('id_numberofquestions').value; 
     if(repeats < 1 || repeats > 35)
     {
+        console.log(repeats);
         return;
     }
     quiztable.style.display = "none";
     quizsubmitstage1.style.display = "none";
+    quizform.style.display = "table";
+    var quizentry = document.getElementById('id_createquiztable');
+    var i;
+    for (i = 0; i < repeats; i++) 
+    { 
+        var node = document.createElement("LI");
+        var cln = quizentry.cloneNode(true);
+        node = node.appendChild(cln);
+        document.getElementById('id_quizlist').appendChild(node);
+    }
     // GENERATE QUIZES DEPENDING ON REPEATS
 }
