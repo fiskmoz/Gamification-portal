@@ -99,4 +99,5 @@ function quizstage1()
     quiztable.style.display = "none";
     quizsubmitstage1.style.display = "none";
     // GENERATE QUIZES DEPENDING ON REPEATS
+    view();
 }
