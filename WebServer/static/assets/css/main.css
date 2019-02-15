@@ -9,6 +9,11 @@
 */
 
 /* YOUR CODE HERE */
+div.hidden
+{
+    display: none
+}
+
 .navbar-expand-lg{
     background-color: transparent; 
 	border-color: rgba(10, 9, 9, 0.8);

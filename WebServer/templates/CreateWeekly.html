@@ -4,10 +4,8 @@
 {% block content %}
 
 <!DOCTYPE HTML>
-
+<script src="{% static "assets/js/Create.js" %}"></script>
 <html>
-    <script src="{% static "assets/js/Create.js" %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
@@ -20,9 +18,9 @@
 		<div id="wrapper">
 
 			<!-- Header -->
-				<header id="header">
+				<header id="header" >
                     <h1 id = "id_headertext">Select a mission type!</h1>
-				</header>
+                </header>
 
 			<!-- Main -->
 				<section id="main">
@@ -44,7 +42,7 @@
                                         type="number" class="form-control"></td>
                         </tr>
                     </table>
-                    <button id="id_quizsubmitstage1" onclick="quizstage1();"> Submit </button>
+                    <button id="id_quizsubmitstage1" onclick="view();"> Submit </button>
 
 					<!-- Thumbnails -->
 					<section class="thumbnails" id="alternatives">
@@ -95,5 +93,7 @@
         </div>
 	</body>
 </html>
+
+
 
 {% endblock %}

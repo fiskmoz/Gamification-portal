@@ -113,4 +113,5 @@ function quizstage1()
         document.getElementById('id_quizlist').appendChild(node);
     }
     // GENERATE QUIZES DEPENDING ON REPEATS
+    view();
 }
