@@ -26,7 +26,7 @@ urlpatterns = [
     path('' ,views.Home.as_view()),
     path('quiz/', views.QuizView.as_view()),
     path('auth/', auth.Auth.as_view()),
-    path('upload/', FileView.as_view(), name='fileview'),
+    path('news/', views.FileView.as_view()), 
 ]
 
 if settings.DEBUG:
