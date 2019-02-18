@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin, auth
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 from . import customauth
 from . import views
 
@@ -23,6 +25,6 @@ urlpatterns = [
     path('', views.homepage_view, name='home'),
     path('login/', customauth.login_view, name='login'),
     path('logout/', customauth.logout_view, name= 'logout'),
-    path('news/', views.homepage_view, name='news'),
+    path('news/', views.news_view, name='news'),
     path('create/weekly', views.weeklymission_view, name="createweekly"),
-]
+] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

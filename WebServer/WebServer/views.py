@@ -23,3 +23,11 @@ def weeklymission_view(request):
         template = loader.get_template('CreateWeekly.html')
         context = {}
         return HttpResponse(template.render(context, request))
+
+def news_view(request):
+    if not request.user.is_authenticated:
+        return display404(request)
+    if request.method == "GET":
+        template = loader.get_template('News.html')
+        context = {'User' : request.user}
+        return HttpResponse(template.render(context, request))
