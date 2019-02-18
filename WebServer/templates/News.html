@@ -24,7 +24,24 @@
 
 			<!-- Main -->
 				<section id="main">
-
+                    <table class="table" id="chooseFile">
+                        <tr>
+                            <td><label for="newsName">Name of news article: </label></td>
+                            <td><input id="newsName" name="newsname" 
+                                type="text" class="form-control"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="file" name="newsfile">
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button id="uploadnewsButton" onclick="uploadnews();"> Upload </button></td>
+                        </tr>
+                    </table>
 
 
 					<!-- Thumbnails -->
@@ -39,11 +56,11 @@
                                 <h3>News</h3>
                             </a>
 
-                            <a name = "createNews" onclick="">
+                            <a name = "createNews" onclick="validate(this.name)">
                                 <img src="{% static 'images/png/edit.png' %}" alt=""/>
                                 <h3>Create News</h3>
                             </a>
-
+                                                  
                             <a></a>
                         </div>
                         

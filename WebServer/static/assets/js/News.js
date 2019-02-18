@@ -1,5 +1,9 @@
 var newsType = "";
 
+function onload()
+{
+    document.getElementById('chooseFile').style.display = "none";
+}
 function validate(name)
 {
     newsType = name; 
@@ -18,6 +22,11 @@ function validate(name)
 }
 
 function createNews()
+{
+    document.getElementById('chooseFile').style.display = "table";
+}
+
+function uploadnews()
 {
     
 }
