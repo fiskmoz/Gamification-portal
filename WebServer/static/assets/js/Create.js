@@ -8,6 +8,7 @@ function onload()
     document.getElementById('quizform').style.display = "none";
     document.getElementById('id_quiztable').style.display = "none";
     document.getElementById('id_quizsubmitstage1').style.display = "none";
+    document.getElementById('id_quizsubmitstage2').style.display = "none";
 }
 
 function validate(name)
@@ -74,7 +75,6 @@ function quizstage1()
 {
     // CHECK MISSION NAME UNIQUE
     var repeats = document.getElementById('id_numberofquestions').value; 
-    alert(repeats);
     if(repeats < 1 || repeats > 35)
     {
         console.log(repeats);
@@ -85,18 +85,49 @@ function quizstage1()
     document.getElementById('quizform').style.display = "table";
     var quizentry = document.getElementById('id_createquiztable');
     var i;
-    for (i = 0; i < repeats; i++) 
+    for (i = 0; i < repeats-1; i++) 
     { 
         var node = document.createElement("LI");
         var cln = quizentry.cloneNode(true);
         node = node.appendChild(cln);
         document.getElementById('id_quizlist').appendChild(node);
     }
+    document.getElementById('id_quizsubmitstage2').style.display = "block";
     // GENERATE QUIZES DEPENDING ON REPEATS
 }
 
 function quizstage2()
 {
-    var data = $('quizform').serialize();
-    $.post('url', data,);
+    var myTableArray = [];
+    $("quizlist")
+    $("table#id_createquiztable tr").each(function() {
+        var arrayOfThisRow = [];
+        var tableData = $(this).find('td');
+        if (tableData.length > 0) {
+            tableData.each(function() { arrayOfThisRow.push($(this).text()); });
+            myTableArray.push(arrayOfThisRow);
+        }
+    });
+
+    alert(myTableArray);
+
+    // var data = $('quizform').serialize();
+    // alert(data);
+    // var json_text = JSON.stringify(document.getElementById('quizform'), null, 2);
+    // alert(json_text);
+    // $.post('http://127.0.0.1:7000/v1/quiz', data,);
+
+    var request = $.ajax({
+        url: "http://127.0.0.1:7000/v1/quiz/",
+        type: "POST",
+        data: json_text,
+      });
+      
+    //   request.done(function(msg) {
+    //     $("#log").html( msg );
+    //   });
+      
+    //   request.fail(function(jqXHR, textStatus) {
+    //     alert( "Request failed: " + textStatus );
+    //   });
 }

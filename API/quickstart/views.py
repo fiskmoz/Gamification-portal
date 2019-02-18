@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
 from quickstart.auth import validate
+from quickstart.models import Quiz, QuizEntry
 
 
 class Home(APIView): 
@@ -16,8 +17,11 @@ class Home(APIView):
 
 class Quiz(APIView): 
     def post(self, request, format=None): 
-        if request.user.is_anonymous: 
-            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
-        if not validate(request.user.username, request.user.password):
-            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        
+        # if request.user.is_anonymous: 
+        #     return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+        # if not validate(request.user.username, request.user.password):
+        #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        # quiz = Quiz()
+        print(request.POST)
+        print(request)
+        return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import redirect
 from django.contrib.auth import logout
-APIaddr = 'http://127.0.0.1:7000/'
+APIaddr = 'http://127.0.0.1:7000/v1/'
 
 def login_view(request): 
     if request.method == "POST": 
