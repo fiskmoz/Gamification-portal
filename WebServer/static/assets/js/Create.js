@@ -129,6 +129,7 @@ function quizstage2()
     $(window).scrollTop(0);
     if(repeats <= 0)
     {
+        alert(JSON.stringify(myTableArray));
         var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/quiz/",
         type: "POST",
