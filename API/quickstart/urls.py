@@ -18,9 +18,16 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from . import auth
+from .views import FileView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('' ,views.Home.as_view()),
-    path('quiz/', views.Quiz.as_view()),
+    path('quiz/', views.QuizView.as_view()),
     path('auth/', auth.Auth.as_view()),
+    path('upload/', FileView.as_view(), name='fileview'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
