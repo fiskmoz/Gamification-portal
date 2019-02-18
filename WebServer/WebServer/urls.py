@@ -27,4 +27,7 @@ urlpatterns = [
     path('logout/', customauth.logout_view, name= 'logout'),
     path('news/', views.news_view, name='news'),
     path('create/weekly', views.weeklymission_view, name="createweekly"),
-] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+] 
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
