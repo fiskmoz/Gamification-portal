@@ -22,5 +22,6 @@ from . import auth
 urlpatterns = [
     path('' ,views.Home.as_view()),
     path('auth/', auth.Auth.as_view()),
+    path('quiz', )
     path('admin/', admin.site.urls),
 ]

@@ -24,7 +24,6 @@
 
 			<!-- Main -->
 				<section id="main">
-
                     <table class="table" id="id_quiztable">
                         <tr>
                             <td><label for="id_missionname">Mission name: </label></td>
@@ -42,7 +41,7 @@
                                         type="number" class="form-control"></td>
                         </tr>
                     </table>
-                    <button id="id_quizsubmitstage1" onclick="view();"> Submit </button>
+                    <button id="id_quizsubmitstage1" onclick="quizstage1();"> Submit </button>
 
 					<!-- Thumbnails -->
 					<section class="thumbnails" id="alternatives">
@@ -57,7 +56,6 @@
                         <ul id="id_quizlist">
                             <li>
                                 <table class="table" id="id_createquiztable">
-                                    <h4> Question: 1 </h4>
                                     <tr>
                                         <td><label for="id_quizquestion">Question: </label></td>
                                         <td><input id="id_quizquestion" name="quizquestion" 
@@ -80,16 +78,19 @@
                                     </tr>
                                     <tr>
                                         <td><label for="id_correctanswer">Correct answer: </label></td>
-                                        <td><input id="id_correctanswer" name="id_correctanswer" 
-                                                    type="text" class="form-control"></td>
+                                        <td>
+                                            A <input id="id_correctanswer" name="id_correctanswer" type="radio" class="form-control">
+                                            B <input id="id_correctanswer" name="id_correctanswer" type="radio" class="form-control"> 
+                                            C <input id="id_correctanswer" name="id_correctanswer" type="radio" class="form-control">
+                                         </td>
                                     </tr>
                                 </table>
                             </li> 
                         </ul>
                     </form>
+                    <button id="id_quizsubmitstage2" onclick="quizstage2();"> Submit </button>
 				</div>
             </section>
-            <!-- <script>onload();</script> -->
         </div>
 	</body>
 </html>
