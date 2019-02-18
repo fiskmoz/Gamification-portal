@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<!DOCTYPE HTML>
+<script src="{% static "assets/js/News.js" %}"></script>
+<html>
+	<!-- Head -->
+	<head>
+		<title>Visualize by TEMPLATED</title>
+		<meta charset="utf-8" />
+	</head>
+	<!-- Body -->
+	<body onload="onload();">
+    
+	<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+				<header id="header" >
+                    <h1 id = "id_headertext">Newspage</h1>
+                </header>
+
+			<!-- Main -->
+				<section id="main">
+
+
+
+					<!-- Thumbnails -->
+					<section class="thumbnails" id="alternatives">
+						<div>
+							<a name ="quiz" onclick="">
+								<img src="{% static 'images/png/alarm-clock.png' %}" alt="" />
+								<h3>Latest News</h3>
+                            </a>
+                            <a name="News" onclick="">
+                                <img src="{% static 'images/png/eye.png' %}" alt=""/>
+                                <h3>News</h3>
+                            </a>
+
+                            <a name = "createNews" onclick="">
+                                <img src="{% static 'images/png/edit.png' %}" alt=""/>
+                                <h3>Create News</h3>
+                            </a>
+
+                            <a></a>
+                        </div>
+                        
+                    </section>
+				</div>
+            </section>
+
+        </div>
+	</body>
+</html>
+
+
+
+{% endblock %}

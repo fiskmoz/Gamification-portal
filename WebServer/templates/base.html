@@ -37,9 +37,15 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a href="{% url 'logout' %}" class="nav-link">Logout<img src="{% static 'images/png/return.png' %}" width="50" height="50"></a>
         </li>
+        {% else %}
+        <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link">Login<img src="{% static 'images/png/return.png' %}" width="50" height="50"></a>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </nav>
