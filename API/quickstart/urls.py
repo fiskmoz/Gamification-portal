@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
+from . import views
+from . import auth
 
 urlpatterns = [
-    path('v1/', include('quickstart.urls')),
-    path('admin/', admin.site.urls),
+    path('' ,views.Home.as_view()),
+    path('quiz/', views.Quiz.as_view()),
+    path('auth/', auth.Auth.as_view()),
 ]
