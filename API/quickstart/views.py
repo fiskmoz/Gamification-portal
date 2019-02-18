@@ -26,27 +26,36 @@ class QuizView(APIView):
         # if not validate(request.user.username, request.user.password):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         # quiz = Quiz()
-        myList = []
-        counter = 0
-        print(request.POST)
+        counter = 3 
+        name = request.POST.get("Quizname");
+        desc = request.POST.get("Description");
+        size = request.POST.get("Size");
+        quiz = Quiz(QuizName=name, QuizCreator="default", Date = timezone.now()) 
+        quiz.save()
+        print("Creating a QUIZ!")
+        while counter < request.POST - 3:
+            
+            
         for var in request.POST:
+            print(counter)
             if counter == 0:
-                name = var;
+                name = request.POST.get(var);
             if counter == 1: 
                 desc = var;
             if counter == 2:
-                size = var;
-                quiz = Quiz(QuizName=name, QuizCreator="default", Date = timezeone.now()) 
-                quiz.save()
-            if counter >= 8:
-                quizentry = QuizEntry(QuizID = quiz.id, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
+                size = request.POST.get(var);
+
+                
+            if  counter > 2:
+                myList.append(request.POST.get(var))
+            if counter >= 7:
+                quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
                 myList.clear()
-                counter = 0
+                counter = 3
+                print("Creating a quizentry!")
                 quizentry.save()
-            if counter <8 and counter > 2:
-                myList.append(var)
+
             counter = counter+1
-        print(request)
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
 class FileView(APIView):

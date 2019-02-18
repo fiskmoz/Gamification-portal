@@ -129,11 +129,20 @@ function quizstage2()
     $(window).scrollTop(0);
     if(repeats <= 0)
     {
-        alert(JSON.stringify(myTableArray));
+        var myJson = {};
+        myJson['Quizname'] = myTableArray[0];
+        myJson['Description'] = myTableArray[1];
+        myJson['Size'] = myTableArray[2];
+        var i;
+        for(i=3; i<myTableArray.length;i++)
+        {
+            myJson[i] = myTableArray[i];
+        }
+        alert(myJson);
         var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/quiz/",
         type: "POST",
-        data: JSON.stringify(myTableArray)
+        data: myJson
         });
         
         request.done(function(msg) {
