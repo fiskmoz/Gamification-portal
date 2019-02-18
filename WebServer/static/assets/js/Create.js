@@ -1,37 +1,20 @@
-
-
-var missionName = ""; 
-var missionDesc = "";
 var missionType = ""; 
-
-var header = "";
-var alternatives = "";
-
-var quiztable = "";
-var missionName = "";
-var missionDesc = "";
-var quizsubmitstage1 = "";
 
 
 function onload()
 {
-    alternatives = document.getElementById('alternatives');
-    header = document.getElementById('id_headertext');
-
-    quiztable = document.getElementById('id_quiztable');
-    missionName = document.getElementById('id_missionname');
-    missionDesc = document.getElementById('id_missiondescription');
-    quizsubmitstage1 = document.getElementById('id_quizsubmitstage1');
-    quiztable.style.display = "none";
-    quizsubmitstage1.style.display = "none";
+    // missionName = document.getElementById('id_missionname');
+    // missionDesc = document.getElementById('id_missiondescription');
+    document.getElementById('quizform').style.display = "none";
+    document.getElementById('id_quiztable').style.display = "none";
+    document.getElementById('id_quizsubmitstage1').style.display = "none";
 }
 
 function validate(name)
 {
     missionType = name; 
-
     // CHECK IF MISSION NAME IS UNIQUE
-    alternatives.style.display = 'none';
+    document.getElementById('alternatives').style.display = 'none';
     switch(missionType)
     {
         case "quiz": 
@@ -42,9 +25,9 @@ function validate(name)
 
 function quiz()
 {
-    quiztable.style.display = "table";
-    quizsubmitstage1.style.display ="block";
-    header.innerHTML = "You have chosen: " + missionType;
+    document.getElementById('id_quiztable').style.display = "table";
+    document.getElementById('id_quizsubmitstage1').style.display ="block";
+    document.getElementById('id_headertext').innerHTML = "You have chosen: " + missionType;
 }
 
 function view()
@@ -90,14 +73,30 @@ function view()
 function quizstage1()
 {
     // CHECK MISSION NAME UNIQUE
-    var repeatsString = document.getElementById('id_numberofquestions'); 
-    var repeats = parseInt(repeatsString + "<br>");
+    var repeats = document.getElementById('id_numberofquestions').value; 
+    alert(repeats);
     if(repeats < 1 || repeats > 35)
     {
+        console.log(repeats);
         return;
     }
-    quiztable.style.display = "none";
-    quizsubmitstage1.style.display = "none";
+    document.getElementById('id_quiztable').style.display = "none";
+    document.getElementById('id_quizsubmitstage1').style.display = "none";
+    document.getElementById('quizform').style.display = "table";
+    var quizentry = document.getElementById('id_createquiztable');
+    var i;
+    for (i = 0; i < repeats; i++) 
+    { 
+        var node = document.createElement("LI");
+        var cln = quizentry.cloneNode(true);
+        node = node.appendChild(cln);
+        document.getElementById('id_quizlist').appendChild(node);
+    }
     // GENERATE QUIZES DEPENDING ON REPEATS
-    view();
+}
+
+function quizstage2()
+{
+    var data = $('quizform').serialize();
+    $.post('url', data,);
 }
