@@ -54,41 +54,37 @@
                     </section>
                     <form id="quizform">
                         <ul id="id_quizlist">
-                            <li>
+                            <li id="id_quizlistelement">
                                 <table class="table" id="id_createquiztable">
                                     <tr>
-                                        <td><label for="id_quizquestion">Question: </label></td>
-                                        <td><input id="id_quizquestion" name="quizquestion" 
-                                                    type="text" class="form-control"></td>
+                                        <td><label for="id_quizquestion">Question: </label> </td>
+                                        <td><input id="id_quizquestion" type="text" class="form-control"></td>
                                     </tr>
                                     <tr>
                                         <td><label for="id_aswereA">Answer A: </label></td>
-                                        <td><input id="id_aswereA" name="id_aswereA" 
-                                                    type="text" class="form-control"></td>
+                                        <td><input id="id_aswereA" type="text" class="form-control"></td>
                                     </tr>
                                     <tr>
                                         <td><label for="id_aswereB">Answer B: </label></td>
-                                        <td><input id="id_aswereB" name="id_aswereB" 
-                                                    type="text" class="form-control"></td>
+                                        <td><input id="id_aswereB" type="text" class="form-control"></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="id_aswereA">Answer C: </label></td>
-                                        <td><input id="id_aswereC" name="id_aswereC" 
-                                                    type="text" class="form-control"></td>
+                                        <td><label for="id_aswereC">Answer C: </label></td>
+                                        <td><input id="id_aswereC" type="text" class="form-control"></td>
                                     </tr>
                                     <tr>
                                         <td><label for="id_correctanswer">Correct answer: </label></td>
                                         <td>
-                                            A <input id="id_correctanswer" name="id_correctanswer" type="radio" class="form-control">
-                                            B <input id="id_correctanswer" name="id_correctanswer" type="radio" class="form-control"> 
-                                            C <input id="id_correctanswer" name="id_correctanswer" type="radio" class="form-control">
+                                            A <input id="id_correctanswer" name="correctanswer" type="radio" class="form-control" value="A">
+                                            B <input id="id_correctanswer" name="correctanswer" type="radio" class="form-control" value="B"> 
+                                            C <input id="id_correctanswer" name="correctanswer" type="radio" class="form-control" value="C">
                                          </td>
                                     </tr>
                                 </table>
                             </li> 
                         </ul>
                     </form>
-                    <button id="id_quizsubmitstage2" onclick="quizstage2();"> Submit </button>
+                    <button id="id_quizsubmitstage2" onclick="quizstage2();"> Next! </button>
 				</div>
             </section>
         </div>
