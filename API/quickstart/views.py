@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from quickstart.auth import validate
 from quickstart.models import Quiz, QuizEntry
+from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.core.files.storage import FileSystemStorage
 from .serializer import FileSerializer
@@ -26,7 +27,26 @@ class QuizView(APIView):
         # if not validate(request.user.username, request.user.password):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         # quiz = Quiz()
+        myList = []
+        counter = 0
         print(request.POST)
+        for var in request.POST:
+            if counter == 0:
+                name = var;
+            if counter == 1: 
+                desc = var;
+            if counter == 2:
+                size = var;
+                quiz = Quiz(QuizName=name, QuizCreator="default", Date = timezeone.now()) 
+                quiz.save()
+            if counter >= 8:
+                quizentry = QuizEntry(QuizID = quiz.id, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
+                myList.clear()
+                counter = 0
+                quizentry.save()
+            if counter <8 and counter > 2:
+                myList.append(var)
+            counter = counter+1
         print(request)
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
