@@ -8,6 +8,7 @@ from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.core.files.storage import FileSystemStorage
 from .serializer import FileSerializer
+from .models import File
 
 
 class Home(APIView): 
@@ -61,10 +62,10 @@ class QuizView(APIView):
 class FileView(APIView):
     parser_classes = (MultiPartParser, FormParser )
     def post(self, request, *args, **kwargs):
-        if request.user.is_anonymous:
-            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
-        if not validate(request.user.username, request.user.password):
-            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+#        if request.user.is_anonymous:
+#            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+#        if not validate(request.user.username, request.user.password):
+#            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         file_serializer = FileSerializer(data=request.data)
         if file_serializer.is_valid():
             file_serializer.save()
@@ -72,4 +73,8 @@ class FileView(APIView):
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def get(self, request):           
+        news = File.objects.all()
+        serializer = FileSerializer(news, many = True)
+        return Response(serializer.data)
 
