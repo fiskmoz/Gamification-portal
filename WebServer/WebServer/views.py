@@ -19,11 +19,11 @@ def display404(request):
     context = {}
     return HttpResponse(template.render(context,request))
 
-def weeklymission_view(request):
+def create_view(request):
     if not request.user.is_authenticated: 
         return display404(request)
     if request.method == "GET": 
-        template = loader.get_template('CreateWeekly.html')
+        template = loader.get_template('Create.html')
         context = {}
         return HttpResponse(template.render(context, request))
 

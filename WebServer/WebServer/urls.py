@@ -26,7 +26,7 @@ urlpatterns = [
     path('login/', customauth.login_view, name='login'),
     path('logout/', customauth.logout_view, name= 'logout'),
     path('news/', views.news_view, name='news'),
-    path('create/weekly', views.weeklymission_view, name="createweekly"),
+    path('create/', views.create_view, name="create"),
 ] 
 
 if settings.DEBUG:
