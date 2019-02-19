@@ -2,16 +2,6 @@ var missionType = "";
 var myTableArray = [];
 var repeats = 0;
 
-function onload()
-{
-    // missionName = document.getElementById('id_missionname');
-    // missionDesc = document.getElementById('id_missiondescription');
-    document.getElementById('quizform').style.display = "none";
-    document.getElementById('id_quiztable').style.display = "none";
-    document.getElementById('id_quizsubmitstage1').style.display = "none";
-    document.getElementById('id_quizsubmitstage2').style.display = "none";
-}
-
 function validate(name)
 {
     missionType = name; 
@@ -20,61 +10,18 @@ function validate(name)
     switch(missionType)
     {
         case "quiz": 
-            quiz();
+            document.getElementById('section1').classList.remove('hidden');
+            document.getElementById('id_headertext').innerHTML = "You have chosen a " + missionType;
         break; 
     }
-}
-
-function quiz()
-{
-    document.getElementById('id_quiztable').style.display = "table";
-    document.getElementById('id_quizsubmitstage1').style.display ="block";
-    document.getElementById('id_headertext').innerHTML = "You have chosen a " + missionType;
-}
-
-function view()
-{
-    const inputOptions = new Promise((resolve) => {
-          resolve({
-            'A': 'A',
-            'B': 'B',
-            'C': 'C'
-          })
-      })
-      
-
-    const {value: answer} =  Swal.mixin({
-    input: 'radio',
-    confirmButtonText: 'Next &rarr;',
-    progressSteps: ['1', '2', '3'],
-    inputOptions: inputOptions,
-    inputValidator: (answer) => {
-      return !answer && 'You need to choose something!'
-    }
-    }).queue([
-    {
-        title: 'Is chaining easy?',
-        text: 'A: yes! B: no! C: none of above'
-    },
-    'Question 2',
-    'Question 3'
-    ]).then((result) => {
-    if (result.value) {
-        Swal.fire({
-        title: 'All done!',
-        html:
-            'Your answers: <pre><code>' +
-            JSON.stringify(result.value) +
-            '</code></pre>',
-        confirmButtonText: 'Lovely!'
-        })
-    }
-    })
 }
 
 function quizstage1()
 {
     // CHECK MISSION NAME UNIQUE¨
+    document.getElementById('section1').classList.add('hidden');
+    document.getElementById('section2').classList.remove('hidden');
+    
     name = document.getElementById('id_missionname').value;
     desc = document.getElementById('id_missiondescription').value;
     repeats = document.getElementById('id_numberofquestions').value; 
@@ -88,19 +35,7 @@ function quizstage1()
         return;
     }
     document.getElementById('id_headertext').innerHTML = "You have chosen a " + missionType + " with " + repeats.toString() + " questions!";
-    document.getElementById('id_quiztable').style.display = "none";
-    document.getElementById('id_quizsubmitstage1').style.display = "none";
     document.getElementById('quizform').style.display = "table";
-    // var quizentry = document.getElementById('id_quizlistelement');
-
-    // var i;
-    // for (i = 0; i < repeats-1; i++) 
-    // { 
-    //     var cln = quizentry.cloneNode(true);
-    //     document.getElementById('id_quizlist').appendChild(cln);
-    // }
-    document.getElementById('id_quizsubmitstage2').style.display = "block";
-    // GENERATE QUIZES DEPENDING ON REPEATS
 }
 
 function quizstage2()
@@ -123,8 +58,6 @@ function quizstage2()
     C.value = "";
     $('input[name=correctanswer]').attr('checked',false);
 
-    // alert(myTableArray);
-
     repeats = repeats -1;
     $(window).scrollTop(0);
     if(repeats <= 0)
@@ -138,61 +71,43 @@ function quizstage2()
         {
             myJson[i] = myTableArray[i];
         }
-        alert(myJson);
         var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/quiz/",
         type: "POST",
         data: myJson
         });
         
-        request.done(function(msg) {
-            alert("Request successfull!");
-            window.location.replace("http://127.0.0.1:8000/");
-        });
+        // request.done(function(msg) {
+        //     alert("Request successfull!");
+        //     window.location.replace("http://127.0.0.1:8000/");
+        // });
         
-        request.fail(function(jqXHR, textStatus) {
-            alert( "Request failed :( " + " IT MIGHT STILL WORK THO" );
+        // request.fail(function(jqXHR, textStatus) {
+        //     alert( "Request failed :( " + " IT MIGHT STILL WORK THO" );
+        //     window.location.replace("http://127.0.0.1:8000/");
+        // });
+
+        Swal.fire({
+            title: 'Saved successfully!',
+            type: 'success',
+            showCancelButton: false,
+          }).then(() => {
             window.location.replace("http://127.0.0.1:8000/");
-        });
+          })
     }
-    document.getElementById('id_headertext').innerHTML = repeats.toString() + " questions left!";
-
-    // var repeats = document.getElementById('id_numberofquestions').value; 
-    // for (i = 0; i < repeats-1; i++) 
-    // { 
-    //     $("table#id_createquiztable tr").each(function() {
-    //         // var arrayOfThisRow = [];
-    //         // var tableData = $(this).find('td');
-    //         // if (tableData.length > 0) {
-    //         //     tableData.each(function() { arrayOfThisRow.push($(this).text()); });
-    //         //     myTableArray.push(arrayOfThisRow);
-    //         // }
-
-    //     })
-    // }
-        
-
-
-
-    
-
-    // var data = $('quizform').serialize();
-    // alert(data);
-    // var json_text = JSON.stringify(document.getElementById('quizform'), null, 2);
-    // // alert(json_text);
-    // // $.post('http://127.0.0.1:7000/v1/quiz', data,);
-
-    // var request = $.ajax({
-    //     url: "http://127.0.0.1:7000/v1/quiz/",
-    //     type: "POST",
-    //     data: myTableArray
-    //   });
-      
-    //   request.done(function(msg) {
-    //     $("#log").html( msg );
-    //   });
-      
-    //   request.fail(function(jqXHR, textStatus) {
-    //     alert( "Request failed: " + textStatus );
-    //   });
+    else 
+    {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          
+          Toast.fire({
+            type: 'success',
+            title: 'Information valid!'
+          })
+          document.getElementById('id_headertext').innerHTML = repeats.toString() + " questions left!";
+    }
 }
