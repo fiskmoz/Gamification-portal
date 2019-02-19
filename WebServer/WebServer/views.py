@@ -42,7 +42,7 @@ def getNews_view(request):
         template = loader.get_template('News.html')
         try:
             context = {
-                'News': requests.get(url=APIUrl + 'news/')
+                'News': requests.post(url=APIUrl + 'news/', data=({'filename': request.filename}))
             }
             return HttpResponse(template.render(context, request))
         except json.decoder.JSONDecodeError:

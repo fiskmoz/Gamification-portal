@@ -34,12 +34,12 @@
                             <td>
                                 <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <input type="file" name="newsfile">
+                                    <input type="file" id="newsFile" name="newsfile">
                                 </form>
                             </td>
                         </tr>
                         <tr>
-                            <td><button id="uploadnewsButton" onclick="uploadnews();"> Upload </button></td>
+                            <td><button id="uploadnewsButton" onclick="uploadnews()"> Upload </button></td>
                         </tr>
                     </table>
 
