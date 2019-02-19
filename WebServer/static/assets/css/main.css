@@ -40,7 +40,6 @@ section.hidden
 	font-size: 17px;
 }
 .navbar-expand-lg .nav-link:hover{
-	background-color: floralwhite;
 	font-style: bold;
 	font-size:20px;
 	color: black;
@@ -52,7 +51,7 @@ section.hidden
 	border: none;
 }
 .navbar-left:hover{
-	background-color: floralwhite;
+
 	text-decoration: none;
 	font-size: 20px;
 	color: #000;
@@ -60,9 +59,6 @@ section.hidden
 .navbar-toggler{
 	border: transparent;
 	text-decoration: none;
-}
-.navbar-toggler:hover{
-	background-color: floralwhite;
 }
 
 .main {

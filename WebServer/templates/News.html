@@ -24,48 +24,14 @@
 
 			<!-- Main -->
 				<section id="main">
-                    <table class="table" id="chooseFile">
+                    <table class="table" id="newsList">
                         <tr>
+                            <h1>News:</h1>
                             <td><label for="newsName">Name of news article: </label></td>
                             <td><input id="newsName" name="newsname" 
                                 type="text" class="form-control"></td>
                         </tr>
-                        <tr>
-                            <td>
-                                <form method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <input type="file" id="newsFile" name="newsfile">
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><button id="uploadnewsButton" onclick="uploadnews()"> Upload </button></td>
-                        </tr>
                     </table>
-
-
-					<!-- Thumbnails -->
-					<section class="thumbnails" id="alternatives">
-						<div>
-							<a name ="quiz" onclick="">
-								<img src="{% static 'images/png/alarm-clock.png' %}" alt="" />
-								<h3>Latest News</h3>
-                            </a>
-                            <a name="News" onclick="">
-                                <img src="{% static 'images/png/eye.png' %}" alt=""/>
-                                <h3>News</h3>
-                            </a>
-
-                            <a name = "createNews" onclick="validate(this.name)">
-                                <img src="{% static 'images/png/edit.png' %}" alt=""/>
-                                <h3>Create News</h3>
-                            </a>
-                                                  
-                            <a></a>
-                        </div>
-                        
-                    </section>
-				</div>
             </section>
 
         </div>

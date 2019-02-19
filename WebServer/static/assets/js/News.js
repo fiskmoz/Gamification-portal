@@ -31,26 +31,31 @@ function createNews()
 
 function uploadnews()
 {
-    var photo = document.getElementById('newsFile');
-    var file = photo.files[0];
-    alert(file.fileName);
+    // var photo = document.getElementById('newsFile');
+    // var file = photo.files[0];
+    // alert(file.fileName);
 
 
-    console.log("File name: " + file.fileName);
-    console.log("File size: " + file.fileSize);
-    console.log("Binary content: " + file.getAsBinary());
-    console.log("Text content: " + file.getAsText(""));
+    // console.log("File name: " + file.fileName);
+    // console.log("File size: " + file.fileSize);
+    // console.log("Binary content: " + file.getAsBinary());
+    // console.log("Text content: " + file.getAsText(""));
     
     // var myJson = {};
     // myJson['newsArticleName'] = document.getElementById('newsName');
     // myJson['fileToUpload'] = document.getElementById('newsFile').files[0];;
 
+    var formData = new FormData();
+    // Attach file
+    formData.append('image', $('input[type=file]')[0].files[0]); 
 
-    // var request = $.ajax({
-    //     url: "http://127.0.0.1:7000/v1/news/",
-    //     type: "POST",
-    //     data: myJson
-    // });
+    var request = $.ajax({
+        url: "http://127.0.0.1:7000/v1/news/",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false
+    });
 
     // request.done(function(msg) {
     //     alert("Request successfull!");
