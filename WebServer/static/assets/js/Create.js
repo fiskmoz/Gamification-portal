@@ -21,7 +21,7 @@ function quizstage1()
     // CHECK MISSION NAME UNIQUE¨
     document.getElementById('section1').classList.add('hidden');
     document.getElementById('section2').classList.remove('hidden');
-    
+
     name = document.getElementById('id_missionname').value;
     desc = document.getElementById('id_missiondescription').value;
     repeats = document.getElementById('id_numberofquestions').value; 
@@ -77,23 +77,23 @@ function quizstage2()
         data: myJson
         });
         
-        // request.done(function(msg) {
-        //     alert("Request successfull!");
-        //     window.location.replace("http://127.0.0.1:8000/");
-        // });
+        request.done(function(msg) {
+            Swal.fire({
+                title: 'Saved successfully!',
+                type: 'success',
+                showCancelButton: false,
+              }).then(() => {
+                window.location.replace("http://127.0.0.1:8000/");
+              })
+        });
         
-        // request.fail(function(jqXHR, textStatus) {
-        //     alert( "Request failed :( " + " IT MIGHT STILL WORK THO" );
-        //     window.location.replace("http://127.0.0.1:8000/");
-        // });
-
-        Swal.fire({
-            title: 'Saved successfully!',
-            type: 'success',
-            showCancelButton: false,
-          }).then(() => {
-            window.location.replace("http://127.0.0.1:8000/");
-          })
+        request.fail(function(jqXHR, textStatus) {
+            Swal.fire({
+                title: 'Something went wrong! :(',
+                type: 'error',
+                showCancelButton: false,
+              })
+        });
     }
     else 
     {

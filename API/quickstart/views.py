@@ -5,7 +5,7 @@ from rest_framework import status
 from quickstart.auth import validate
 from quickstart.models import Quiz, QuizEntry
 from django.utils import timezone
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from django.core.files.storage import FileSystemStorage
 from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer
 from .models import File
@@ -57,19 +57,27 @@ class QuizView(APIView):
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
 class FileView(APIView):
-    parser_classes = (MultiPartParser, FormParser )
-    def post(self, request, *args, **kwargs):
+    parser_classes=(FormParser, MultiPartParser,)
+    def post(self, request):
 #        if request.user.is_anonymous:
 #            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
 #        if not validate(request.user.username, request.user.password):
 #            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        file_serializer = FileSerializer(data=request.data)
-        if file_serializer.is_valid():
-            file_serializer.save()
-            return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
-        else:
-            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # file_serializer = FileSerializer(data=request.data)
+        file = request.FILES.get('myfile')
+        print(file)
+        # if 'file' not in request.data:
+        #     raise ParseError("Empty Content")
+        # r = request.data['myfile']
+        # print(request.FILES)
+        # file_obj = request.FILES['myfile']
+        return Response(status=204)
+        # else:
+        #     return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, format=None):
+        file_obj = request.FILES['myfile']
+        return Response(status=204)
     def get(self, request):           
         news = File.objects.all()
         serializer = FileSerializer(news, many = True)
