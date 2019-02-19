@@ -27,35 +27,27 @@ class QuizView(APIView):
         # if not validate(request.user.username, request.user.password):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         # quiz = Quiz()
+        print(request.POST)
         counter = 3 
-        name = request.POST.get("Quizname");
-        desc = request.POST.get("Description");
-        size = request.POST.get("Size");
+        name = request.POST.get("Quizname")
+        desc = request.POST.get("Description")
+        size = request.POST.get("Size")
+        if name == "":
+            return
         quiz = Quiz(QuizName=name, QuizCreator="default", Date = timezone.now()) 
         quiz.save()
         print("Creating a QUIZ!")
-        while counter < request.POST - 3:
-            
-            
-        for var in request.POST:
-            print(counter)
-            if counter == 0:
-                name = request.POST.get(var);
-            if counter == 1: 
-                desc = var;
-            if counter == 2:
-                size = request.POST.get(var);
-
-                
-            if  counter > 2:
-                myList.append(request.POST.get(var))
-            if counter >= 7:
+        myList = []
+        length = int(len(request.POST))
+        while counter < length:
+            myList.append(request.POST.get(str(counter)))
+            tempLen = int(len(myList))
+            print("Counter: " + str(counter) + "Appended: " + request.POST.get(str(counter)) + "TempLen: " + str(tempLen) + "lenght: " + str(length))
+            if tempLen > 4 :
                 quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
                 myList.clear()
-                counter = 3
-                print("Creating a quizentry!")
+                print("Creating QuizEntry")
                 quizentry.save()
-
             counter = counter+1
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
