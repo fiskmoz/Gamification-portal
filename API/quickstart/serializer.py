@@ -5,7 +5,7 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = File
-        fields = ('name', 'file')
+        fields = ('__all__')
 
 class QuizSerializer(serializers.ModelSerializer): 
 

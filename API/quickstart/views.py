@@ -63,17 +63,16 @@ class FileView(APIView):
 #            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
 #        if not validate(request.user.username, request.user.password):
 #            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        # file_serializer = FileSerializer(data=request.data)
         file = request.FILES.get('myfile')
-        print(file)
-        # if 'file' not in request.data:
-        #     raise ParseError("Empty Content")
-        # r = request.data['myfile']
-        # print(request.FILES)
-        # file_obj = request.FILES['myfile']
-        return Response(status=204)
-        # else:
-        #     return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        dictionary = {}
+        dictionary['name'] = str(file)
+        dictionary['file'] = file
+        file_serializer = FileSerializer(data=dictionary)
+        if file_serializer.is_valid():
+            file_serializer.save()
+            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, format=None):
         file_obj = request.FILES['myfile']

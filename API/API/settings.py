@@ -28,11 +28,6 @@ CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 ALLOWED_HOSTS = ['*']
 
-REST_FRAMEWORK = {
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.FileUploadParser'
-    )
-}
 
 # Application definition
 

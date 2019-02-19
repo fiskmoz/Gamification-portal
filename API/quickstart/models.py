@@ -18,5 +18,5 @@ class File(models.Model):
     name = models.CharField(max_length=250)
     file = models.FileField(upload_to="files/", blank=False, null=False, default="UNDEFINED")
 
-    def __str__(self):
-        return self.name + ": " + str(self.file)
+    # def __str__(self):
+    #     return self.name + ": " + str(self.file)
