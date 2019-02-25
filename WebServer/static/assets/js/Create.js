@@ -115,3 +115,34 @@ function quizstage2()
           document.getElementById('id_headertext').innerHTML = repeats.toString() + " questions left!";
     }
 }
+
+function submitArticle()
+{
+    var myJson = {};
+    myJson["ArticleTitle"] = document.getElementById('articleTitle').textContent;
+    myJson["ArticleDescription"] = document.getElementById('articleDesc').textContent;
+    myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
+
+    var request = $.ajax({
+        url: "http://127.0.0.1:7000/v1/news/",
+        type: "POST",
+        data: myJson
+        });
+            request.done(function(msg) {
+            Swal.fire({
+                title: 'Saved successfully!',
+                type: 'success',
+                showCancelButton: false,
+              }).then(() => {
+                window.location.replace("http://127.0.0.1:8000/");
+              })
+        });
+        
+        request.fail(function(jqXHR, textStatus) {
+            Swal.fire({
+                title: 'Something went wrong! :(',
+                type: 'error',
+                showCancelButton: false,
+              })
+        });
+}

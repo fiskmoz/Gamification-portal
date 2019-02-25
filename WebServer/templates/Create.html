@@ -98,13 +98,56 @@
                 <button id="id_quizsubmitstage2" onclick="quizstage2();"> Submit </button>
             </section>
             <section id="news_article" class="hidden">
+                <div>
+                    <h4> Title </h4>
+                    <input id = "articleTitle" type="text"></input>
+                </div>
+                <div>
+                    <h4> Description </h4>
+                    <textarea id="articleDesc" cols="40" rows="5"></textarea>
+                </div>
+
+                <h4> Add a saved quiz </h4>
+                <select
+                id="quizSelection"
+                class="form-control"
+                name="quizSelection"
+                data-source="http://127.0.0.1:7000/v1/quiz/"
+                data-valueKey="id"
+                data-displayKey="QuizName">
+                </select>
+
+                <h4> Upload documentation </h4>
                 <div id="fileuploader">Upload</div>
+                
+                <button onclick="submitArticle();">Submit</button>
+
                 <script>
                     $(document).ready(function()
                     {
                         $("#fileuploader").uploadFile({
-                        url:"http://127.0.0.1:7000/v1/news/",
+                        url:"http://127.0.0.1:7000/v1/news/fileupload",
                         fileName:"myfile"
+                        });
+                    });
+
+                    $('select[data-source]').each(function() {
+                        var $select = $(this);
+                        
+                        $select.append('<option></option>');
+                        
+                        $.ajax({
+                            url: $select.attr('data-source'),
+                        }).then(function(options) {
+                            options.map(function(option) {
+                            var $option = $('<option>');
+                            
+                            $option
+                                .val(option[$select.attr('data-valueKey')])
+                                .text(option[$select.attr('data-displayKey')]);
+                            
+                            $select.append($option);
+                            });
                         });
                     });
                 </script>
