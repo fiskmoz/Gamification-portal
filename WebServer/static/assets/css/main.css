@@ -41,8 +41,8 @@ section.hidden
 }
 .navbar-expand-lg .nav-link:hover{
 	font-style: bold;
-	font-size:20px;
-	color: black;
+	/* font-size:20px; */
+	color: #FF6382;
 }
 .navbar-left{
 	display: block;
@@ -53,8 +53,7 @@ section.hidden
 .navbar-left:hover{
 
 	text-decoration: none;
-	font-size: 20px;
-	color: #000;
+	color: #FF6382;
 }
 .navbar-toggler{
 	border: transparent;
