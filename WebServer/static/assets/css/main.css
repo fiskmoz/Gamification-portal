@@ -49,6 +49,7 @@ section.hidden
 	text-decoration: none;
 	margin: 10px;
 	border: none;
+	color: rgb(255, 255, 255);
 }
 .navbar-left:hover{
 
