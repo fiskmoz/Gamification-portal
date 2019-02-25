@@ -20,10 +20,16 @@
 		<div id="wrapper">
 			<!-- Header -->
             <header id="header" >
-                <h1 id = "id_headertext">Select a mission type!</h1>
+                <h1 id = "id_headertext">Select what you want to create!</h1>
             </header>
             <!-- Thumbnails --> 
             <section class="thumbnails" id="alternatives">
+            <div>
+                    <a name ="article" onclick="validate(this.name);">
+                        <img src="{% static 'images/png/edit.png' %}" alt="" />
+                        <h3>News Article</h3>
+                    </a>
+                </div>
                 <div>
                     <a name ="quiz" onclick="validate(this.name);">
                         <img src="{% static 'images/png/share.png' %}" alt="" />
@@ -32,7 +38,7 @@
                 </div>
             </section>
 			<!-- Main -->
-            <section id="section1" class="hidden">
+            <section id="quiz_section1" class="hidden">
                 <table class="table" id="id_quiztable">
                     <tr>
                         <td><label for="id_missionname">Mission name: </label></td>
@@ -52,7 +58,7 @@
                 </table>
                 <button id="id_quizsubmitstage1" onclick="quizstage1();"> Submit </button>
             </section>
-            <section id="section2" class="hidden">  
+            <section id="quiz_section2" class="hidden">  
                 <form id="quizform">
                     <ul id="id_quizlist">
                         <li>
@@ -91,16 +97,16 @@
                 </form>
                 <button id="id_quizsubmitstage2" onclick="quizstage2();"> Submit </button>
             </section>
-            <section>
+            <section id="news_article" class="hidden">
                 <div id="fileuploader">Upload</div>
                 <script>
-                        $(document).ready(function()
-                        {
-                            $("#fileuploader").uploadFile({
-                            url:"http://127.0.0.1:7000/v1/news/",
-                            fileName:"myfile"
-                            });
+                    $(document).ready(function()
+                    {
+                        $("#fileuploader").uploadFile({
+                        url:"http://127.0.0.1:7000/v1/news/",
+                        fileName:"myfile"
                         });
+                    });
                 </script>
             </section>
         </div>

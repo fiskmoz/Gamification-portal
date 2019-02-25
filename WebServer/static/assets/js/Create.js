@@ -10,7 +10,11 @@ function validate(name)
     switch(missionType)
     {
         case "quiz": 
-            document.getElementById('section1').classList.remove('hidden');
+            document.getElementById('quiz_section1').classList.remove('hidden');
+            document.getElementById('id_headertext').innerHTML = "You have chosen a " + missionType;
+            break;
+        case "article":
+            document.getElementById("news_article").classList.remove('hidden');
             document.getElementById('id_headertext').innerHTML = "You have chosen a " + missionType;
         break; 
     }
@@ -19,8 +23,8 @@ function validate(name)
 function quizstage1()
 {
     // CHECK MISSION NAME UNIQUE¨
-    document.getElementById('section1').classList.add('hidden');
-    document.getElementById('section2').classList.remove('hidden');
+    document.getElementById('quiz_section1').classList.add('hidden');
+    document.getElementById('quiz_section2').classList.remove('hidden');
 
     name = document.getElementById('id_missionname').value;
     desc = document.getElementById('id_missiondescription').value;
