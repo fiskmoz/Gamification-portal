@@ -44,22 +44,16 @@ function quizstage1()
 
 function quizstage2()
 {
-    var question = document.getElementById("id_quizquestion");
-    var A = document.getElementById("id_aswereA");
-    var B = document.getElementById("id_aswereB");
-    var C = document.getElementById("id_aswereC");
-    var correct = document.getElementById("id_correctanswer");
+    myTableArray.push(document.getElementById("id_quizquestion".value));
+    myTableArray.push(document.getElementById("id_aswereA").value);
+    myTableArray.push(document.getElementById("id_aswereB").value);
+    myTableArray.push(document.getElementById("id_aswereC").value);
+    myTableArray.push(document.getElementById("id_correctanswer").value);
 
-    myTableArray.push(question.value);
-    myTableArray.push(A.value);
-    myTableArray.push(B.value);
-    myTableArray.push(C.value);
-    myTableArray.push(correct.value);
-
-    question.value = "";
-    A.value = "";
-    B.value = "";
-    C.value = "";
+    document.getElementById("id_quizquestion").value = "";
+    document.getElementById("id_aswereA").value = "";
+    document.getElementById("id_aswereB").value = "";
+    document.getElementById("id_aswereC").value = "";
     $('input[name=correctanswer]').attr('checked',false);
 
     repeats = repeats -1;
@@ -81,23 +75,7 @@ function quizstage2()
         data: myJson
         });
         
-        request.done(function(msg) {
-            Swal.fire({
-                title: 'Saved successfully!',
-                type: 'success',
-                showCancelButton: false,
-              }).then(() => {
-                window.location.replace("http://127.0.0.1:8000/");
-              })
-        });
-        
-        request.fail(function(jqXHR, textStatus) {
-            Swal.fire({
-                title: 'Something went wrong! :(',
-                type: 'error',
-                showCancelButton: false,
-              })
-        });
+        DisplayResults(request);
     }
     else 
     {
@@ -119,30 +97,36 @@ function quizstage2()
 function submitArticle()
 {
     var myJson = {};
-    myJson["ArticleTitle"] = document.getElementById('articleTitle').textContent;
-    myJson["ArticleDescription"] = document.getElementById('articleDesc').textContent;
+    myJson["ArticleTitle"] = document.getElementById('articleTitle').value;
+    myJson["ArticleDescription"] = document.getElementById('articleDesc').value;
     myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
 
+    // alert(JSON.stringify(myJson));
     var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/news/",
         type: "POST",
         data: myJson
         });
-            request.done(function(msg) {
-            Swal.fire({
-                title: 'Saved successfully!',
-                type: 'success',
-                showCancelButton: false,
-              }).then(() => {
-                window.location.replace("http://127.0.0.1:8000/");
-              })
-        });
-        
-        request.fail(function(jqXHR, textStatus) {
-            Swal.fire({
-                title: 'Something went wrong! :(',
-                type: 'error',
-                showCancelButton: false,
-              })
-        });
+    DisplayResults(request);
+}
+
+function DisplayResults(request)
+{
+    request.done(function(msg) {
+        Swal.fire({
+            title: 'Saved successfully!',
+            type: 'success',
+            showCancelButton: false,
+          }).then(() => {
+            window.location.replace("http://127.0.0.1:8000/");
+          })
+    });
+    
+    request.fail(function(jqXHR, textStatus) {
+        Swal.fire({
+            title: 'Something went wrong! :(',
+            type: 'error',
+            showCancelButton: false,
+          })
+    });
 }
