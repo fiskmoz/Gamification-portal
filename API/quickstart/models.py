@@ -24,7 +24,7 @@ class File(models.Model):
     #     return self.name + ": " + str(self.file)
 
 class Article(models.Model):
-    id = models.CharField(max_length=250, default="UNDEFINED", primary_key=True)
+    id = models.AutoField(max_length=250, primary_key=True)
     title = models.CharField(max_length=100)
     date = models.CharField(max_length=250, default=timezone.now())
     description = models.CharField(max_length=1000)

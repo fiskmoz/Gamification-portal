@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
 from quickstart.auth import validate
-from quickstart.models import Quiz, QuizEntry
+from quickstart.models import Quiz, QuizEntry, Article
 from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from django.core.files.storage import FileSystemStorage
@@ -55,6 +55,23 @@ class QuizView(APIView):
                 quizentry.save()
             counter = counter+1
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
+
+class NewsView(APIView):
+    def post(self, request, format=None):
+#        if request.user.is_anonymous:
+#            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+#        if not validate(request.user.username, request.user.password):
+#            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        quiz = request.POST.get("ArticleQuiz")
+        Title = request.POST.get("ArticleTitle")
+        Description = request.POST.get("ArticleDescription")
+        if Title == "":
+            return
+        article = Article(title=Title, description=Description, date = timezone.now())
+        article.save()
+        return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
+
+
 
 class FileView(APIView):
     parser_classes=(FormParser, MultiPartParser,)
