@@ -7,7 +7,7 @@ from quickstart.models import Quiz, QuizEntry, Article
 from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from django.core.files.storage import FileSystemStorage
-from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer
+from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, NewsSerializer
 from .models import File
 
 
@@ -71,7 +71,14 @@ class NewsView(APIView):
         article.save()
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
-
+    def get(self, request, format=None):
+        # if request.user.is_anonymous: 
+        #     return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+        # if not validate(request.user.username, request.user.password):
+        #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        news = Article.objects.all()
+        serializer = NewsSerializer(news, many=True)
+        return Response(serializer.data)
 
 class FileView(APIView):
     parser_classes=(FormParser, MultiPartParser,)
