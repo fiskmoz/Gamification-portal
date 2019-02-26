@@ -48,7 +48,7 @@ class QuizView(APIView):
         desc = request.POST.get("Description")
         if name == "":
             return
-        quiz = Quiz(QuizName=name, QuizCreator="Default") 
+        quiz = Quiz(QuizName=name, Description = desc , QuizCreator = request.user.username) 
         quiz.save() 
         myList = []
         length = int(len(request.POST))

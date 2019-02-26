@@ -5,6 +5,7 @@ class Quiz(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
     QuizName = models.CharField(max_length=250)
     QuizCreator = models.CharField(max_length=250)
+    Description = models.CharField(max_length = 4000, default = "")
     date = models.CharField(max_length=100, default = timezone.now())
 
 class QuizEntry(models.Model):
@@ -27,7 +28,7 @@ class Article(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
     title = models.CharField(max_length=100)
     date = models.CharField(max_length=100, default = timezone.now())
-    description = models.CharField(max_length=1000)
+    description = models.CharField(max_length=4000)
 
 class ArticleLink(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
