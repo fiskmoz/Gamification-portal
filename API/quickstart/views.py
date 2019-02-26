@@ -23,7 +23,7 @@ class Home(APIView):
 class SpecificQuizView(APIView):
     lookup_field = 'Quizname'
     def get(self, requst, format=None):
-        quiz = Quiz.objects.get(Quizname = QuizName)
+        quiz = Quiz.objects.get(QuizName = Quizname)
         serializer = QuizSerializer(quiz, many=False)
         return Response(serializer.data)
 
@@ -72,17 +72,23 @@ class NewsView(APIView):
 #            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
 #        if not validate(request.user.username, request.user.password):
 #            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        quizName = request.POST.get("ArticleQuiz")
+        print(request.POST)
+
+        quizID = request.POST.get("ArticleQuiz")
         Title = request.POST.get("ArticleTitle")
         Description = request.POST.get("ArticleDescription")
+        print(quizID)
+        print(Title)
+        print(Description)
         if Title == "":
             return
         article = Article(title=Title, description=Description, date = timezone.now())
         article.save()
-        if quizName != "":
-            quizID = Quiz.objects.only('id').get(QuizName = quizName).id
-            articleID = Article.objects.only('id').get(title = Title).id
-            quizLink = QuizLink(article=articleID, quiz=quizID)
+        #TODO:Fixa "unika" namn
+        if quizID != "":
+            quiz = Quiz.objects.get(id=quizID)
+            articleID = Article.objects.get(title = Title)
+            quizLink = QuizLink(article=articleID, quiz=quiz)
             quizLink.save()
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
