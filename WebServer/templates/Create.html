@@ -4,16 +4,11 @@
 {% block content %}
 
 <!DOCTYPE HTML>
-<script src="{% static "assets/js/Create.js" %}"></script>
-<link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
-<script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
-						
-
 <html>
 	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
-		<meta charset="utf-8" />
+        <meta charset="utf-8" />
 	</head>
 	<!-- Body -->
 	<body>
@@ -21,107 +16,24 @@
 		<div id="wrapper">
 			<!-- Header -->
             <header id="header" >
-                <h1 id = "id_headertext">Select what you want to create!</h1>
+                <h1 id = "id_headertext">What do you want to create?</h1>
             </header>
             <!-- Thumbnails --> 
             <section class="thumbnails" id="alternatives">
             <div>
-                    <a name ="article" onclick="validate(this.name);">
+                    <a href="{% url 'create_article' %}" name ="article" ">
                         <img src="{% static 'images/png/edit.png' %}" alt="" />
                         <h3>News Article</h3>
                     </a>
                 </div>
                 <div>
-                    <a name ="quiz" onclick="validate(this.name);">
+                    <a href="{% url 'create_quiz' %}" name ="quiz" ">
                         <img src="{% static 'images/png/share.png' %}" alt="" />
                         <h3>Quiz</h3>
                     </a>
                 </div>
             </section>
-			<!-- Main -->
-            <section id="quiz_section1" class="hidden">
-                <table class="table" id="id_quiztable">
-                    <tr>
-                        <td><label for="id_missionname">Mission name: </label></td>
-                        <td><input id="id_missionname" name="missionname" 
-                                    type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_missiondescription">Mission description: </label></td>
-                        <div id="id_missiondescription">
-                        </div>
-                    </tr>
-                </table>
-                <button id="id_quizsubmitstage1" onclick="quizstage1();"> Submit </button>
-            </section>
-            <section id="quiz_section2" class="hidden">  
-                <form id="quizform">
-                    <ul id="id_quizlist">
-                        <li>
-                            <table class="table" id="id_createquiztable">
-                                <tr>
-                                    <td><label for="id_quizquestion">Question: </label></td>
-                                    <td><input id="id_quizquestion" name="quizquestion" 
-                                                type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_aswereA">Answer A: </label></td>
-                                    <td><input id="id_aswereA" name="id_aswereA" 
-                                                type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_aswereB">Answer B: </label></td>
-                                    <td><input id="id_aswereB" name="id_aswereB" 
-                                                type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_aswereA">Answer C: </label></td>
-                                    <td><input id="id_aswereC" name="id_aswereC" 
-                                                type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_correctanswer">Correct answer: </label></td>
-                                    <td>
-                                        A <input id="id_correctanswer" name="correctanswer" type="radio" class="form-control">
-                                        B <input id="id_correctanswer" name="correctanswer" type="radio" class="form-control"> 
-                                        C <input id="id_correctanswer" name="correctanswer" type="radio" class="form-control">
-                                        </td>
-                                </tr>
-                            </table>
-                        </li> 
-                    </ul>
-                </form>
-                <button id="id_quizsubmitstage2" onclick="quizstage2();"> Save and add another entry </button>
-                <button id="id_quizexit" onclick="quizexit();"> Save and exit </button>
-            </section>
-            <section id="news_article" class="hidden">
-                <div>
-                    <h4> Title </h4>
-                    <input id = "articleTitle" type="text"></input>
-                </div>
-                <h4> Description </h4>
-                <div id="articleDescription">
-                </div>
-
-                <h4> Add a saved quiz </h4>
-                <select
-                id="quizSelection"
-                class="form-control"
-                name="quizSelection"
-                data-source="http://127.0.0.1:7000/v1/quiz/"
-                data-valueKey="id"
-                data-displayKey="QuizName">
-                </select>
-
-                <h4> Upload documentation </h4>
-                <div id="fileuploader">Upload</div>
-                
-                <button onclick="submitArticle();">Submit</button>
-            </section>
         </div>
 	</body>
 </html>
-
-
-
 {% endblock %}

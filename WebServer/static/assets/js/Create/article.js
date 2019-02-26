@@ -51,6 +51,3 @@ function submitArticle()
 
     DisplayResults(request);
 }
-
-
-

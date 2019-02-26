@@ -5,7 +5,7 @@ class Quiz(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
     QuizName = models.CharField(max_length=250)
     QuizCreator = models.CharField(max_length=250)
-    Date = models.CharField(max_length=250, default=timezone.now())
+    date = models.CharField(max_length=100, default = timezone.now())
 
 class QuizEntry(models.Model):
     QuizID = models.ForeignKey(Quiz, to_field='id', on_delete=models.CASCADE, default=None)
@@ -26,7 +26,7 @@ class File(models.Model):
 class Article(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
     title = models.CharField(max_length=100)
-    date = models.CharField(max_length=250, default=timezone.now())
+    date = models.CharField(max_length=100, default = timezone.now())
     description = models.CharField(max_length=1000)
 
 class ArticleLink(models.Model):

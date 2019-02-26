@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<html>
+	<!-- Head -->
+	<head>
+		<title>Visualize by TEMPLATED</title>
+        <meta charset="utf-8" />
+        <script src="{% static "assets/js/Create/quiz.js" %}"></script>
+	</head>
+	<!-- Body -->
+	<body>
+        <div id="wrapper">
+            <header id="header" >
+                <h1 id = "headerText">So you want to create a quiz? </h1>
+                <h2> Please provide a title and a description</h2>
+            </header>
+
+            <section id="section1">
+                <div>
+                    <h4> Title </h4>
+                    <input id = "quizTitle" type="text"></input>
+                </div>
+                <h4> Description </h4>
+                <div id="quizDescription">
+                </div>
+                <button onclick="quizstage1();"> Submit </button>
+            </section>
+            <section id="section2" class="hidden">  
+                <form id="quizform">
+                    <ul id="id_quizlist">
+                        <li>
+                            <table class="table" id="id_createquiztable">
+                                <tr>
+                                    <td><label for="question">Question: </label></td>
+                                    <td><input id="question" type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_A">Answer A: </label></td>
+                                    <td><input id="id_A"" type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_B">Answer B: </label></td>
+                                    <td><input id="id_B" type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_C">Answer C: </label></td>
+                                    <td><input id="id_C" type="text" class="form-control"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="id_correctanswer">Correct answer: </label></td>
+                                    <td>
+                                        <input id="id_correctanswerA" name="correctanswer" type="radio" class="form-control" value="A">A</input>
+                                        <input id="id_correctanswerB" name="correctanswer" type="radio" class="form-control" value="B">B</input>
+                                        <input id="id_correctanswerC" name="correctanswer" type="radio" class="form-control" value="C">C</input>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li> 
+                    </ul>
+                </form>
+                <button id="id_quizsubmitstage2" onclick="quizstage2();"> Save and add another entry </button>
+                <button id="quizexitbutton" onclick="quizexit();"> Save and exit </button>
+            </section>
+        </div>
+    </body>
+</html>
+{% endblock content %}

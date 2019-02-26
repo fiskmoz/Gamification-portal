@@ -36,24 +36,27 @@ class QuizView(APIView):
         # if not validate(request.user.username, request.user.password):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         print(request.POST)
-        counter = 3 
+
         name = request.POST.get("Quizname")
         desc = request.POST.get("Description")
-        size = request.POST.get("Size")
         if name == "":
             return
-        quiz = Quiz(QuizName=name, QuizCreator="default", Date = timezone.now()) 
-        quiz.save()
+        quiz = Quiz(QuizName=name, QuizCreator="Default") 
+        quiz.save() 
         myList = []
         length = int(len(request.POST))
-        while counter < length:
-            myList.append(request.POST.get(str(counter)))
-            tempLen = int(len(myList))
-            if tempLen > 4 :
+        j = 0
+        i = 0
+        while i < length-2:
+            myList.append(request.POST.get(str(i)))
+            if j > 3 :
                 quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
+                print(quizentry)
                 myList.clear()
+                j = 0;
                 quizentry.save()
-            counter = counter+1
+            i += 1
+            j += 1
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
 class NewsView(APIView):

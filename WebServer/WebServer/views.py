@@ -23,7 +23,23 @@ def create_view(request):
     if not request.user.is_authenticated: 
         return display404(request)
     if request.method == "GET": 
-        template = loader.get_template('Create.html')
+        template = loader.get_template('create.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+
+def create_view_quiz(request):
+    if not request.user.is_authenticated: 
+        return display404(request)
+    if request.method == "GET": 
+        template = loader.get_template('Create/quiz.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+
+def create_view_article(request):
+    if not request.user.is_authenticated: 
+        return display404(request)
+    if request.method == "GET": 
+        template = loader.get_template('Create/article.html')
         context = {}
         return HttpResponse(template.render(context, request))
 

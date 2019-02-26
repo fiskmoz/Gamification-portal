@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<html>
+	<!-- Head -->
+	<head>
+		<title>Visualize by TEMPLATED</title>
+        <meta charset="utf-8" />
+        
+        <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
+        <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
+
+        <script src="{% static "assets/js/Create/article.js" %}"></script>
+
+	</head>
+	<!-- Body -->
+	<body>
+        <div id="wrapper">
+            <!-- Header -->
+            <header id="header" >
+                <h1 id = "id_headertext">You selected article!</h1>
+            </header>
+
+            <section id="news_article">
+                <div>
+                    <h4> Title </h4>
+                    <input id = "articleTitle" type="text"></input>
+                </div>
+                <h4> Description </h4>
+                <div id="articleDescription">
+                </div>
+
+                <h4> Add a saved quiz </h4>
+                <select
+                id="quizSelection"
+                class="form-control"
+                name="quizSelection"
+                data-source="http://127.0.0.1:7000/v1/quiz/"
+                data-valueKey="id"
+                data-displayKey="QuizName">
+                </select>
+
+                <h4> Upload documentation </h4>
+                <div id="fileuploader">Upload</div>
+                
+                <button onclick="submitArticle();">Submit</button>
+            </section>
+        </div>
+    </body>
+</html>
+{% endblock content %}
