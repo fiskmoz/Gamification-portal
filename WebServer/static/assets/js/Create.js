@@ -1,7 +1,19 @@
 var missionType = ""; 
 var myTableArray = [];
 var repeats = 0;
+var articleDescription;
+var missionDescription;
 
+$(document).ready(function()
+{
+articleDescription = new Quill('#articleDescription', {
+    theme: 'snow'
+});
+
+missionDescription = new Quill('#id_missiondescription', {
+    theme: 'snow'
+});
+});
 function validate(name)
 {
     missionType = name; 
