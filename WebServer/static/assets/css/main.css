@@ -13,6 +13,10 @@ section.hidden
 {
     display: none
 }
+.baseHidden
+{
+    display: none
+}
 
 .navbar-expand-lg{
     background-color: transparent; 

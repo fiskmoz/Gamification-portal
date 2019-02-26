@@ -52,12 +52,7 @@
                     <tr>
                         <td><label for="id_missiondescription">Mission description: </label></td>
                         <td><input id="id_missiondescription" name="missiondescription" 
-                                    type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_numberofquestions">How many questions for the quiz? </label></td>
-                        <td><input id="id_numberofquestions" name="id_numberofquestions" 
-                                    type="number" class="form-control"></td>
+                                    type="textarea" class="form-control"></td>
                     </tr>
                 </table>
                 <button id="id_quizsubmitstage1" onclick="quizstage1();"> Submit </button>
@@ -99,7 +94,8 @@
                         </li> 
                     </ul>
                 </form>
-                <button id="id_quizsubmitstage2" onclick="quizstage2();"> Submit </button>
+                <button id="id_quizsubmitstage2" onclick="quizstage2();"> Save and add another entry </button>
+                <button id="id_quizexit" onclick="quizexit();"> Save and exit </button>
             </section>
             <section id="news_article" class="hidden">
                 <div>
