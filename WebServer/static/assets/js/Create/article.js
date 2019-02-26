@@ -34,13 +34,12 @@ $(document).ready(function()
 
 function submitArticle()
 {
-    var size = articleDescription.getLength();
-    var description = articleDescription.getText(0,size)
     var myJson = {};
     myJson["ArticleTitle"] = $('#articleTitle').val(); 
-    myJson["ArticleDescription"] = description;
+    myJson["ArticleDescription"] = articleDescription.container.innerHTML;
     myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
     $("#fileuploader").uploadFile({
+
         url:"http://127.0.0.1:7000/v1/news/fileupload/",
         fileName:"myfile"
         });
