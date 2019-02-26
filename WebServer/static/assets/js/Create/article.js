@@ -8,6 +8,7 @@ $(document).ready(function()
         theme: 'snow'
     });
     $("#fileuploader").uploadFile({
+        allowedTypes:"jpg,txt,pdf,docx",
         url:"http://127.0.0.1:7000/v1/news/fileupload/",
         fileName:"myfile"
     });
