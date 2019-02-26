@@ -12,26 +12,36 @@
 		<meta charset="utf-8" />
 	</head>
 	<!-- Body -->
-	<body onload="onload();">
+	<body>
     
 	<!-- Wrapper -->
 		<div id="wrapper">
 
-			<!-- Header -->
-				<header id="header" >
-                    <h1 id = "id_headertext">Newspage</h1>
-                </header>
+		<!-- Header -->
+			<header id="header" >
+				<h1 id = "id_headertext">Newspage</h1>
+			</header>
 
-			<!-- Main -->
-				<section id="main">
-                    <table class="table" id="newsList">
-                        <tr>
-                            <h1>News:</h1>
-                            <td><label for="newsName">Name of news article: </label></td>
-                            <td><input id="newsName" name="newsname" 
-                                type="text" class="form-control"></td>
-                        </tr>
-                    </table>
+		<!-- Main -->
+			<section id="main">
+				<h1>News:</h1>
+				<table class="table" id="newsList">
+					<tbody>
+
+					</tbody>
+				</table>
+				<ul id="list">
+
+				</ul>
+				<script>
+					$(document).ready(function () {
+						$.ajax({ 
+						url: "http://127.0.0.1:7000/v1/news/",}).then(function(data) {
+							$('newsList tbody').append(JSON.stringify(data));
+						}
+						);
+						});
+				</script>
             </section>
 
         </div>

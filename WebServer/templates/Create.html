@@ -8,6 +8,10 @@
 <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
+<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+						
+
 <html>
 	<!-- Head -->
 	<head>
@@ -121,36 +125,6 @@
                 <div id="fileuploader">Upload</div>
                 
                 <button onclick="submitArticle();">Submit</button>
-
-                <script>
-                    $(document).ready(function()
-                    {
-                        $("#fileuploader").uploadFile({
-                        url:"http://127.0.0.1:7000/v1/news/fileupload",
-                        fileName:"myfile"
-                        });
-                    });
-
-                    $('select[data-source]').each(function() {
-                        var $select = $(this);
-                        
-                        $select.append('<option></option>');
-                        
-                        $.ajax({
-                            url: $select.attr('data-source'),
-                        }).then(function(options) {
-                            options.map(function(option) {
-                            var $option = $('<option>');
-                            
-                            $option
-                                .val(option[$select.attr('data-valueKey')])
-                                .text(option[$select.attr('data-displayKey')]);
-                            
-                            $select.append($option);
-                            });
-                        });
-                    });
-                </script>
             </section>
         </div>
 	</body>
