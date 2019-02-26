@@ -18,3 +18,5 @@ function DisplayResults(request)
           })
     });
 }
+
+var DEBUG = false;

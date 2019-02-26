@@ -1,23 +1,24 @@
 var missionDescription;
 var myTableArray = [];
-var repeats = 0;
+var repeats = 1;
 
 $(document).ready(function()
 {
     missionDescription = new Quill('#quizDescription', {
         theme: 'snow'
     });
+    $('#quizexitbutton').hide();
 });
 
 function quizstage1()
 {
     // CHECK MISSION NAME UNIQUE¨
-    $('quizexitbutton').hide();
     $('#section1').hide();
     $('#section2').fadeIn(200).removeClass('hidden');
     myTableArray.push($('#quizTitle').val());
     myTableArray.push(missionDescription.container.innerHTML);
-    $('#headerText').fadeOut(function (){ $(this).html("You have chosen a quiz with " + repeats.toString() + " questions!");}).fadeIn();
+    $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
+    $('#headerText2').fadeOut(function (){ $(this).html("Please fill out the form!");}).fadeIn();
 }
 
 function quizstage2()
@@ -47,8 +48,8 @@ function quizstage2()
         type: 'success',
         title: 'Information valid!'
       })
-      $('quizexitbutton').show();
-      $('#headerText').fadeOut(function (){ $(this).html("You have chosen a quiz with " + repeats.toString() + " questions!");}).fadeIn();
+      $('#quizexitbutton').show();
+      $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
 }
 function quizexit()
 {
@@ -60,7 +61,10 @@ function quizexit()
     {
         myJson[i-2] = myTableArray[i];
     }
-    alert(JSON.stringify(myJson));
+    if(DEBUG)
+    {
+        alert(JSON.stringify(myJson));
+    }
     var request = $.ajax({
     url: "http://127.0.0.1:7000/v1/quiz/",
     type: "POST",

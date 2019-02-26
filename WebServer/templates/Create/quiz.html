@@ -15,7 +15,7 @@
         <div id="wrapper">
             <header id="header" >
                 <h1 id = "headerText">So you want to create a quiz? </h1>
-                <h2> Please provide a title and a description</h2>
+                <h2 id = "headerText2"> Please provide a title and a description</h2>
             </header>
 
             <section id="section1">
@@ -23,9 +23,11 @@
                     <h4> Title </h4>
                     <input id = "quizTitle" type="text"></input>
                 </div>
+                <br/>
                 <h4> Description </h4>
-                <div id="quizDescription">
+                <div style="height: 250px" id="quizDescription">
                 </div>
+                <br/>
                 <button onclick="quizstage1();"> Submit </button>
             </section>
             <section id="section2" class="hidden">  
@@ -51,10 +53,21 @@
                                 </tr>
                                 <tr>
                                     <td><label for="id_correctanswer">Correct answer: </label></td>
-                                    <td>
-                                        <input id="id_correctanswerA" name="correctanswer" type="radio" class="form-control" value="A">A</input>
-                                        <input id="id_correctanswerB" name="correctanswer" type="radio" class="form-control" value="B">B</input>
-                                        <input id="id_correctanswerC" name="correctanswer" type="radio" class="form-control" value="C">C</input>
+                                    <td allign ="center">
+                                            <label for ="id_correctanswerA">
+                                                A
+                                                <input id="id_correctanswerA" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="A"/>
+                                             </label>
+                                             <br/>
+                                             <label for ="id_correctanswerB">
+                                                B   
+                                                <input id="id_correctanswerB" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="B"/>
+                                            </label>
+                                            <br/>
+                                            <label for ="id_correctanswerC">
+                                                C     
+                                                <input id="id_correctanswerC" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="C"/>
+                                            </label>
                                     </td>
                                 </tr>
                             </table>
@@ -62,8 +75,9 @@
                     </ul>
                 </form>
                 <button id="id_quizsubmitstage2" onclick="quizstage2();"> Save and add another entry </button>
-                <button id="quizexitbutton" onclick="quizexit();"> Save and exit </button>
+                <br/>
             </section>
+            <button id="quizexitbutton" onclick="quizexit();"> Save and exit </button>
         </div>
     </body>
 </html>
