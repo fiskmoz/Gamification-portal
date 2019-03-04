@@ -26,13 +26,6 @@
 			<section id="main">
 				<h1>News:</h1>
 				<ul id="list">
-					<li>
-						<article>
-							<h1><a href="" title=""><!-- news title --></a></h1>
-							<img src="" alt="" />
-							<p><!-- news description --></p>
-						  </article>
-					</li>
 				</ul>
 				<div class="container"></div>
 				<script>
@@ -42,7 +35,12 @@
 							url: "http://127.0.0.1:7000/v1/news/",
 							dataType: "json",
 							success: function(data) {
-								$(".container").append('<div>' + data.title + '</div><div>' + data.description + '</div>');
+								// alert(JSON.stringify(data));
+								jQuery(data).each(function(index, data){
+									articleHTML = '<li><article><h1><a href = "http://127.0.0.1:8000/news/'+ data.id.toString()+'">'+ data.title + '</a></h1><p>'+ data.shortDescription+'</p></article></li>';
+									$('#list').append(articleHTML);
+								})
+								
 							// ...
 							}
 						})
@@ -53,7 +51,6 @@
         </div>
 	</body>
 </html>
-
 
 
 {% endblock %}

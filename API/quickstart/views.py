@@ -76,12 +76,13 @@ class NewsView(APIView):
         quizID = request.POST.get("ArticleQuiz")
         Title = request.POST.get("ArticleTitle")
         Description = request.POST.get("ArticleDescription")
+        ShortDesc = request.POST.get("ArticleShortDescription")
         # print(quizID)
         # print(Title)
         # print(Description)
         if Title == "":
             return
-        article = Article(title=Title, description=Description, date = timezone.now())
+        article = Article(title=Title, description=Description, shortDescription = ShortDesc, date = timezone.now())
         article.save()
         #TODO:Fixa "unika" namn
         if quizID != "":
@@ -98,6 +99,7 @@ class NewsView(APIView):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         news = Article.objects.all()
         serializer = NewsSerializer(news, many=True)
+        print(serializer.data)
         return Response(serializer.data)
 
 class FileView(APIView):

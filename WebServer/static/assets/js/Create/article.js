@@ -5,7 +5,7 @@ var id = 0;
 
 $(document).ready(function()
 {
-    articleDescription = new Quill('#articleDescription', {
+    articleDescription = new Quill('#longArticleDescription', {
         theme: 'snow'
     });
     uploadObj = $("#fileuploader").uploadFile({
@@ -58,6 +58,7 @@ function submitArticle()
     var linkItems = {};
     myJson["ArticleTitle"] = $('#articleTitle').val(); 
     myJson["ArticleDescription"] = articleDescription.container.innerHTML;
+    myJson["ArticleShortDescription"] = $('#shortArticleDescription').val();
     myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
     alert(JSON.stringify(myJson));
     var request = $.ajax({

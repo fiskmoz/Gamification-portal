@@ -29,6 +29,7 @@ class Article(models.Model):
     title = models.CharField(max_length=100)
     date = models.CharField(max_length=100, default = timezone.now())
     description = models.CharField(max_length=4000)
+    shortDescription = models.CharField(max_length= 300, default = "A description")
 
 class ArticleLink(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
