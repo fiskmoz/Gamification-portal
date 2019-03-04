@@ -1,7 +1,7 @@
 var missionType = ""; 
 var articleDescription;
 var uploadObj;
-
+var id = 0;
 
 $(document).ready(function()
 {
@@ -13,7 +13,23 @@ $(document).ready(function()
         url:"http://127.0.0.1:7000/v1/news/fileupload/",
         autoSubmit:false,
         fileName:"myfile",
-        maxFileCount:1
+        maxFileCount:1,
+        afterUploadAll : function(response)
+        {
+            var responses = uploadObj.getResponses();
+            myJson2 = {};
+            myJson2['ArticleID'] = id;
+            myJson2['FileID'] = responses[0].id;
+            var request = $.ajax({
+                url: "http://127.0.0.1:7000/v1/news/fileupload/",
+                type: "PUT",
+                data : myJson2,
+                success : function(result)
+                {
+                    DisplayResults(request);
+                }
+            })
+        }
     });
     $('select[data-source]').each(function() {
         var $select = $(this);
@@ -43,15 +59,14 @@ function submitArticle()
     myJson["ArticleTitle"] = $('#articleTitle').val(); 
     myJson["ArticleDescription"] = articleDescription.container.innerHTML;
     myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
-    
-    uploadObj.startUpload();
-
     alert(JSON.stringify(myJson));
     var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/news/",
         type: "POST",
-        data: myJson
+        data: myJson,
+        success: function(data) {
+            id = data;
+            uploadObj.startUpload();
+        }
         });
-
-    DisplayResults(request);
 }

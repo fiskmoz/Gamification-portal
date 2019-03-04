@@ -60,7 +60,7 @@ class QuizView(APIView):
                 quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
                 print(quizentry)
                 myList.clear()
-                j = 0;
+                j = 0
                 quizentry.save()
             i += 1
             j += 1
@@ -72,14 +72,13 @@ class NewsView(APIView):
 #            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
 #        if not validate(request.user.username, request.user.password):
 #            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        print(request.POST)
-
+        # print(request.POST)
         quizID = request.POST.get("ArticleQuiz")
         Title = request.POST.get("ArticleTitle")
         Description = request.POST.get("ArticleDescription")
-        print(quizID)
-        print(Title)
-        print(Description)
+        # print(quizID)
+        # print(Title)
+        # print(Description)
         if Title == "":
             return
         article = Article(title=Title, description=Description, date = timezone.now())
@@ -90,7 +89,7 @@ class NewsView(APIView):
             articleID = Article.objects.get(title = Title)
             quizLink = QuizLink(article=articleID, quiz=quiz)
             quizLink.save()
-        return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
+        return Response(data=article.id, status = status.HTTP_200_OK)
 
     def get(self, request, format=None):
         # if request.user.is_anonymous: 
@@ -107,7 +106,7 @@ class FileView(APIView):
 #        if request.user.is_anonymous:
 #            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
 #        if not validate(request.user.username, request.user.password):
-#            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+#            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)    
         file = request.FILES.get('myfile')
         dictionary = {}
         dictionary['name'] = str(file)
@@ -119,19 +118,26 @@ class FileView(APIView):
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, format=None):
-        file_obj = request.FILES['myfile']
-        return Response(status=204)
-    def get(self, request):           
-        news = File.objects.all()
-        serializer = FileSerializer(news, many = True)
-        return Response(serializer.data)
-    def update(self, request, format=None):
-        article_name = request.POST.get("ArticleName")
-        file_name = request.POST.get("FileName")
-        Article = Article.objects.get(title=article_name)
-        File = File.objects.get(name=file_name)
-        article_link = ArticleLink(article=Article, File=File)
+    def put(self,request):
+        
+        artID = request.POST.get("ArticleID")
+        FileID = request.POST.get("FileID")
+        article_link = ArticleLink(article=Article.objects.get(id= artID), filePath=File.objects.get(id = FileID))
         article_link.save()
-        return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
+        return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
+    # def put(self, request, format=None):
+    #     file_obj = request.FILES['myfile']
+    #     return Response(status=204)
+    # def get(self, request):           
+    #     news = File.objects.all()
+    #     serializer = FileSerializer(news, many = True)
+    #     return Response(serializer.data)
+    # def update(self, request, format=None):
+    #     article_name = request.POST.get("ArticleName")
+    #     file_name = request.POST.get("FileName")
+    #     Article = Article.objects.get(title=article_name)
+    #     File = File.objects.get(name=file_name)
+    #     article_link = ArticleLink(article=Article, File=File)
+    #     article_link.save()
+    #     return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
