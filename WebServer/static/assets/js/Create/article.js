@@ -1,5 +1,6 @@
 var missionType = ""; 
 var articleDescription;
+var uploadObj;
 
 
 $(document).ready(function()
@@ -7,10 +8,12 @@ $(document).ready(function()
     articleDescription = new Quill('#articleDescription', {
         theme: 'snow'
     });
-    $("#fileuploader").uploadFile({
+    uploadObj = $("#fileuploader").uploadFile({
         allowedTypes:"jpg,txt,pdf,docx",
         url:"http://127.0.0.1:7000/v1/news/fileupload/",
-        fileName:"myfile"
+        autoSubmit:false,
+        fileName:"myfile",
+        maxFileCount:1
     });
     $('select[data-source]').each(function() {
         var $select = $(this);
@@ -36,14 +39,13 @@ $(document).ready(function()
 function submitArticle()
 {
     var myJson = {};
+    var linkItems = {};
     myJson["ArticleTitle"] = $('#articleTitle').val(); 
     myJson["ArticleDescription"] = articleDescription.container.innerHTML;
     myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
-    $("#fileuploader").uploadFile({
+    
+    uploadObj.startUpload();
 
-        url:"http://127.0.0.1:7000/v1/news/fileupload/",
-        fileName:"myfile"
-        });
     alert(JSON.stringify(myJson));
     var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/news/",
