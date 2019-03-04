@@ -23,7 +23,7 @@ def create_view(request):
     if not request.user.is_authenticated: 
         return display404(request)
     if request.method == "GET": 
-        template = loader.get_template('create.html')
+        template = loader.get_template('Create/create.html')
         context = {}
         return HttpResponse(template.render(context, request))
 
