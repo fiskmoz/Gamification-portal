@@ -3,10 +3,14 @@
 <!-- Loads the static files-->
 {% block title %}404{% endblock %}
 {% block content %}
+<div id="wrapper">
 <header id="header" >
         <h1 id = "id_headertext">Something went wrong :(</h1>
     </header>
-<form action="{% url 'login' %}">
-    <input type="submit" value="To the login page!" />
-</form>
+    <div align = "center">
+        <form action="{% url 'login' %}">
+            <input type="submit" value="To the login page!" />
+
+    </div>
+</div>
 {% endblock %}
