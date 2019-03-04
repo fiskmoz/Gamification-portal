@@ -126,4 +126,12 @@ class FileView(APIView):
         news = File.objects.all()
         serializer = FileSerializer(news, many = True)
         return Response(serializer.data)
+    def update(self, request, format=None):
+        article_name = request.POST.get("ArticleName")
+        file_name = request.POST.get("FileName")
+        Article = Article.objects.get(title=article_name)
+        File = File.objects.get(name=file_name)
+        article_link = ArticleLink(article=Article, File=File)
+        article_link.save()
+        return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
