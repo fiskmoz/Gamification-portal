@@ -47,8 +47,16 @@ def news_view(request):
     if not request.user.is_authenticated:
         return display404(request)
     if request.method == "GET":
-        template = loader.get_template('News.html')
+        template = loader.get_template('News/news.html')
         context = {'User' : request.user}
+        return HttpResponse(template.render(context, request))
+
+def article_view(request,id):
+    if not request.user.is_authenticated:
+        return display404(request)
+    if request.method == "GET":
+        template = loader.get_template('News/article.html')
+        context = {'User' : request.user, 'ID' : id}
         return HttpResponse(template.render(context, request))
 
 def getNews_view(request):

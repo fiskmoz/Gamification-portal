@@ -26,10 +26,10 @@ urlpatterns = [
     path('login/', customauth.login_view, name='login'),
     path('logout/', customauth.logout_view, name= 'logout'),
     path('news/', views.news_view, name='news'),
-    # path('news/<id>', views.article_view, name='specific_article'),
+    path('news/<id>', views.article_view, name='specific_article'),
     path('create/', views.create_view, name="create"),
-    path('create/quiz', views.create_view_quiz, name="create_quiz"),
-    path('create/article', views.create_view_article, name="create_article"),
+    path('create/quiz/', views.create_view_quiz, name="create_quiz"),
+    path('create/article/', views.create_view_article, name="create_article"),
 ] 
 
 if settings.DEBUG:

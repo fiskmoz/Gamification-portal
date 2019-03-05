@@ -18,6 +18,10 @@ section.hidden
     display: none
 }
 
+p
+{
+	color: rgba(255, 255, 255, 0.65);
+}
 .navbar-expand-lg{
     background-color: transparent; 
 	border-color: rgba(10, 9, 9, 0.8);
@@ -1535,7 +1539,7 @@ section.hidden
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #ffffff;
+		color:rgba(255, 255, 255, 0.65);
 		font-weight: 200;
 		line-height: 1.5;
 		margin: 0 0 1em 0;

@@ -19,4 +19,17 @@ function DisplayResults(request)
     });
 }
 
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-60px";
+  }
+  prevScrollpos = currentScrollPos;
+}
+
 var DEBUG = false;
+var APIUrl = 'http://127.0.0.1:7000/API/';
+var HOMEURL = 'http://127.0.0.1:8000/';

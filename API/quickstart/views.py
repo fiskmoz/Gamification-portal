@@ -121,25 +121,33 @@ class FileView(APIView):
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self,request):
-        
         artID = request.POST.get("ArticleID")
         FileID = request.POST.get("FileID")
         article_link = ArticleLink(article=Article.objects.get(id= artID), filePath=File.objects.get(id = FileID))
         article_link.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
-    # def put(self, request, format=None):
-    #     file_obj = request.FILES['myfile']
-    #     return Response(status=204)
-    # def get(self, request):           
-    #     news = File.objects.all()
-    #     serializer = FileSerializer(news, many = True)
-    #     return Response(serializer.data)
-    # def update(self, request, format=None):
-    #     article_name = request.POST.get("ArticleName")
-    #     file_name = request.POST.get("FileName")
-    #     Article = Article.objects.get(title=article_name)
-    #     File = File.objects.get(name=file_name)
-    #     article_link = ArticleLink(article=Article, File=File)
-    #     article_link.save()
-    #     return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
+
+class IndividualNewsView(APIView):
+    def get(self, request, id):
+        article = Article.objects.get(id= id)
+        serializer = NewsSerializer(article, many=False)
+        return Response(serializer.data)
+
+class IndividualNewsViewQuiz(APIView):
+    lookup_field = 'id'
+    def get(self, request, id):
+        quizes = set()
+        for item in QuizLink.objects.filter(article= id):
+            quizes.add(item.quiz)
+        serializer = QuizSerializer(quizes, many=True)
+        return Response(serializer.data)
+
+class IndividualNewsViewFiles(APIView):
+    def get(self, request, id):
+        files = set()
+        for fileLink in ArticleLink.objects.filter(article= id):
+            files.add(fileLink.filePath)
+        serializer = FileSerializer(files, many=True)
+        return Response(serializer.data)
+
 
