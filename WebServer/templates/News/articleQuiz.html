@@ -33,11 +33,10 @@
 							success: function(data) {
                                 console.log(data);
                                 
-								
+                                    articleHTML = '<li><article><h1>'+ data.quiz[0].QuizName + '</h1>';
                                     console.log(data.quiz);
                                     console.log(data.quizentry);
-                                    for(i=0; i<data.quiz.length;i++){
-                                        articleHTML = '<li><article><h1>'+ data.quiz[i].QuizName + '</h1>';
+                                    for(i=0; i<data.quizentry.length;i++){
                                         articleHTML += '<p>'+ data.quizentry[i].Question +'</p>';
                                         articleHTML += '<form>';                      
                                         articleHTML += '<input type="radio" name="gender" value="male">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
@@ -45,8 +44,9 @@
                                         articleHTML += '<input type="radio" name="gender" value="male">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
                                         articleHTML += '</form>';
                                         console.log(data.quizentry[0]);
-                                        $('#list').append(articleHTML);
+                                    
                                     }
+                                    $('#list').append(articleHTML);
 								
 								
 							// ...
