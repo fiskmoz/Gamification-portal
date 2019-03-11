@@ -59,7 +59,15 @@
 				</script>
             </section>
 
-        </div>
+		</div>
+		<button id="quizButton" onclick="doQuiz()">Quiz Time!</button>
+		<script type="text/javascript">
+			function doQuiz()
+			{
+			var url = "http://127.0.0.1:8000/news/"+"quiz/"+"{{ID}}";
+			window.location.href = url;
+			}
+			</script>
 	</body>
 </html>
 

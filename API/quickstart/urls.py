@@ -29,7 +29,7 @@ urlpatterns = [
     path('news/', views.NewsView.as_view()), 
     path('news/fileupload/', views.FileView.as_view()),
     path('news/<id>/', views.IndividualNewsView.as_view()),
-    path('news/<id>/quiz/', views.IndividualNewsViewQuiz.as_view()),
+    path('news/quiz/<id>/', views.IndividualNewsViewQuiz.as_view()),
     path('news/<id>/files/', views.IndividualNewsViewFiles.as_view()),
     
 ]

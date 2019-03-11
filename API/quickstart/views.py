@@ -137,10 +137,18 @@ class IndividualNewsViewQuiz(APIView):
     lookup_field = 'id'
     def get(self, request, id):
         quizes = set()
+        quizentries = set()
         for item in QuizLink.objects.filter(article= id):
             quizes.add(item.quiz)
+            print(item.quiz.id)
+            for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz.id):
+                quizentries.add(nrquiz)
         serializer = QuizSerializer(quizes, many=True)
-        return Response(serializer.data)
+        serializer2 = QuizEntrySerializer(quizentries, many=True)
+        return Response({
+            'quiz': serializer.data,
+            'quizentry': serializer2.data
+            })
 
 class IndividualNewsViewFiles(APIView):
     def get(self, request, id):
