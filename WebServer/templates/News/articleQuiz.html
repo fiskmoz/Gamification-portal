@@ -21,12 +21,11 @@
 
             <section id="main">
                 <h2 id = "id_shorttext"></h2>
-                <ul id="list">
-                </ul>
+                <ul id="list"></ul>
                 <script>
                         $(document).ready(function () 
                         {
-                            $.ajax({ 
+                            $.ajax({
 							type: "GET",
                             url: "http://127.0.0.1:7000/v1/news/quiz/"+ "{{ID}}" + "/",                            
 							dataType: "json",
@@ -38,10 +37,10 @@
                                     console.log(data.quizentry);
                                     for(i=0; i<data.quizentry.length;i++){
                                         articleHTML += '<p>'+ data.quizentry[i].Question +'</p>';
-                                        articleHTML += '<form>';                      
-                                        articleHTML += '<input type="radio" name="gender" value="male">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
-                                        articleHTML += '<input type="radio" name="gender" value="male">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
-                                        articleHTML += '<input type="radio" name="gender" value="male">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
+                                        articleHTML += '<form action="" method="POST" id="quizQuestion{{i}}">';                     
+                                        articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
+                                        articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
+                                        articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
                                         articleHTML += '</form>';
                                         console.log(data.quizentry[0]);
                                     
