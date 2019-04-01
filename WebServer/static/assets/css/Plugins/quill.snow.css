@@ -57,9 +57,15 @@
   .ql-editor h4,
   .ql-editor h5,
   .ql-editor h6 {
+    color:black;
     margin: 0;
     padding: 0;
     counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+  }
+  .ql-editor strong
+  {
+    color: black;
+    font-weight: bold;
   }
   .ql-editor ol,
   .ql-editor ul {
@@ -318,7 +324,7 @@
     margin: 0 0 0 auto;
   }
   .ql-editor .ql-bg-black {
-    background-color: #000;
+    background-color: white;
   }
   .ql-editor .ql-bg-red {
     background-color: #e60000;

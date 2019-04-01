@@ -52,16 +52,21 @@ class QuizView(APIView):
         quiz.save() 
         myList = []
         length = int(len(request.POST))
+        print(length)
         j = 0
         i = 0
         while i < length-2:
             myList.append(request.POST.get(str(i)))
+            print(i)
             if j > 3 :
+                print(myList)
                 quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
                 print(quizentry)
                 myList.clear()
                 j = 0
+                i += 1
                 quizentry.save()
+                continue
             i += 1
             j += 1
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
