@@ -32,7 +32,7 @@
 							success: function(data) {
                                 console.log(data);
                                 
-                                    articleHTML = '<li><article><h1>'+ data.quiz[0].QuizName + '</h1>';
+                                    articleHTML = '<article><h1>'+ data.quiz[0].QuizName + '</h1>';
                                     console.log(data.quiz);
                                     console.log(data.quizentry);
                                     for(i=0; i<data.quizentry.length;i++){
