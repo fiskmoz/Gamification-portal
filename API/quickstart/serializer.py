@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import File, Quiz, QuizEntry, Article
+from .models import File, Quiz, QuizEntry, Article, ArticleScore
 
 class FileSerializer(serializers.ModelSerializer):
 
@@ -23,4 +23,10 @@ class NewsSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = Article
+        fields = ('__all__')
+
+class ArticleScoreSerializer(serializers.ModelSerializer):
+
+    class Meta():
+        model = ArticleScore
         fields = ('__all__')

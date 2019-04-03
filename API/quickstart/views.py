@@ -3,11 +3,11 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
 from quickstart.auth import validate
-from quickstart.models import Quiz, QuizEntry, Article, ArticleLink, QuizLink
+from quickstart.models import Quiz, QuizEntry, Article, ArticleLink, QuizLink, ArticleScore
 from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from django.core.files.storage import FileSystemStorage
-from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, NewsSerializer
+from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, NewsSerializer, ArticleScoreSerializer
 from .models import File
 import json
 
@@ -165,5 +165,26 @@ class IndividualNewsViewFiles(APIView):
             files.add(fileLink.filePath)
         serializer = FileSerializer(files, many=True)
         return Response(serializer.data)
+
+class ArticleScoreView(APIView):
+    def post(self, request):
+        score=0
+        j=0
+        quizanswers = request.POST.get("QuizAnswers")
+        correctquizanswers = set()
+        for item in QuizLink.objects.filter(article= id):
+            print(item.quiz.id)
+            for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz.id):
+                correctquizanswers.add(nrquiz)
+        
+        for item in quizanswers:
+            if item.Correct == quizanswers[j]:
+                score+=1
+            j+=1
+        articleID = request.POST.get("ArticleID")
+
+        articlescore = ArticleScore(UserName=request.user.username, article=Article.objects.get(id= articleID), Score=score)
+        articlescore.save()
+        return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
 
 

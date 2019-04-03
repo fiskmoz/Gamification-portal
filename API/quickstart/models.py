@@ -55,3 +55,13 @@ class QuizLink(models.Model):
 
     def __str__(self):
         return str(self.quiz) +" --- "+ str(self.article)
+
+
+class ArticleScore(models.Model):
+    UserName = models.CharField(max_length=100)
+    ArticleName = models.ForeignKey(Article, to_field="id", on_delete=models.CASCADE, default=None)
+    Score = models.CharField(max_length=100)
+
+    def __str__(self):
+        return str(self.UserName) + " --- " + str(self.Score)
+
