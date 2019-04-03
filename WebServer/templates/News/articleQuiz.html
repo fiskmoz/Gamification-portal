@@ -20,8 +20,11 @@
             </header>
 
             <section id="main">
-                <h2 id = "id_shorttext"></h2>
-                <ul id="list"></ul>
+                <div id ="CW" style="background-color: aliceblue">
+                    <h2 id = "id_shorttext" style="color:black"></h2>
+                    <ul id="list"></ul>
+                </div>
+
                 <script>
                     var len = 0; 
                     $(document).ready(function () 
@@ -38,7 +41,7 @@
                                 console.log(data.quizentry);
                                 len = data.quizentry.length
                                 for(i=0; i<data.quizentry.length;i++){
-                                    articleHTML += '<p>'+ "Question 1: " + data.quizentry[i].Question +'</p>';
+                                    articleHTML += '<p style ="color:black">'+ "Question 1: " + data.quizentry[i].Question +'</p>';
                                     articleHTML += '<form action="" method="POST" id="quizQuestion{{i}}">';                     
                                     articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
                                     articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
@@ -48,8 +51,6 @@
                                 
                                 }
                                 $('#list').append(articleHTML);
-                            
-                            
                         // ...
                         }
                         });
@@ -60,14 +61,13 @@
                     function completeQuiz()
                     {
                         myJson = {};
-                        myJson['']
                         for(i=0; i<len;i++){
-                            form = $('#quizQuestiono{{i}}')
-                            myJson += form.serialize()
+                            myJson['quizQuestionNo{{i}}'] = $('input[name=QuizAlternative]:checked', '#quizQuestion{{i}}').val()
                         }
+                        alert(JSON.stringify(myJson));
                         var request = $.ajax({
                             type: "POST", 
-                            url: APIUrl + "??",
+                            url: APIUrl + "news/articlescore/",
                             dataType: "json",
                             success: function(data) {
                                 DisplayResults(request);
