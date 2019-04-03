@@ -169,9 +169,15 @@ class IndividualNewsViewFiles(APIView):
 
 class ArticleScoreView(APIView):
     def post(self, request):
+        id = request.POST.get("Article")
         score=0
         j=0
-        quizanswers = request.POST.get("QuizAnswers")
+        i=0
+        quizanswers = []
+        length = int(len(request.POST))
+        while i< length-1:
+            quizanswers[i].append(request.POST.get(str(i)))
+            print(quizanswers[i])
         correctquizanswers = set()
         for item in QuizLink.objects.filter(article= id):
             print(item.quiz.id)
