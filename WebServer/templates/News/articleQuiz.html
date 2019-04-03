@@ -53,6 +53,17 @@
 						    });
                         });
                 </script>
+                <button id="completeQuizButton" onclick="completeQuiz()">Quiz Time!</button> 
+                <script type="text/javascript">
+                    function completeQuiz()
+                    {
+                        
+                        var forms = document.getElementsByTagName('form')
+                        console.log(forms)
+
+                        Object.keys(forms).forEach(key => console.log(key, forms[key]));
+                    }
+                    </script>     
             </section>
         </div>
     </body>
