@@ -14,7 +14,6 @@ https://templated.co/visualize
 Backlog: 
 - Read only för artikel.
 - En extra single color body där man kan tänkas behöva skriva in data.
-- Sorteras artiklar by datum. 
 - Endast displaya typ 20 artiklar eller så 
 - flera filer kanske?
 - Restriktioner för personer som inte är superuser

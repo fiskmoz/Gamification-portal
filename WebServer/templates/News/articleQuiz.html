@@ -42,7 +42,7 @@
                                 len = data.quizentry.length
                                 for(i=0; i<data.quizentry.length;i++){
                                     articleHTML += '<p style ="color:black">'+ "Question 1: " + data.quizentry[i].Question +'</p>';
-                                    articleHTML += '<form action="" method="POST" id="quizQuestion{{i}}">';                     
+                                    articleHTML += '<form action="" method="POST" id="quizQuestion'+i.toString()+ '">';                     
                                     articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
                                     articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
                                     articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
@@ -61,8 +61,9 @@
                     function completeQuiz()
                     {
                         myJson = {};
+                        myJson['Article'] = {{ ID }}
                         for(i=0; i<len;i++){
-                            myJson['quizQuestionNo{{i}}'] = $('input[name=QuizAlternative]:checked', '#quizQuestion{{i}}').val()
+                            myJson['quizQuestionNo'+i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
                         }
                         alert(JSON.stringify(myJson));
                         var request = $.ajax({

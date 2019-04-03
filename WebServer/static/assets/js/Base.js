@@ -31,6 +31,6 @@ var currentScrollPos = window.pageYOffset;
 }
 
 var DEBUG = false;
-var APIUrl = 'http://127.0.0.1:7000/API/';
+var APIUrl = 'http://127.0.0.1:7000/v1/';
 var APIFileUrl = 'http://127.0.0.1:7000/media/';
 var HOMEURL = 'http://127.0.0.1:8000/';
