@@ -7,7 +7,7 @@
 	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
-		<meta charset="utf-8" />
+        <meta charset="utf-8" />
 	</head>
     <!-- Body -->
     <body>   
@@ -23,41 +23,56 @@
                 <h2 id = "id_shorttext"></h2>
                 <ul id="list"></ul>
                 <script>
-                        $(document).ready(function () 
-                        {
-                            $.ajax({
-							type: "GET",
-                            url: "http://127.0.0.1:7000/v1/news/quiz/"+ "{{ID}}" + "/",                            
-							dataType: "json",
-							success: function(data) {
-                                console.log(data);
+                    var len = 0; 
+                    $(document).ready(function () 
+                    {
+                        $.ajax({
+                        type: "GET",
+                        url: "http://127.0.0.1:7000/v1/news/quiz/"+ "{{ID}}" + "/",                            
+                        dataType: "json",
+                        success: function(data) {
+                            console.log(data);
+                            
+                                articleHTML = '<article><h1>'+ data.quiz[0].QuizName + '</h1>';
+                                console.log(data.quiz);
+                                console.log(data.quizentry);
+                                len = data.quizentry.length
+                                for(i=0; i<data.quizentry.length;i++){
+                                    articleHTML += '<p>'+ "Question 1: " + data.quizentry[i].Question +'</p>';
+                                    articleHTML += '<form action="" method="POST" id="quizQuestion{{i}}">';                     
+                                    articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
+                                    articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
+                                    articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
+                                    articleHTML += '</form>';
+                                    console.log(data.quizentry[0]);
                                 
-                                    articleHTML = '<article><h1>'+ data.quiz[0].QuizName + '</h1>';
-                                    console.log(data.quiz);
-                                    console.log(data.quizentry);
-                                    for(i=0; i<data.quizentry.length;i++){
-                                        articleHTML += '<p>'+ data.quizentry[i].Question +'</p>';
-                                        articleHTML += '<form action="" method="POST" id="quizQuestion{{i}}">';                     
-                                        articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
-                                        articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
-                                        articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
-                                        articleHTML += '</form>';
-                                        console.log(data.quizentry[0]);
-                                    
-                                    }
-                                    $('#list').append(articleHTML);
-								
-								
-							// ...
-							}
-						    });
+                                }
+                                $('#list').append(articleHTML);
+                            
+                            
+                        // ...
+                        }
                         });
+                    });
                 </script>
-                <button id="completeQuizButton" onclick="completeQuiz()">Quiz Time!</button> 
+                <button id="completeQuizButton" onclick="completeQuiz()">Submit!</button> 
                 <script type="text/javascript">
                     function completeQuiz()
                     {
-                        
+                        myJson = {};
+                        myJson['']
+                        for(i=0; i<len;i++){
+                            form = $('#quizQuestiono{{i}}')
+                            myJson += form.serialize()
+                        }
+                        var request = $.ajax({
+                            type: "POST", 
+                            url: APIUrl + "??",
+                            dataType: "json",
+                            success: function(data) {
+                                DisplayResults(request);
+                            }
+                        })
                         var forms = document.getElementsByTagName('form')
                         console.log(forms)
 

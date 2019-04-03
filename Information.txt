@@ -11,12 +11,14 @@ admin, auth, contenttypes, sessions
 VIsual template: 
 https://templated.co/visualize
 
-
-					<!-- <ul class="icons">
-							<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
-							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
-						</ul>
-						<span class="avatar"><img src="{% static 'images/avatar.jpg' %}" alt="" /></span> -->
+Backlog: 
+- Read only för artikel.
+- En extra single color body där man kan tänkas behöva skriva in data.
+- Sorteras artiklar by datum. 
+- Endast displaya typ 20 artiklar eller så 
+- flera filer kanske?
+- Restriktioner för personer som inte är superuser
+- Göra quiz
+- Spara quiz
+- Highscores
+- Refactoring
