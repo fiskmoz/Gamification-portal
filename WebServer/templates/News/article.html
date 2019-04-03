@@ -26,7 +26,9 @@
                 <h2 id = "id_shorttext"></h2>
             </br>
                 <h2 id = "id_date"></h2>
-            </br>
+			</br>
+				<p><a target="_blank" rel="noopener noreferrer" id ="id_fileref"> File </a></p>
+			<br>
                 <div id="longArticleDescription">
                 </div>
 				<script>
@@ -48,19 +50,22 @@
 							dataType: "json",
 							success: function(data) {
 								// alert(JSON.stringify(data));
-                                $('#id_headertext').text(data.title.toString());
-                                $('#id_shorttext').text(data.shortDescription.toString());
-                                $('#id_date').text("Created on: " +data.date.toString());
-								articleDescription.container.innerHTML = data.description;
+                                $('#id_headertext').text(data.article.title.toString());
+                                $('#id_shorttext').text(data.article.shortDescription.toString());
+								$('#id_date').text("Created on: " +data.article.date.toString());
+								$('#id_fileref').text(data.filepath);
+								// alert( APIFileUrl + data.filepath)
+								$('#id_fileref').attr("href", APIFileUrl + data.filepath);
+								articleDescription.container.innerHTML = data.article.description;
 							// ...
 							}
 						});
 					});
 				</script>
+				<br>
+				<button id="quizButton" onclick="doQuiz()">Quiz Time!</button>
             </section>
-
 		</div>
-		<button id="quizButton" onclick="doQuiz()">Quiz Time!</button>
 		<script type="text/javascript">
 			function doQuiz()
 			{

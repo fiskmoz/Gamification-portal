@@ -9,6 +9,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from django.core.files.storage import FileSystemStorage
 from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, NewsSerializer
 from .models import File
+import json
 
 
 class Home(APIView): 
@@ -135,8 +136,10 @@ class FileView(APIView):
 class IndividualNewsView(APIView):
     def get(self, request, id):
         article = Article.objects.get(id= id)
+        linkobj = ArticleLink.objects.get(article = id)
+        path = File.objects.get(id = linkobj.filePath.id)
         serializer = NewsSerializer(article, many=False)
-        return Response(serializer.data)
+        return Response({'article' : serializer.data, 'filepath': path.file.name})
 
 class IndividualNewsViewQuiz(APIView):
     lookup_field = 'id'

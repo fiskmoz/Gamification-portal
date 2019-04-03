@@ -60,7 +60,7 @@ function submitArticle()
     myJson["ArticleDescription"] = articleDescription.container.innerHTML;
     myJson["ArticleShortDescription"] = $('#shortArticleDescription').val();
     myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
-    alert(JSON.stringify(myJson));
+    // alert(JSON.stringify(myJson));
     var request = $.ajax({
         url: "http://127.0.0.1:7000/v1/news/",
         type: "POST",
@@ -68,6 +68,7 @@ function submitArticle()
         success: function(data) {
             id = data;
             uploadObj.startUpload();
+            DisplayResults(request)
         }
         });
 }
