@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, NewsSerializer, ArticleScoreSerializer
 from .models import File
 import json
+import operator
 
 
 class Home(APIView): 
@@ -103,7 +104,7 @@ class NewsView(APIView):
         #     return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
         # if not validate(request.user.username, request.user.password):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        news = Article.objects.all()
+        news = Article.objects.all().order_by("-date")
         serializer = NewsSerializer(news, many=True)
         print(serializer.data)
         return Response(serializer.data)
