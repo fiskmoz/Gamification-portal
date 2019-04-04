@@ -6,6 +6,27 @@
 <!DOCTYPE HTML>
 <script src="{% static "assets/js/News.js" %}"></script>
 <html>
+	<style>
+	#list li:nth-of-type(1n+10) {
+  		display: none;
+	}
+	 .newspage ul{
+		list-style: none;
+		color:white;
+		
+		/* list-style-image: -webkit-radial-gradient(1000); */
+	 }
+	 .newspage h1{
+		 color:white;
+	 }
+	 .newspage li{
+		 border-style:groove;
+	 }
+	 .newspage a{
+		 text-decoration: none;
+		 color: white;
+	 }
+	</style>
 	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
@@ -15,7 +36,7 @@
 	<body>
     
 	<!-- Wrapper -->
-		<div id="wrapper">
+		<div class="newspage" id="wrapper">
 
 		<!-- Header -->
 			<header id="header" >

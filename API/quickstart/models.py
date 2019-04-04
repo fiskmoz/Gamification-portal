@@ -3,24 +3,24 @@ from django.utils import timezone
 
 class Quiz(models.Model): 
     id = models.AutoField(max_length=250, primary_key=True)
-    QuizName = models.CharField(max_length=250)
-    QuizCreator = models.CharField(max_length=250)
-    Description = models.CharField(max_length = 4000, default = "")
+    quizName = models.CharField(max_length=250)
+    quizCreator = models.CharField(max_length=250)
+    description = models.CharField(max_length = 4000, default = "")
     date = models.CharField(max_length=100, default = timezone.now())
 
     def __str__(self):
-        return str(self.QuizName)
+        return str(self.quizName)
 
 class QuizEntry(models.Model):
-    QuizID = models.ForeignKey(Quiz, to_field='id', on_delete=models.CASCADE, default=None)
-    Question = models.CharField(max_length=250)
-    AlternativeA = models.CharField(max_length=250)
-    AlternativeB = models.CharField(max_length=250)
-    AlternativeC = models.CharField(max_length=250)
-    Correct = models.CharField(max_length=250)
+    quizID = models.ForeignKey(Quiz, to_field='id', on_delete=models.CASCADE, default=None)
+    question = models.CharField(max_length=250)
+    alternativeA = models.CharField(max_length=250)
+    alternativeB = models.CharField(max_length=250)
+    alternativeC = models.CharField(max_length=250)
+    correct = models.CharField(max_length=250)
 
     def __str__(self):
-        return "Question for: " + str(self.QuizID)
+        return "Question for: " + str(self.quizID)
 
 class File(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
@@ -58,10 +58,10 @@ class QuizLink(models.Model):
 
 
 class ArticleScore(models.Model):
-    UserName = models.CharField(max_length=100)
-    ArticleName = models.ForeignKey(Article, to_field="id", on_delete=models.CASCADE, default=None)
-    Score = models.CharField(max_length=100)
+    username = models.CharField(max_length=100)
+    article = models.ForeignKey(Article, to_field="id", on_delete=models.CASCADE, default=None)
+    score = models.CharField(max_length=100)
 
     def __str__(self):
-        return str(self.UserName) + " --- " + str(self.Score)
+        return str(self.username) + " --- " + str(self.score)
 
