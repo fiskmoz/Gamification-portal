@@ -20,7 +20,7 @@
             </header>
 
             <section id="main">
-                <div id ="CW" style="background-color: aliceblue">
+                <div class ="container">
                     <h2 id = "id_shorttext" style="color:black"></h2>
                     <ul id="list"></ul>
                 </div>
@@ -61,15 +61,17 @@
                     function completeQuiz()
                     {
                         myJson = {};
-                        myJson['Article'] = {{ ID }}
+                        myJson['articleID'] = '{{ ID }}';
+                        myJson['csrfmiddlewaretoken'] = '{{ csrf_token }}';
                         for(i=0; i<len;i++){
-                            myJson['quizQuestionNo'+i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
+                            myJson[i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
                         }
                         alert(JSON.stringify(myJson));
                         var request = $.ajax({
                             type: "POST", 
                             url: APIUrl + "news/articlescore/",
                             dataType: "json",
+                            data : myJson,
                             success: function(data) {
                                 DisplayResults(request);
                             }

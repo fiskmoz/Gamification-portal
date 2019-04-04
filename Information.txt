@@ -14,10 +14,24 @@ https://templated.co/visualize
 Backlog: 
 - Read only för artikel.
 - En extra single color body där man kan tänkas behöva skriva in data.
-- Endast displaya typ 20 artiklar eller så 
-- flera filer kanske?
+- Endast displaya typ 10 artiklar eller så 
 - Restriktioner för personer som inte är superuser
-- Göra quiz
-- Spara quiz
+- Ändra så alla API calls använder variabel isället för hårdkodade länkar.
+- Restriktioner på POST API calls.
+- Timer på quiz
+- Får inte avbryta quiz, sätt invalid / noll poäng.
+- Sätta limit på antalet quiz entires.
+- Se till att skapara/usernam kommer med vid skapning av quiz, artikel och artikel score.
+
+Refactoring:
+- Variabel namn
+- Modeller och attributer
+- Snygga till parsing
+- Snygga till JS
+
+
 - Highscores
-- Refactoring
+
+
+
+Fixa timetable saken!

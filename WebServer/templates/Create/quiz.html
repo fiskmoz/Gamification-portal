@@ -15,65 +15,68 @@
         <div id="wrapper">
             <header id="header" >
                 <h1 id = "headerText">So you want to create a quiz? </h1>
-                <h2 id = "headerText2"> Please provide a title and a description</h2>
+                <h2 id = "headerText2" style ="color: white"> Please provide a title and a description</h2>
             </header>
 
-            <section id="section1">
-                <div>
+            <section id="section1" >
+                <div class="container">
                     <h4> Title </h4>
                     <input id = "quizTitle" type="text"></input>
-                </div>
                 <br/>
                 <h4> Description </h4>
                 <div style="height: 250px" id="quizDescription">
+                </div>
                 </div>
                 <br/>
                 <button onclick="quizstage1();"> Submit </button>
             </section>
             <section id="section2" class="hidden">  
-                <form id="quizform">
-                    <ul id="id_quizlist">
-                        <li>
-                            <table class="table" id="id_createquiztable">
-                                <tr>
-                                    <td><label for="question">Question: </label></td>
-                                    <td><input id="question" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_A">Answer A: </label></td>
-                                    <td><input id="id_A"" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_B">Answer B: </label></td>
-                                    <td><input id="id_B" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_C">Answer C: </label></td>
-                                    <td><input id="id_C" type="text" class="form-control"></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="id_correctanswer">Correct answer: </label></td>
-                                    <td allign ="center">
-                                            <label for ="id_correctanswerA">
-                                                A
-                                                <input id="id_correctanswerA" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="A"/>
-                                             </label>
-                                             <br/>
-                                             <label for ="id_correctanswerB">
-                                                B   
-                                                <input id="id_correctanswerB" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="B"/>
-                                            </label>
-                                            <br/>
-                                            <label for ="id_correctanswerC">
-                                                C     
-                                                <input id="id_correctanswerC" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="C"/>
-                                            </label>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li> 
-                    </ul>
-                </form>
+                <div class="container">
+                    <form id="quizform">
+                        <ul id="id_quizlist" style="list-style-type:none">
+                            <li>
+                                <table class="table" id="id_createquiztable">
+                                    <tr>
+                                        <td><label for="question">Question: </label></td>
+                                        <td><input id="question" type="text" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_A">Answer A: </label></td>
+                                        <td><input id="id_A"" type="text" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_B">Answer B: </label></td>
+                                        <td><input id="id_B" type="text" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_C">Answer C: </label></td>
+                                        <td><input id="id_C" type="text" class="form-control"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_correctanswer">Correct answer: </label></td>
+                                        <td allign ="center">
+                                                <label for ="id_correctanswerA">
+                                                    A
+                                                    <input id="id_correctanswerA" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="A"/>
+                                                </label>
+                                                <br/>
+                                                <label for ="id_correctanswerB">
+                                                    B   
+                                                    <input id="id_correctanswerB" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="B"/>
+                                                </label>
+                                                <br/>
+                                                <label for ="id_correctanswerC">
+                                                    C     
+                                                    <input id="id_correctanswerC" name="correctanswer" type="radio" style="height:35px; width:35px; vertical-align: middle;" value="C"/>
+                                                </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li> 
+                        </ul>
+                    </form>
+                </div>
+
                 <button id="id_quizsubmitstage2" onclick="quizstage2();"> Save and add another entry </button>
                 <br/>
             </section>
