@@ -28,10 +28,10 @@ urlpatterns = [
     path('auth/', auth.Auth.as_view()),
     path('news/', views.NewsView.as_view()), 
     path('news/fileupload/', views.FileView.as_view()),
+    path('news/articlescore/', views.ArticleScoreView.as_view()),
     path('news/<id>/', views.IndividualNewsView.as_view()),
     path('news/quiz/<id>/', views.IndividualNewsViewQuiz.as_view()),
     path('news/<id>/files/', views.IndividualNewsViewFiles.as_view()),
-    path('news/articlescore/', views.ArticleScoreView.as_view()),
     
 ]
 

@@ -44,7 +44,7 @@ class QuizView(APIView):
         #     return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
         # if not validate(request.user.username, request.user.password):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        print(request.POST)
+        # print(request.POST)
 
         name = request.POST.get("Quizname")
         desc = request.POST.get("Description")
@@ -54,16 +54,16 @@ class QuizView(APIView):
         quiz.save() 
         myList = []
         length = int(len(request.POST))
-        print(length)
+        # print(length)
         j = 0
         i = 0
         while i < length-2:
             myList.append(request.POST.get(str(i)))
-            print(i)
+            # print(i)
             if j > 3 :
-                print(myList)
+                # print(myList)
                 quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
-                print(quizentry)
+                # print(quizentry)
                 myList.clear()
                 j = 0
                 i += 1
@@ -106,7 +106,7 @@ class NewsView(APIView):
         #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         news = Article.objects.all().order_by("-date")
         serializer = NewsSerializer(news, many=True)
-        print(serializer.data)
+        # print(serializer.data)
         return Response(serializer.data)
 
 class FileView(APIView):
@@ -149,7 +149,7 @@ class IndividualNewsViewQuiz(APIView):
         quizentries = set()
         for item in QuizLink.objects.filter(article= id):
             quizes.add(item.quiz)
-            print(item.quiz.id)
+            # print(item.quiz.id)
             for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz.id):
                 quizentries.add(nrquiz)
         serializer = QuizSerializer(quizes, many=True)
@@ -168,29 +168,32 @@ class IndividualNewsViewFiles(APIView):
         return Response(serializer.data)
 
 class ArticleScoreView(APIView):
-    def post(self, request):
-        id = request.POST.get("Article")
+
+    def get(self, request):
+        pass
+
+    def post(self, request,*args, **kwargs):
+        articleID = request.POST.get('articleID') # DEHÄR ÄR QUIZ ID 
+        # print(request.POST)
         score=0
-        j=0
         i=0
         quizanswers = []
         length = int(len(request.POST))
-        while i< length-1:
-            quizanswers[i].append(request.POST.get(str(i)))
-            print(quizanswers[i])
-        correctquizanswers = set()
-        for item in QuizLink.objects.filter(article= id):
-            print(item.quiz.id)
-            for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz.id):
-                correctquizanswers.add(nrquiz)
-        
-        for item in quizanswers:
-            if item.Correct == quizanswers[j]:
+        while i< length-2:
+            quizanswers.append(request.POST.get(str(i)))
+            # print(quizanswers[i])
+            i += 1
+        correctquizanswers = []
+        item = QuizLink.objects.get(article = Article.objects.get(id = articleID))
+        # print(item.quiz)
+        for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz):
+            correctquizanswers.append(nrquiz.Correct)
+        i=0
+        for answere in quizanswers:
+            if correctquizanswers[i]== answere:
                 score+=1
-            j+=1
-        articleID = request.POST.get("ArticleID")
-
-        articlescore = ArticleScore(UserName=request.user.username, article=Article.objects.get(id= articleID), Score=score)
+            i+=1
+        articlescore = ArticleScore(UserName=request.user.username, ArticleName=item.article, Score=score)
         articlescore.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
 

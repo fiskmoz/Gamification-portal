@@ -17,7 +17,11 @@ Backlog:
 - Endast displaya typ 20 artiklar eller så 
 - flera filer kanske?
 - Restriktioner för personer som inte är superuser
+- Ändra så alla API calls använder variabel isället för hårdkodade länkar.
 - Göra quiz
 - Spara quiz
 - Highscores
 - Refactoring
+
+
+Fixa timetable saken!
