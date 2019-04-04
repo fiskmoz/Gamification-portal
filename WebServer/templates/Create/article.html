@@ -19,45 +19,48 @@
 	<body>
         <div id="wrapper">
             <!-- Header -->
-            <header id="header" >
-                <h1 id = "id_headertext">You selected article!</h1>
-            </header>
+                <header id="header" >
+                    <h1 id = "id_headertext">You selected article!</h1>
+                </header>
 
-            <section id="news_article">
-                <div>
-                    <h4> Title </h4>
-                    <input id = "articleTitle" type="text"></input>
-                </div>
-            </br>
-                <div>
-                    <h4> Short description </h4>
-                    <textarea id="shortArticleDescription" rows="4" cols="50"></textarea>
-                </div>
-            </br>
-                <div>
-                    <h4> Long description </h4>
-                    <div id="longArticleDescription">
+                <section id="news_article">
+                <div class="container">
+                
+                    <div>
+                        <h4> Title </h4>
+                        <input id = "articleTitle" type="text"></input>
                     </div>
-                </div>
+                </br>
+                    <div>
+                        <h4> Short description </h4>
+                        <textarea id="shortArticleDescription" rows="4" cols="50"></textarea>
+                    </div>
+                </br>
+                    <div>
+                        <h4> Long description </h4>
+                        <div id="longArticleDescription">
+                        </div>
+                    </div>
+                </br>
+                    <div>
+                        <h4> Add a saved quiz </h4>
+                        <select
+                        id="quizSelection"
+                        class="form-control"
+                        name="quizSelection"
+                        data-source="http://127.0.0.1:7000/v1/quiz/"
+                        data-valueKey="id"
+                        data-displayKey="QuizName">
+                        </select>
+                    </div>
+                </br>
+                    <div> 
+                        <h4> Upload documentation </h4>
+                        <div id="fileuploader">Upload</div>
+                    </div>
+            </div> 
             </br>
-                <div>
-                    <h4> Add a saved quiz </h4>
-                    <select
-                    id="quizSelection"
-                    class="form-control"
-                    name="quizSelection"
-                    data-source="http://127.0.0.1:7000/v1/quiz/"
-                    data-valueKey="id"
-                    data-displayKey="QuizName">
-                    </select>
-                </div>
-            </br>
-                <div> 
-                    <h4> Upload documentation </h4>
-                    <div id="fileuploader">Upload</div>
-                </div>
-            </br>
-                <button onclick="submitArticle();">Submit</button>
+            <button onclick="submitArticle();">Submit</button>
             </section>
         </div>
     </body>
