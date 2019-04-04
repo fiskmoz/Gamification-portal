@@ -25,7 +25,7 @@ class Home(APIView):
 class SpecificQuizView(APIView):
     lookup_field = 'Quizname'
     def get(self, requst, format=None):
-        quiz = Quiz.objects.get(QuizName = Quizname)
+        quiz = Quiz.objects.get(quizName = Quizname)
         serializer = QuizSerializer(quiz, many=False)
         return Response(serializer.data)
 
@@ -50,7 +50,7 @@ class QuizView(APIView):
         desc = request.POST.get("Description")
         if name == "":
             return
-        quiz = Quiz(QuizName=name, Description = desc , QuizCreator = request.user.username) 
+        quiz = Quiz(quizName=name, description = desc , quizCreator = request.user.username) 
         quiz.save() 
         myList = []
         length = int(len(request.POST))
@@ -62,7 +62,7 @@ class QuizView(APIView):
             # print(i)
             if j > 3 :
                 # print(myList)
-                quizentry = QuizEntry(QuizID = quiz, Question = myList[0], AlternativeA = myList[1], AlternativeB = myList[2], AlternativeC = myList[3], Correct = myList[4])
+                quizentry = QuizEntry(quizID = quiz, question = myList[0], alternativeA = myList[1], alternativeB = myList[2], alternativeC = myList[3], correct = myList[4])
                 # print(quizentry)
                 myList.clear()
                 j = 0
@@ -150,7 +150,7 @@ class IndividualNewsViewQuiz(APIView):
         for item in QuizLink.objects.filter(article= id):
             quizes.add(item.quiz)
             # print(item.quiz.id)
-            for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz.id):
+            for nrquiz in QuizEntry.objects.filter(quizID= item.quiz.id):
                 quizentries.add(nrquiz)
         serializer = QuizSerializer(quizes, many=True)
         serializer2 = QuizEntrySerializer(quizentries, many=True)
@@ -186,14 +186,14 @@ class ArticleScoreView(APIView):
         correctquizanswers = []
         item = QuizLink.objects.get(article = Article.objects.get(id = articleID))
         # print(item.quiz)
-        for nrquiz in QuizEntry.objects.filter(QuizID= item.quiz):
+        for nrquiz in QuizEntry.objects.filter(quizID= item.quiz):
             correctquizanswers.append(nrquiz.Correct)
         i=0
         for answere in quizanswers:
             if correctquizanswers[i]== answere:
                 score+=1
             i+=1
-        articlescore = ArticleScore(UserName=request.user.username, ArticleName=item.article, Score=score)
+        articlescore = ArticleScore(Username=request.user.username, article=item.article, score=score)
         articlescore.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
 
