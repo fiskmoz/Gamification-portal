@@ -12,8 +12,6 @@ VIsual template:
 https://templated.co/visualize
 
 Backlog: 
-- Read only för artikel.
-- En extra single color body där man kan tänkas behöva skriva in data.
 - Endast displaya typ 10 artiklar eller så 
 - Restriktioner för personer som inte är superuser
 - Ändra så alla API calls använder variabel isället för hårdkodade länkar.
