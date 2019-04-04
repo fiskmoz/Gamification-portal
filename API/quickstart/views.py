@@ -23,9 +23,9 @@ class Home(APIView):
         return Response(usernames)
 
 class SpecificQuizView(APIView):
-    lookup_field = 'Quizname'
+    lookup_field = 'name'
     def get(self, requst, format=None):
-        quiz = Quiz.objects.get(quizName = Quizname)
+        quiz = Quiz.objects.get(name = name)
         serializer = QuizSerializer(quiz, many=False)
         return Response(serializer.data)
 
@@ -50,7 +50,7 @@ class QuizView(APIView):
         desc = request.POST.get("Description")
         if name == "":
             return
-        quiz = Quiz(quizName=name, description = desc , quizCreator = request.user.username) 
+        quiz = Quiz(name=name, description = desc , creator = request.user.username) 
         quiz.save() 
         myList = []
         length = int(len(request.POST))
@@ -62,7 +62,7 @@ class QuizView(APIView):
             # print(i)
             if j > 3 :
                 # print(myList)
-                quizentry = QuizEntry(quizID = quiz, question = myList[0], alternativeA = myList[1], alternativeB = myList[2], alternativeC = myList[3], correct = myList[4])
+                quizentry = QuizEntry(quiz = quiz, question = myList[0], alta = myList[1], altb = myList[2], altc = myList[3], correct = myList[4])
                 # print(quizentry)
                 myList.clear()
                 j = 0
@@ -89,7 +89,7 @@ class NewsView(APIView):
         # print(Description)
         if Title == "":
             return
-        article = Article(title=Title, description=Description, shortDescription = ShortDesc, date = timezone.now())
+        article = Article(title=Title, description=Description, subtitle = ShortDesc, date = timezone.now())
         article.save()
         #TODO:Fixa "unika" namn
         if quizID != "":
@@ -130,17 +130,21 @@ class FileView(APIView):
     def put(self,request):
         artID = request.POST.get("ArticleID")
         FileID = request.POST.get("FileID")
-        article_link = ArticleLink(article=Article.objects.get(id= artID), filePath=File.objects.get(id = FileID))
+        article_link = ArticleLink(article=Article.objects.get(id= artID), filepath=File.objects.get(id = FileID))
         article_link.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
 
 class IndividualNewsView(APIView):
     def get(self, request, id):
         article = Article.objects.get(id= id)
-        linkobj = ArticleLink.objects.get(article = id)
-        path = File.objects.get(id = linkobj.filePath.id)
-        serializer = NewsSerializer(article, many=False)
-        return Response({'article' : serializer.data, 'filepath': path.file.name})
+        try: 
+            linkobj = ArticleLink.objects.get(article = article)
+            path = File.objects.get(id = linkobj.filepath.id)
+            serializer = NewsSerializer(article, many=False)
+            return Response({'article' : serializer.data, 'filepath': path.file.name})
+        except :
+            serializer = NewsSerializer(article, many=False)
+            return Response({'article' : serializer.data, 'filepath': "No File Provided"})
 
 class IndividualNewsViewQuiz(APIView):
     lookup_field = 'id'
@@ -150,7 +154,7 @@ class IndividualNewsViewQuiz(APIView):
         for item in QuizLink.objects.filter(article= id):
             quizes.add(item.quiz)
             # print(item.quiz.id)
-            for nrquiz in QuizEntry.objects.filter(quizID= item.quiz.id):
+            for nrquiz in QuizEntry.objects.filter(quiz= item.quiz):
                 quizentries.add(nrquiz)
         serializer = QuizSerializer(quizes, many=True)
         serializer2 = QuizEntrySerializer(quizentries, many=True)
@@ -186,14 +190,14 @@ class ArticleScoreView(APIView):
         correctquizanswers = []
         item = QuizLink.objects.get(article = Article.objects.get(id = articleID))
         # print(item.quiz)
-        for nrquiz in QuizEntry.objects.filter(quizID= item.quiz):
-            correctquizanswers.append(nrquiz.Correct)
+        for nrquiz in QuizEntry.objects.filter(quiz= item.quiz):
+            correctquizanswers.append(nrquiz.correct)
         i=0
         for answere in quizanswers:
             if correctquizanswers[i]== answere:
                 score+=1
             i+=1
-        articlescore = ArticleScore(Username=request.user.username, article=item.article, score=score)
+        articlescore = ArticleScore(username=request.user.username, article=item.article, score=score)
         articlescore.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
 

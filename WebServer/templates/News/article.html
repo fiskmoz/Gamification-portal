@@ -55,7 +55,7 @@
 							success: function(data) {
 								// alert(JSON.stringify(data));
                                 $('#id_headertext').text(data.article.title.toString());
-                                $('#id_shorttext').text(data.article.shortDescription.toString());
+                                $('#id_shorttext').text(data.article.subtitle.toString());
 								$('#id_date').text("Created on: " +data.article.date.toString());
 								$('#id_fileref').text(data.filepath);
 								$('#id_fileref').attr("href", APIFileUrl + data.filepath);

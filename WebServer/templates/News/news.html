@@ -17,14 +17,18 @@
 		/* list-style-image: -webkit-radial-gradient(1000); */
 	 }
 	 .newspage h1{
-		 color:white;
+		 color:black;
 	 }
 	 .newspage li{
 		 border-style:groove;
 	 }
 	 .newspage a{
 		 text-decoration: none;
-		 color: white;
+		 color: black;
+	 }
+	 .newspage p{
+		 text-decoration: none;
+		 color: black;
 	 }
 	</style>
 	<!-- Head -->
@@ -45,10 +49,9 @@
 
 		<!-- Main -->
 			<section id="main">
-				<h1>News:</h1>
+				<h1 style="color:white">News:</h1>
 				<ul id="list">
 				</ul>
-				<div class="container"></div>
 				<script>
 					$(document).ready(function () {
 						$.ajax({ 
@@ -58,7 +61,7 @@
 							success: function(data) {
 								// alert(JSON.stringify(data));
 								jQuery(data).each(function(index, data){
-									articleHTML = '<li><article><h1><a href = "http://127.0.0.1:8000/news/'+ data.id.toString()+'">'+ data.title + '</a></h1><p>'+ data.shortDescription+'</p></article></li>';
+									articleHTML = '<li class = "container"><article><h1><a href = "http://127.0.0.1:8000/news/'+ data.id.toString()+'">'+ data.title + '</a></h1><p>'+ data.subtitle+'</p></article></li>';
 									$('#list').append(articleHTML);
 								})
 								

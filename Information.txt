@@ -20,6 +20,7 @@ Backlog:
 - Får inte avbryta quiz, sätt invalid / noll poäng.
 - Sätta limit på antalet quiz entires.
 - Se till att skapara/usernam kommer med vid skapning av quiz, artikel och artikel score.
+- selects måste auto välja ett korrekt värde annars ej ok.
 
 Refactoring:
 - Variabel namn

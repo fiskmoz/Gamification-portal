@@ -20,10 +20,8 @@
             </header>
 
             <section id="main">
-                <div class ="container">
-                    <h2 id = "id_shorttext" style="color:black"></h2>
-                    <ul id="list"></ul>
-                </div>
+                <h2 id = "id_shorttext" style="color:black"></h2>
+                <ul id="list"></ul>
                 <div>Registration closes in <span id="time"></span> minutes!</div>
                 <script>
                     var len = 0; 
@@ -36,17 +34,19 @@
                         success: function(data) {
                             console.log(data);
                             
-                                articleHTML = '<article><h1>'+ data.quiz[0].QuizName + '</h1>';
+                                articleHTML = '<article><h1 style="color:white">'+ data.quiz[0].name + '</h1>';
                                 console.log(data.quiz);
                                 console.log(data.quizentry);
                                 len = data.quizentry.length
                                 for(i=0; i<data.quizentry.length;i++){
-                                    articleHTML += '<p style ="color:black">'+ "Question 1: " + data.quizentry[i].Question +'</p>';
+                                    articleHTML += '<div class="container"';
+                                    articleHTML += '<p style ="color:black">'+ "Question "+(i+1).toString()+": " + data.quizentry[i].question +'</p>';
                                     articleHTML += '<form action="" method="POST" id="quizQuestion'+i.toString()+ '">';                     
-                                    articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].AlternativeA +'</p></aricle></li>';
-                                    articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].AlternativeB +'</p></aricle></li>';
-                                    articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].AlternativeC +'</p></aricle></li>';
+                                    articleHTML += '<input type="radio" name="QuizAlternative" value="A">'+ data.quizentry[i].alta +'</p></aricle></li>';
+                                    articleHTML += '<input type="radio" name="QuizAlternative" value="B">'+ data.quizentry[i].altb +'</p></aricle></li>';
+                                    articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].altc +'</p></aricle></li>';
                                     articleHTML += '</form>';
+                                    articleHTML += '</div>;'
                                     console.log(data.quizentry[0]);
                                 
                                 }
@@ -88,7 +88,7 @@
                         for(i=0; i<len;i++){
                             myJson[i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
                         }
-                        alert(JSON.stringify(myJson));
+                        // alert(JSON.stringify(myJson));
                         var request = $.ajax({
                             type: "POST", 
                             url: APIUrl + "news/articlescore/",
