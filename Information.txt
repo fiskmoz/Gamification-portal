@@ -12,6 +12,8 @@ VIsual template:
 https://templated.co/visualize
 
 Backlog: 
+- Endast displaya typ 10 artiklar eller så 
+
 Säkerhet: 
 - Restriktioner för personer som inte är superuser
 - Ändra så alla API calls använder variabel isället för hårdkodade länkar.
@@ -23,6 +25,7 @@ Göra en quiz:
 - Gör API call vid start.
 - Får inte avbryta quiz, sätt invalid / noll poäng.
 - Gör API call vid slut. 
+- Displaya quiz informationen.
 
 Refactoring:
 - Variabel namn
@@ -30,6 +33,9 @@ Refactoring:
 - Snygga till parsing
 - Snygga till JS
 
+
 - Highscores
+
+
 
 Fixa timetable saken!

@@ -54,6 +54,23 @@
                         // ...
                         }
                         });
+                        myJson = {}
+                        myJson['ArticleID'] = "{{ ID }}";
+                        myJson['Creator'] = "{{ me }}";
+                        $.ajax({
+                            type: "POST", 
+                            url: APIUrl + "news/articlescore/",
+                            dataType: "json",
+                            data: myJson,
+                            success: function(data) {
+                                // alert("quiz started!");
+                            },
+                            error: function(data){
+                                window.stop();
+                                window.location.href = HOMEURL;
+
+                            }
+                        })
                         function startTimer(duration, display) {
                         var timer = duration, minutes, seconds;
                         setInterval(function () {
@@ -91,7 +108,7 @@
                         }
                         // alert(JSON.stringify(myJson));
                         var request = $.ajax({
-                            type: "POST", 
+                            type: "PATCH", 
                             url: APIUrl + "news/articlescore/",
                             dataType: "json",
                             data : myJson,

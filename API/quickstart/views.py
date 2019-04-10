@@ -11,6 +11,7 @@ from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, New
 from .models import File
 import json
 import operator
+from datetime import timedelta
 
 
 class Home(APIView): 
@@ -164,8 +165,38 @@ class ArticleScoreView(APIView):
         pass
 
     def post(self, request,*args, **kwargs):
+        articleID = request.POST.get('ArticleID') 
+        creator = request.POST.get('Creator')
+        article = Article.objects.get(id = articleID)
+        try:
+            articleScore = ArticleScore.objects.get(article = article, username = creator)
+        except:
+            articleScore = ArticleScore(username = creator, article=article, score=0, done=False ,date= timezone.now())
+        print(articleScore)
+        if articleScore.done is True:
+            return Response("", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        if articleScore.started is False:
+            articleScore.started = True
+            articleScore.save()
+        return Response("", status=status.HTTP_200_OK)
+
+    def patch(self, request,*args, **kwargs):
         articleID = request.POST.get('articleID') 
         creator = request.POST.get('Creator')
+        article = Article.objects.get(id = articleID)
+        articleScore = ArticleScore.objects.get(article = article, username=creator)
+        past = articleScore.date
+        print(past)
+        present = timezone.now()
+        time = present - past
+        print(time)
+        if time > timedelta(seconds= 10):
+            print("ToO LONG ")
+            articleScore.done = True
+            articleScore.save()
+            return Response("", status=status.HTTP_200_OK)
+        if articleScore.done:
+            return Response("", status=status.HTTP_405_METHOD_NOT_ALLOWED)
         score=0
         i=0
         quizanswers = []
@@ -174,7 +205,7 @@ class ArticleScoreView(APIView):
             quizanswers.append(request.POST.get(str(i)))
             i += 1
         correctquizanswers = []
-        item = QuizLink.objects.get(article = Article.objects.get(id = articleID))
+        item = QuizLink.objects.get(article = article)
         for nrquiz in QuizEntry.objects.filter(quiz= item.quiz):
             correctquizanswers.append(nrquiz.correct)
         i=0
@@ -182,6 +213,9 @@ class ArticleScoreView(APIView):
             if correctquizanswers[i]== answere:
                 score+=1
             i+=1
-        articlescore = ArticleScore(username=creator, article=item.article, score=score)
-        articlescore.save()
+        articleScore.score = score
+        articleScore.done = True
+        articleScore.date = time
+        print(articleScore)
+        articleScore.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
