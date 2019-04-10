@@ -190,7 +190,7 @@ class ArticleScoreView(APIView):
         present = timezone.now()
         time = present - past
         print(time)
-        if time > timedelta(seconds= 10):
+        if time > timedelta(seconds= 600):
             print("ToO LONG ")
             articleScore.done = True
             articleScore.save()

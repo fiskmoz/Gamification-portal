@@ -22,10 +22,9 @@ Säkerhet:
 - selects måste auto välja ett korrekt värde annars ej ok.
 
 Göra en quiz:
-- Gör API call vid start.
-- Får inte avbryta quiz, sätt invalid / noll poäng.
-- Gör API call vid slut. 
 - Displaya quiz informationen.
+- Disable quiz button if done
+- Show more button disable if no more to show.
 
 Refactoring:
 - Variabel namn

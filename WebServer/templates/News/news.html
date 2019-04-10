@@ -40,7 +40,7 @@
 	<body>
     
 	<!-- Wrapper -->
-		<div class="newspage" id="wrapper">
+		<div id="wrapper">
 
 		<!-- Header -->
 			<header id="header" >
@@ -50,49 +50,54 @@
 		<!-- Main -->
 			<section id="main">
 				<h1 style="color:white">News:</h1>
-				<ul id="list">
-				</ul>
+				<div class = "newspage">
+					<ul id="list">
+					</ul>
+				</div>
+				
 				<script>
+					var data = {}
 					$(document).ready(function () {
 						$.ajax({ 
 							type: "GET",
 							url: "http://127.0.0.1:7000/v1/news/",
 							dataType: "json",
 							success: function(data) {
-								// alert(JSON.stringify(data));
+								data = data
 								jQuery(data).each(function(index, data){
 									articleHTML = '<li class = "container"><article><h1><a href = "http://127.0.0.1:8000/news/'+ data.id.toString()+'">'+ data.title + '</a></h1><p>'+ data.subtitle+'</p></article></li>';
 									$('#list').append(articleHTML);
 								})
+								//console.log($("#list").length);
+								//console.log(jQuery(data).length);
 							// ...
 							}
 						})
 						});
 						function showMore(){
-							var visibleItems = $("ul > li:visible").length;
-							var liLength=$("li").length;
-							console.log(visibleItems);
-							console.log(liLength);
+							var visibleItems = $("#list > li:visible").length;
+							var liLength=$("#list").length;
 							if(liLength > visibleItems){
 								$("ul li:hidden").slice(0, 2).show();
 							}
+						}
+						console.log($("#list").length);
+						console.log($("#list > li:visible").length);
+						// TODO: fixa så att den visar knappen bara om li > li:visible
+						if($("#list").length < $("#list > li:visible").length){
+							var button = document.createElement("button");
+							button.innerHTML = "Show More";
+							var body = document.getElementById("main");
+
+							body.append(button);
+							button.addEventListener("click", showMore);
+							
 						}
 				</script>
 				<!-- <button name="showMoreButton" onclick="showMore();">Show More</button> -->
 			</section>
 			<script>
-				console.log($("li").length);
-				console.log($("ul > li:visible").length);
-				// TODO: fixa så att den visar knappen bara om li > li:visible
-				if($("li").length = $("ul > li:visible").length){
-					var button = document.createElement("button");
-					button.innerHTML = "Show More";
-					var body = document.getElementById("main");
 
-					body.append(button);
-					button.addEventListener("click", showMore);
-					
-				}
 			</script>
 
         </div>
