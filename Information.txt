@@ -19,12 +19,13 @@ Säkerhet:
 - Ändra så alla API calls använder variabel isället för hårdkodade länkar.
 - Restriktioner på POST API calls.
 - Sätta limit på antalet quiz entires.
+- Inputs för quiz och artiklar.
+- Större rich text box på artikel, även vitt på vitt.
 - selects måste auto välja ett korrekt värde annars ej ok.
 
 Göra en quiz:
 - Displaya quiz informationen.
-- Disable quiz button if done
-- Show more button disable if no more to show.
+- Ta bort länk om ingen fil.
 
 Refactoring:
 - Variabel namn
