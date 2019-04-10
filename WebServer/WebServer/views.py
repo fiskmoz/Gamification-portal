@@ -32,7 +32,7 @@ def create_view_quiz(request):
         return display404(request)
     if request.method == "GET": 
         template = loader.get_template('Create/quiz.html')
-        context = {}
+        context = {'me' : request.user.username}
         return HttpResponse(template.render(context, request))
 
 def create_view_article(request):
@@ -40,7 +40,7 @@ def create_view_article(request):
         return display404(request)
     if request.method == "GET": 
         template = loader.get_template('Create/article.html')
-        context = {}
+        context = {'me' : request.user.username}
         return HttpResponse(template.render(context, request))
 
 def news_view(request):
@@ -64,7 +64,7 @@ def articleQuiz_view(request,id):
         return display404(request)
     if request.method == "GET":
         template = loader.get_template('News/articleQuiz.html')
-        context = {'User': request.user, 'ID' : id}
+        context = {'me': request.user, 'ID' : id}
         return HttpResponse(template.render(context, request))
 
 def getNews_view(request):

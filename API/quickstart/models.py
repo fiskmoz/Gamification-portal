@@ -26,6 +26,7 @@ class File(models.Model):
     id = models.AutoField(max_length=250, primary_key=True)
     name = models.CharField(max_length=250)
     file = models.FileField(upload_to="files/", unique=True, blank=False, null=False, default="UNDEFINED")
+    creator = models.CharField(max_length=250, default = "")
 
     def __str__(self):
         return self.name
@@ -36,6 +37,7 @@ class Article(models.Model):
     date = models.CharField(max_length=100, default = timezone.now())
     description = models.CharField(max_length=4000)
     subtitle = models.CharField(max_length= 300, default = "A description")
+    creator = models.CharField(max_length=250, default = "")
 
     def __str__(self):
         return str(self.title)

@@ -84,6 +84,7 @@
                     {
                         myJson = {};
                         myJson['articleID'] = '{{ ID }}';
+                        myJson['Creator'] = "{{ me }}";
                         myJson['csrfmiddlewaretoken'] = '{{ csrf_token }}';
                         for(i=0; i<len;i++){
                             myJson[i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
