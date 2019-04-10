@@ -7,7 +7,7 @@
 <script src="{% static "assets/js/News.js" %}"></script>
 <html>
 	<style>
-	#list li:nth-of-type(1n+3) {
+	#list li:nth-of-type(1n+7) {
   		display: none;
 	}
 	 .newspage ul{
@@ -68,33 +68,37 @@
 									articleHTML = '<li class = "container"><article><h1><a href = "http://127.0.0.1:8000/news/'+ data.id.toString()+'">'+ data.title + '</a></h1><p>'+ data.subtitle+'</p></article></li>';
 									$('#list').append(articleHTML);
 								})
-								//console.log($("#list").length);
-								//console.log(jQuery(data).length);
+								// console.log($("#list").length);
+								// console.log(jQuery(data).length);
+								console.log($("#list li").length);
+								console.log($("#list > li:visible").length);
+								// TODO: fixa så att den visar knappen bara om li > li:visible
+								if($("#list li").length > $("#list > li:visible").length){
+									var button = document.createElement("button");
+									button.id="showMore";
+									button.innerHTML = "Show More";
+									var body = document.getElementById("main");
+									body.append(button);
+									button.addEventListener("click", showMore);
+							
+						}
 							// ...
 							}
 						})
 						});
 						function showMore(){
 							var visibleItems = $("#list > li:visible").length;
-							var liLength=$("#list").length;
+							var liLength=$("#list li").length;
 							if(liLength > visibleItems){
 								$("ul li:hidden").slice(0, 2).show();
 							}
+							if($("#list > li:visible").length == $("#list li").length){
+								$("#showMore").hide();
+							}
+						
 						}
-						console.log($("#list").length);
-						console.log($("#list > li:visible").length);
-						// TODO: fixa så att den visar knappen bara om li > li:visible
-						if($("#list").length < $("#list > li:visible").length){
-							var button = document.createElement("button");
-							button.innerHTML = "Show More";
-							var body = document.getElementById("main");
 
-							body.append(button);
-							button.addEventListener("click", showMore);
-							
-						}
 				</script>
-				<!-- <button name="showMoreButton" onclick="showMore();">Show More</button> -->
 			</section>
 			<script>
 
