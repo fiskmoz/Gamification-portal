@@ -7,7 +7,7 @@
 <script src="{% static "assets/js/News.js" %}"></script>
 <html>
 	<style>
-	#list li:nth-of-type(1n+10) {
+	#list li:nth-of-type(1n+3) {
   		display: none;
 	}
 	 .newspage ul{
@@ -64,12 +64,19 @@
 									articleHTML = '<li class = "container"><article><h1><a href = "http://127.0.0.1:8000/news/'+ data.id.toString()+'">'+ data.title + '</a></h1><p>'+ data.subtitle+'</p></article></li>';
 									$('#list').append(articleHTML);
 								})
-								
 							// ...
 							}
 						})
 						});
+						function showMore(){
+							var visibleItems = $("ul > li:visible").length;
+							var liLength=$("li").length;
+							if(liLength > visibleItems){
+								$("ul li:hidden").slice(0, 2).show();
+							}
+						}
 				</script>
+				<button name="showMoreButton" onclick="showMore();">Show More</button>
             </section>
 
         </div>
