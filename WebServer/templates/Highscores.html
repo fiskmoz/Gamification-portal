@@ -5,11 +5,54 @@
 
 <!DOCTYPE HTML>
 <html>
+	<style>
+	#highscoresTable td{
+		color: white;
+	}
+	#highscoresTable th{
+		background-color: black;
+	}
+
+	</style>
 	<head>
 		<title>Visualize by TEMPLATED</title>
 		<meta charset="utf-8" />
-    </head>
-    
+  </head>
+	<body>
+		<div id="wrapper">
+			<header id="header">
+				<h1 id = "id_headertext">Highscores</h1>
+			</header>
+
+			<section id="main">
+				<table id="highscoresTable">
+						<h1 id="tableHeader" style="color:white">Total Points</h1>
+						<tr>
+							<th>Name</th>
+							<th>Points</th>
+						</tr>
+				</table>
+
+				<script>
+					
+					$(document).ready(function () {
+						$.ajax({ 
+							type: "GET",
+							url: APIUrl + "highscores/",
+							dataType: "json",
+							success: function(data) {
+								console.log(data);
+								jQuery(data).each(function(index, data){
+									articleHTML = '<tr><td>'+data.username+'</td><td>'+data.score+'</td></tr>';
+									$('#highscoresTable').append(articleHTML);
+								})
+								}
+						});
+					});
+				</script>
+			</section>
+		</div>
+	</body>
 </html>
 
 {% endblock %}
