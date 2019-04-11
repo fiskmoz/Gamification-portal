@@ -12,7 +12,6 @@ VIsual template:
 https://templated.co/visualize
 
 Backlog: 
-- Endast displaya typ 10 artiklar eller så 
 
 Säkerhet: 
 - Restriktioner för personer som inte är superuser
@@ -20,18 +19,14 @@ Säkerhet:
 - Restriktioner på POST API calls.
 - Sätta limit på antalet quiz entires.
 - Inputs för quiz och artiklar.
-- Större rich text box på artikel, även vitt på vitt.
 - selects måste auto välja ett korrekt värde annars ej ok.
-
-Göra en quiz:
-- Displaya quiz informationen.
-- Ta bort länk om ingen fil.
 
 Refactoring:
 - Variabel namn
 - Modeller och attributer
 - Snygga till parsing
 - Snygga till JS
+- Optimisering
 
 
 - Highscores
