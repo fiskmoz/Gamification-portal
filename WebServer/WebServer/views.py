@@ -72,18 +72,13 @@ def getNews_view(request):
         return display404
     if request.method == "GET":
         template = loader.get_template('News.html')
-        try:
-            context = {
-                'News': requests.post(url=APIUrl + 'news/', data=({'filename': request.filename}))
-            }
-            return HttpResponse(template.render(context, request))
-        except json.decoder.JSONDecodeError:
-            return HttpResponse("JsonDecodeError")
+        context = {'me': request.user, 'ID' : id}
+        return HttpResponse(template.render(context, request))
 
 def highscores_view(request):
     if not request.user.is_authenticated:
         return display404
     if request.method == "GET":
-        template = loader.get_template('Highscores.html')
+        template = loader.get_template('highscores.html')
         context = {'me': request.user, 'ID' : id}
         return HttpResponse(template.render(context, request))

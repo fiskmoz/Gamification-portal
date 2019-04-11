@@ -11,6 +11,7 @@ from .serializer import FileSerializer, QuizSerializer, QuizEntrySerializer, New
 from .models import File
 import json
 import operator
+from django.db.models import Sum
 from datetime import timedelta
 
 # Homepage
@@ -228,7 +229,8 @@ class GetFileLinksByArticle(APIView):
 # http://127.0.0.1:7000/v1/highscores/
 class GetAllHighScores(APIView):
     def get(self, request):
-        pass
-
+        articleScores = ArticleScore.objects.values("username").annotate(score=Sum('score')).order_by("-score")
+        serializer = ArticleScoreSerializer(articleScores, many=True)
+        return Response(serializer.data)
 
 #################################################################################
