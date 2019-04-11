@@ -4,12 +4,12 @@
 {% block content %}
 
 <html>
-	<!-- Head -->
+	<!-- HTML Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
         <meta charset="utf-8" />
 	</head>
-	<!-- Body -->
+	<!-- HTML Body -->
 	<body>
         <div id="wrapper">
             <header id="header" >
@@ -79,17 +79,19 @@
                 <button id="id_quizsubmitstage2" onclick="quizstage2();"> Save and add another entry </button>
                 <br/>
             </section>
-            <button id="quizexitbutton" onclick="quizexit();"> Save and exit </button>
+            <br>
+            <button id="quizexitbutton" onclick="quizexit();"> Submit quiz </button>
         </div>
     </body>
     <script>
-        var missionDescription;
-        var myTableArray = [];
+        var quillDescription;
+        var submitData = {};
+        var quizEntryArray = [];
         var repeats = 1;
 
         $(document).ready(function()
         {
-            missionDescription = new Quill('#quizDescription', {
+            quillDescription = new Quill('#quizDescription', {
                 theme: 'snow'
             });
             $('#quizexitbutton').hide();
@@ -100,19 +102,21 @@
             // CHECK MISSION NAME UNIQUE¨
             $('#section1').hide();
             $('#section2').fadeIn(200).removeClass('hidden');
-            myTableArray.push($('#quizTitle').val());
-            myTableArray.push(missionDescription.container.innerHTML);
+            submitData['Quizname'] = $('#quizTitle').val();
+            submitData['Description'] = quillDescription.container.innerHTML;
+            submitData['Creator'] = "{{ me }}";
             $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
             $('#headerText2').fadeOut(function (){ $(this).html("Please fill out the form!");}).fadeIn();
+            $(window).scrollTop(0);
         }
 
         function quizstage2()
         {
-            myTableArray.push($('#question').val());
-            myTableArray.push($('#id_A').val());
-            myTableArray.push($('#id_B').val());
-            myTableArray.push($('#id_C').val());
-            myTableArray.push($('input[name=correctanswer]:checked').val());
+            quizEntryArray.push($('#question').val());
+            quizEntryArray.push($('#id_A').val());
+            quizEntryArray.push($('#id_B').val());
+            quizEntryArray.push($('#id_C').val());
+            quizEntryArray.push($('input[name=correctanswer]:checked').val());
 
             $('#question').val("");
             $('#id_A').val("");
@@ -138,23 +142,12 @@
         }
         function quizexit()
         {
-            var myJson = {};
-            myJson['Quizname'] = myTableArray[0];
-            myJson['Description'] = myTableArray[1];
-            myJson['Creator'] = "{{ me }}";
-            var i;
-            for(i=2; i<myTableArray.length;i++)
-            {
-                myJson[i-2] = myTableArray[i];
-            }
-            if(DEBUG)
-            {
-                alert(JSON.stringify(myJson));
-            }
+            for(i=0; i<quizEntryArray.length;i++)
+                submitData[i] = quizEntryArray[i];
             var request = $.ajax({
             url: "http://127.0.0.1:7000/v1/quiz/",
             type: "POST",
-            data: myJson
+            data: submitData,
             });
             
             DisplayResults(request);

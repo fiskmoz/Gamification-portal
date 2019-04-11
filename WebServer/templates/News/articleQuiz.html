@@ -31,7 +31,7 @@
                     {
                         $.ajax({
                         type: "GET",
-                        url: "http://127.0.0.1:7000/v1/news/quiz/"+ "{{ID}}" + "/",                            
+                        url: APIUrl + "quiz/article/{{ID}}/",                            
                         dataType: "json",
                         success: function(data) {
                             articleHTML = '<br>'
@@ -71,7 +71,7 @@
                         myJson['Creator'] = "{{ me }}";
                         $.ajax({
                             type: "POST", 
-                            url: APIUrl + "news/articlescore/",
+                            url: APIUrl + "article/{{ID}}/score/",
                             dataType: "json",
                             data: myJson,
                             success: function(data) {
@@ -101,9 +101,9 @@
                         }
 
                         jQuery(function ($) {
-                            var fiveMinutes = 60 * 5,
+                            var tenMinutes = 60 * 10,
                                 display = $('#time');
-                            startTimer(fiveMinutes, display);
+                            startTimer(tenMinutes, display);
                         });
                     });
                 </script>
@@ -121,7 +121,7 @@
                         // alert(JSON.stringify(myJson));
                         var request = $.ajax({
                             type: "PATCH", 
-                            url: APIUrl + "news/articlescore/",
+                            url: APIUrl + "article/{{ID}}/score/",
                             dataType: "json",
                             data : myJson,
                             success: function(data) {

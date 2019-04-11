@@ -4,7 +4,7 @@
 {% block content %}
 
 <html>
-	<!-- Head -->
+	<!-- HTML Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
         <meta charset="utf-8" />
@@ -13,7 +13,7 @@
         <!-- Load upload file plugin -->
         <script src="{% static "assets/js/Plugins/uploadfile/jquery.uploadfile.min.js" %}"></script>
 	</head>
-	<!-- Body -->
+	<!-- HTML Body -->
 	<body>
         <div id="wrapper">
             <!-- Header -->
@@ -36,7 +36,7 @@
                 </br>
                     <div>
                         <h4> Long description </h4>
-                        <div style="height: 250px" id="longArticleDescription">
+                        <div style="height: 250px" id="quillDescription">
                         </div>
                     </div>
                 </br>
@@ -46,7 +46,7 @@
                         id="quizSelection"
                         class="form-control"
                         name="quizSelection"
-                        data-source="http://127.0.0.1:7000/v1/quiz/"
+                        data-source = "http://127.0.0.1:7000/v1/quiz/"
                         data-valueKey="id"
                         data-displayKey="name"></select>
                     </div>
@@ -61,86 +61,79 @@
             </section>
         </div>
     </body>
+    <!-- STYLE PART -->
     <style>
         b{
             color:black;
         }
     </style>
-</html>
-<script>
-var missionType = ""; 
-var articleDescription;
-var uploadObj;
-var id = 0;
+    <!-- SCRIPT PART -->
+    <script>
+    var articleDescription;
+    var uploadObj;
+    var articleID = 0;
 
-$(document).ready(function()
-{
-    articleDescription = new Quill('#longArticleDescription', {
-        theme: 'snow'
-    });
-    uploadObj = $("#fileuploader").uploadFile({
-        allowedTypes:"jpg,txt,pdf,docx",
-        url:"http://127.0.0.1:7000/v1/news/fileupload/",
-        autoSubmit:false,
-        fileName:"myfile",
-        maxFileCount:1,
-        afterUploadAll : function(response)
-        {
-            var responses = uploadObj.getResponses();
-            myJson2 = {};
-            myJson2['ArticleID'] = id;
-            myJson2['FileID'] = responses[0].id;
-            var request = $.ajax({
-                url: "http://127.0.0.1:7000/v1/news/fileupload/",
-                type: "PUT",
-                data : myJson2,
-                success : function(result)
-                {
-                }
-            })
-        }
-    });
-    $('select[data-source]').each(function() {
-        var $select = $(this);
-        
-        $select.append('<option></option>');
-        
-        $.ajax({
-            url: $select.attr('data-source'),
-        }).then(function(options) {
-            options.map(function(option) {
-            var $option = $('<option>');
+    $(document).ready(function()
+    {
+            articleDescription = new Quill('#quillDescription', {
+            theme: 'snow'
+        });
+        uploadObj = $("#fileuploader").uploadFile({
+            allowedTypes:"jpg,txt,pdf,docx",
+            url:APIUrl + "fileupload/",
+            autoSubmit:false,
+            fileName:"myfile",
+            maxFileCount:1,
+            afterUploadAll : function(response)
+            {
+                var responses = uploadObj.getResponses();
+                $.ajax({
+                    url: APIUrl + "fileupload/",
+                    type: "PUT",
+                    data : {'ArticleId':articleID, 'FileID': responses[0].id}
+                })
+            }
+        });
+        $('select[data-source]').each(function() {
+            var $select = $(this);
+            $select.append('<option></option>');
             
-            $option
-                .val(option[$select.attr('data-valueKey')])
-                .text(option[$select.attr('data-displayKey')]);
-            
-            $select.append($option);
+            $.ajax({
+                url: $select.attr('data-source'),
+            }).then(function(options) {
+                options.map(function(option) {
+                var $option = $('<option>');
+                
+                $option
+                    .val(option[$select.attr('data-valueKey')])
+                    .text(option[$select.attr('data-displayKey')]);
+                
+                $select.append($option);
+                });
             });
         });
     });
-});
 
-function submitArticle()
-{
-    var myJson = {};
-    var linkItems = {};
-    myJson["ArticleTitle"] = $('#articleTitle').val(); 
-    myJson["ArticleDescription"] = articleDescription.container.innerHTML;
-    myJson["ArticleShortDescription"] = $('#shortArticleDescription').val();
-    myJson["ArticleQuiz"] = $('select#quizSelection option:selected').val();
-    myJson["Creator"] = "{{ me }}"
-    // alert(JSON.stringify(myJson));
-    var request = $.ajax({
-        url: "http://127.0.0.1:7000/v1/news/",
-        type: "POST",
-        data: myJson,
-        success: function(data) {
-            id = data;
-            uploadObj.startUpload();
-            DisplayResults(request);
-        }
-        });
-}
-</script>
+    function submitArticle()
+    {
+        var request = $.ajax({
+            url: APIUrl + "article/",
+            type: "POST",
+            data: {
+                'ArticleTitle' : $('#articleTitle').val(),
+                'ArticleDescription' : articleDescription.container.innerHTML,
+                'ArticleShortDescription': $('#shortArticleDescription').val(),
+                'ArticleQuiz' : $('select#quizSelection option:selected').val(),
+                'Creator' : "{{ me }}",
+            },
+            success: function(data) {
+                articleID = data;
+                uploadObj.startUpload();
+                DisplayResults(request);
+            }
+            });
+    }
+    </script>
+</html>
+
 {% endblock content %}

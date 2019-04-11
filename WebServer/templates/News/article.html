@@ -51,11 +51,10 @@
 						
 						$.ajax({ 
 							type: "GET",
-							url: "http://127.0.0.1:7000/v1/news/"+ "{{ID}}" + '/',
+							url: APIUrl + "article/{{ ID }}/",
 							dataType: "json",
 							data: {'User': "{{ me }}" },
 							success: function(data) {
-								// alert(JSON.stringify(data));
                                 $('#id_headertext').text(data.article.title.toString());
                                 $('#id_shorttext').text(data.article.subtitle.toString());
 								$('#id_date').text("Created on: " +data.article.date.toString());
@@ -74,18 +73,17 @@
 							}
 						});
 					});
+
+				function doQuiz()
+				{
+					var url = HOMEURL+"news/quiz/"+"{{ID}}";
+					window.location.href = url;
+				}
 				</script>
 				<br>
 				<button id="quizButton" onclick="doQuiz()">Quiz Time!</button>
             </section>
 		</div>
-		<script type="text/javascript">
-			function doQuiz()
-			{
-			var url = HOMEURL+"news/quiz/"+"{{ID}}";
-			window.location.href = url;
-			}
-			</script>
 	</body>
 </html>
 

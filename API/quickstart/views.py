@@ -45,21 +45,17 @@ class GetAllOrAppendQuiz(APIView):
         quiz = Quiz(name=name, description = desc , creator = creator) 
         quiz.save() 
         myList = []
-        length = int(len(request.POST))
-        j = 0
+        length = int(len(request.POST))-2
         i = 0
-        while i < length-2:
+        print(request.POST)
+        while i < length:
             myList.append(request.POST.get(str(i)))
-            if j > 3 :
+            i += 1
+            if i > 4 and i%5 is 0 :
                 quizentry = QuizEntry(quiz = quiz, question = myList[0], alta = myList[1], altb = myList[2], altc = myList[3], correct = myList[4])
                 myList.clear()
-                j = 0
-                i += 1
                 quizentry.save()
-                continue
-            i += 1
-            j += 1
-        return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
+        return Response(data="Created", status = status.HTTP_200_OK)
 
 
 # GET: Get an entire quiz by article ID.
