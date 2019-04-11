@@ -31,6 +31,7 @@ urlpatterns = [
     path('create/', views.create_view, name="create"),
     path('create/quiz/', views.create_view_quiz, name="create_quiz"),
     path('create/article/', views.create_view_article, name="create_article"),
+    path('highscores/', views.highscores_view, name="highscores"),
 ] 
 
 if settings.DEBUG:
