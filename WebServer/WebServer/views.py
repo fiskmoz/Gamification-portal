@@ -84,6 +84,6 @@ def highscores_view(request):
     if not request.user.is_authenticated:
         return display404
     if request.method == "GET":
-        template = loader.get_template('Highscores.html')
+        template = loader.get_template('highscores.html')
         context = {'me': request.user, 'ID' : id}
         return HttpResponse(template.render(context, request))
