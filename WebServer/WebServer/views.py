@@ -48,7 +48,7 @@ def news_view(request):
         return display404(request)
     if request.method == "GET":
         template = loader.get_template('News/news.html')
-        context = {'User' : request.user}
+        context = {'me' : request.user}
         return HttpResponse(template.render(context, request))
 
 def article_view(request,id):
@@ -56,7 +56,7 @@ def article_view(request,id):
         return display404(request)
     if request.method == "GET":
         template = loader.get_template('News/article.html')
-        context = {'User' : request.user, 'ID' : id}
+        context = {'me' : request.user, 'ID' : id}
         return HttpResponse(template.render(context, request))
 
 def articleQuiz_view(request,id):

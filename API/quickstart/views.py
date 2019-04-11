@@ -120,15 +120,22 @@ class FileView(APIView):
     # GET: Get individual article object by ID.
 class IndividualNewsView(APIView):
     def get(self, request, id):
+        user = request.GET.get('User') 
         article = Article.objects.get(id= id)
+        done = False
+        try:
+            articleScore = ArticleScore.objects.get(article=article, username= user)
+            done = articleScore.done;
+        except:
+            pass
         try: 
             linkobj = ArticleLink.objects.get(article = article)
             path = File.objects.get(id = linkobj.filepath.id)
             serializer = NewsSerializer(article, many=False)
-            return Response({'article' : serializer.data, 'filepath': path.file.name})
+            return Response({'article' : serializer.data, 'filepath': path.file.name, 'done' : done})
         except :
             serializer = NewsSerializer(article, many=False)
-            return Response({'article' : serializer.data, 'filepath': "No File Provided"})
+            return Response({'article' : serializer.data, 'filepath': "No File Provided", 'done': done})
 
     # GET: Get an entire quiz by article ID.
 class IndividualNewsViewQuiz(APIView):
@@ -215,7 +222,6 @@ class ArticleScoreView(APIView):
             i+=1
         articleScore.score = score
         articleScore.done = True
-        articleScore.date = time
         print(articleScore)
         articleScore.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)

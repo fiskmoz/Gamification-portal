@@ -91,7 +91,6 @@ $(document).ready(function()
                 data : myJson2,
                 success : function(result)
                 {
-                    DisplayResults(request);
                 }
             })
         }
@@ -134,6 +133,7 @@ function submitArticle()
         success: function(data) {
             id = data;
             uploadObj.startUpload();
+            DisplayResults(request);
         }
         });
 }

@@ -38,6 +38,7 @@
 				<script>
 					$(document).ready(function () 
 					{
+						$("#quizButton").hide();
 						var config = {
 						"theme": "snow",
 						"readOnly": true,
@@ -52,6 +53,7 @@
 							type: "GET",
 							url: "http://127.0.0.1:7000/v1/news/"+ "{{ID}}" + '/',
 							dataType: "json",
+							data: {'User': "{{ me }}" },
 							success: function(data) {
 								// alert(JSON.stringify(data));
                                 $('#id_headertext').text(data.article.title.toString());
@@ -61,6 +63,11 @@
 								$('#id_fileref').attr("href", APIFileUrl + data.filepath);
 								articleDescription.container.innerHTML = data.article.description;
 								articleDescription = new Quill('#longArticleDescription', config);
+								console.log(data.done);
+								if(!data.done)
+								{
+									$("#quizButton").show();
+								}
 							// ...
 							}
 						});
@@ -73,7 +80,7 @@
 		<script type="text/javascript">
 			function doQuiz()
 			{
-			var url = "http://127.0.0.1:8000/news/"+"quiz/"+"{{ID}}";
+			var url = HOMEURL+"news/quiz/"+"{{ID}}";
 			window.location.href = url;
 			}
 			</script>
