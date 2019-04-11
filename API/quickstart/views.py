@@ -225,3 +225,9 @@ class ArticleScoreView(APIView):
         print(articleScore)
         articleScore.save()
         return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
+
+class getArticleScore(APIView):
+    def get(self, request):
+        articleScores = ArticleScore.objects.all().order_by("username")
+        serializer = ArticleScoreSerializer(articleScores, many=True)
+        return Response(serializer.data)

@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from . import auth
-from .views import FileView, NewsView, ArticleScoreView
+from .views import FileView, NewsView, ArticleScoreView, getArticleScore
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('news/', views.NewsView.as_view()), 
     path('news/fileupload/', views.FileView.as_view()),
     path('news/articlescore/', views.ArticleScoreView.as_view()),
+    path('news/getarticlescore/', views.getArticleScore.as_view()),
     path('news/<id>/', views.IndividualNewsView.as_view()),
     path('news/quiz/<id>/', views.IndividualNewsViewQuiz.as_view()),
     path('news/<id>/files/', views.IndividualNewsViewFiles.as_view()),
