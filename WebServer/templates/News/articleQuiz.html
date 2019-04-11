@@ -20,8 +20,10 @@
             </header>
 
             <section id="main">
-                <h2 id = "id_shorttext" style="color:black"></h2>
-                <ul id="list"></ul>
+                <ul id="list">
+                    <h1 id = "id_shorttext" style="color:white"></h1>
+                    <p id="longQuizDescription" class="container"></p>
+                </ul>
                 <div>Registration closes in <span id="time"></span> minutes!</div>
                 <script>
                     var len = 0; 
@@ -32,11 +34,22 @@
                         url: "http://127.0.0.1:7000/v1/news/quiz/"+ "{{ID}}" + "/",                            
                         dataType: "json",
                         success: function(data) {
-                            console.log(data);
+                            articleHTML = '<br>'
+                            $('#id_shorttext').text(data.quiz[0].name.toString());
                             
-                                articleHTML = '<article><h1 style="color:white">'+ data.quiz[0].name + '</h1>';
-                                console.log(data.quiz);
-                                console.log(data.quizentry);
+                            // config for the quiz description
+                            var config = {
+						    "theme": "snow",
+						    "readOnly": true,
+						    "modules": {
+							    "toolbar": false
+						    },
+						    "toolbar": [{ header: [1] }, {color: ['white']}]
+						    };
+                            quizDescription = new Quill('#longQuizDescription', config);
+                            quizDescription.container.innerHTML = data.quiz[0].description;
+							quizDescription = new Quill('#longQuizDescription', config);
+
                                 len = data.quizentry.length
                                 for(i=0; i<data.quizentry.length;i++){
                                     articleHTML += '<div class="container"';
@@ -47,7 +60,6 @@
                                     articleHTML += '<input type="radio" name="QuizAlternative" value="C">'+ data.quizentry[i].altc +'</p></aricle></li>';
                                     articleHTML += '</form>';
                                     articleHTML += '</div>;'
-                                    console.log(data.quizentry[0]);
                                 
                                 }
                                 $('#list').append(articleHTML);

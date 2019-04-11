@@ -135,7 +135,7 @@ class IndividualNewsView(APIView):
             return Response({'article' : serializer.data, 'filepath': path.file.name, 'done' : done})
         except :
             serializer = NewsSerializer(article, many=False)
-            return Response({'article' : serializer.data, 'filepath': "No File Provided", 'done': done})
+            return Response({'article' : serializer.data, 'filepath': None, 'done': done})
 
     # GET: Get an entire quiz by article ID.
 class IndividualNewsViewQuiz(APIView):
