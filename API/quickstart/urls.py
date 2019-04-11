@@ -31,6 +31,7 @@ urlpatterns = [
     path('article/<id>/score/', views.GetAndSetScoreForArticle.as_view()),
     path('fileupload/', views.FileUpload.as_view()),
     path('files/article/<id>/', views.GetFileLinksByArticle.as_view()),
+    path('highscores/', views.GetAllHighScores.as_view()),
 ]
 
 if settings.DEBUG:

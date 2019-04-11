@@ -104,14 +104,14 @@ class GetAllOrAppendArticle(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        #TODO: SAFETYCHECKS.
         quizID = request.POST.get("ArticleQuiz")
         Title = request.POST.get("ArticleTitle")
         Description = request.POST.get("ArticleDescription")
         ShortDesc = request.POST.get("ArticleShortDescription")
-        creator = request.POST.get("Creator")
         if Title == "":
             return
-        article = Article(title=Title, description=Description, subtitle = ShortDesc, date = timezone.now(), creator= creator)
+        article = Article(title=Title, description=Description, subtitle = ShortDesc, date = timezone.now(), creator= request.POST.get("Creator"))
         article.save()
         #TODO:Fixa "unika" namn
         if quizID != "":
@@ -125,11 +125,10 @@ class GetAllOrAppendArticle(APIView):
 # http://127.0.0.1:7000/v1/article/<id>/
 class GetArticleById(APIView):
     def get(self, request, id):
-        user = request.GET.get('User') 
         article = Article.objects.get(id= id)
         done = False
         try:
-            articleScore = ArticleScore.objects.get(article=article, username= user)
+            articleScore = ArticleScore.objects.get(article=article, username= request.GET.get('User') )
             done = articleScore.done;
         except:
             pass
@@ -152,24 +151,21 @@ class GetAndSetScoreForArticle(APIView):
         pass
 
     def post(self, request, id,*args, **kwargs):
-        articleID = request.POST.get('ArticleID') 
-        creator = request.POST.get('Creator')
-        article = Article.objects.get(id = articleID)
+        article = Article.objects.get(id = id)
         try:
-            articleScore = ArticleScore.objects.get(article = article, username = creator)
+            articleScore = ArticleScore.objects.get(article = article, username = request.POST.get('Creator'))
         except:
-            articleScore = ArticleScore(username = creator, article=article, score=0, done=False ,date= timezone.now())
-        print(articleScore)
+            articleScore = ArticleScore(username = request.POST.get('Creator'), article=article, score=0, done=False ,date= timezone.now())
         if articleScore.done is True:
-            return Response("", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response("Already done", status=status.HTTP_405_METHOD_NOT_ALLOWED)
         if articleScore.started is False:
             articleScore.started = True
             articleScore.save()
-        return Response("", status=status.HTTP_200_OK)
+        return Response("Quiz Started", status=status.HTTP_200_OK)
 
     def patch(self, request, id, *args, **kwargs):
         # TODO: ADD SAFETYCHECKS FOR THESE!
-        article = Article.objects.get(id = request.POST.get('articleID'))
+        article = Article.objects.get(id = id)
         articleScore = ArticleScore.objects.get(article = article, username=request.POST.get('Creator'))
         time = timezone.now() - articleScore.date
         if time > timedelta(seconds= 600):
@@ -220,7 +216,7 @@ class FileUpload(APIView):
 
 
 # GET: get file links for a specifc article
-# http://127.0.0.1:7000/v1/news/quiz/files/
+# http://127.0.0.1:7000/v1/files/article/<id>/
 class GetFileLinksByArticle(APIView):
     def get(self, request, id):
         files = set()
@@ -228,5 +224,15 @@ class GetFileLinksByArticle(APIView):
             files.add(fileLink.filePath)
         serializer = FileSerializer(files, many=True)
         return Response(serializer.data)
+
+#################################################################################
+# Highscores part
+
+# GET: Get highscores for all  ???
+# http://127.0.0.1:7000/v1/highscores/
+class GetAllHighScores(APIView):
+    def get(self, request):
+        pass
+
 
 #################################################################################
