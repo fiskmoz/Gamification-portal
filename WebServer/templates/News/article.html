@@ -29,7 +29,7 @@
 				</br>
 					<h2 id = "id_date"></h2>
 				</br>
-					<p><a target="_blank" rel="noopener noreferrer" id ="id_fileref"> File </a></p>
+					<p><a target="_blank" rel="noopener noreferrer" id ="id_fileref"></a></p>
 				<br>
 					<div id="longArticleDescription">
 					</div>
@@ -59,7 +59,9 @@
                                 $('#id_headertext').text(data.article.title.toString());
                                 $('#id_shorttext').text(data.article.subtitle.toString());
 								$('#id_date').text("Created on: " +data.article.date.toString());
-								$('#id_fileref').text(data.filepath);
+								if(data.filepath != null){
+									$('#id_fileref').text(data.filepath);
+								}
 								$('#id_fileref').attr("href", APIFileUrl + data.filepath);
 								articleDescription.container.innerHTML = data.article.description;
 								articleDescription = new Quill('#longArticleDescription', config);
