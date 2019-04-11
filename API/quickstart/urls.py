@@ -18,21 +18,19 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from . import auth
-from .views import FileView, NewsView, ArticleScoreView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('' ,views.Home.as_view()),
-    path('quiz/', views.QuizView.as_view()),
     path('auth/', auth.Auth.as_view()),
-    path('news/', views.NewsView.as_view()), 
-    path('news/fileupload/', views.FileView.as_view()),
-    path('news/articlescore/', views.ArticleScoreView.as_view()),
-    path('news/<id>/', views.IndividualNewsView.as_view()),
-    path('news/quiz/<id>/', views.IndividualNewsViewQuiz.as_view()),
-    path('news/<id>/files/', views.IndividualNewsViewFiles.as_view()),
-    
+    path('quiz/', views.GetAllOrAppendQuiz.as_view()),
+    path('quiz/article/<id>/', views.GetQuizByArticleId.as_view()),
+    path('article/', views.GetAllOrAppendArticle.as_view()), 
+    path('article/<id>/', views.GetArticleById.as_view()),
+    path('article/<id>/score/', views.GetAndSetScoreForArticle.as_view()),
+    path('fileupload/', views.FileUpload.as_view()),
+    path('files/article/<id>/', views.GetFileLinksByArticle.as_view()),
 ]
 
 if settings.DEBUG:

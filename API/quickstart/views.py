@@ -13,7 +13,8 @@ import json
 import operator
 from datetime import timedelta
 
-
+# Homepage
+# http://127.0.0.1:7000/v1/
 class Home(APIView): 
     def get(self, request, format=None): 
         if request.user.is_anonymous:
@@ -23,18 +24,13 @@ class Home(APIView):
         usernames = [user.username for user in User.objects.all()]
         return Response(usernames)
 
-
-# Get a specific quiz
-class SpecificQuizView(APIView):
-    lookup_field = 'name'
-    def get(self, requst, format=None):
-        quiz = Quiz.objects.get(name = name)
-        serializer = QuizSerializer(quiz, many=False)
-        return Response(serializer.data)
+#################################################################################
+# Quiz part #
 
 # GET: Get all quizes
 # POST: Create and parse a quiz
-class QuizView(APIView): 
+# http://127.0.0.1:7000/v1/quiz/
+class GetAllOrAppendQuiz(APIView): 
     def get(self, request, format=None): 
         quizes = Quiz.objects.all()
         serializer = QuizSerializer(quizes, many = True)
@@ -66,9 +62,41 @@ class QuizView(APIView):
         return Response(data="SUCCESS! :D ", status = status.HTTP_200_OK)
 
 
+# GET: Get an entire quiz by article ID.
+# http://127.0.0.1:7000/v1/news/quiz/<id>/
+class GetQuizByArticleId(APIView):
+    lookup_field = 'id'
+    def get(self, request, id):
+        quizes = set()
+        quizentries = set()
+        for item in QuizLink.objects.filter(article= id):
+            quizes.add(item.quiz)
+            # print(item.quiz.id)
+            for nrquiz in QuizEntry.objects.filter(quiz= item.quiz):
+                quizentries.add(nrquiz)
+        serializer = QuizSerializer(quizes, many=True)
+        serializer2 = QuizEntrySerializer(quizentries, many=True)
+        return Response({
+            'quiz': serializer.data,
+            'quizentry': serializer2.data
+            })
+
+# Get a specific quiz
+# http://127.0.0.1:7000/v1/ ???? 
+# class SpecificQuizView(APIView):
+#     lookup_field = 'name'
+#     def get(self, requst, format=None):
+#         quiz = Quiz.objects.get(name = name)
+#         serializer = QuizSerializer(quiz, many=False)
+#         return Response(serializer.data)
+
+#################################################################################
+# Article Part
+
 # GET: get all artcile objects
 # POST: Create a new article
-class NewsView(APIView):
+# http://127.0.0.1:7000/v1/article/
+class GetAllOrAppendArticle(APIView):
 
     def get(self, request, format=None):
         news = Article.objects.all().order_by("-date")
@@ -93,32 +121,9 @@ class NewsView(APIView):
             quizLink.save()
         return Response(data=article.id, status = status.HTTP_200_OK)
 
-
-    # POST: Create a file object
-    # PUT: Link created file object to article
-class FileView(APIView):
-    parser_classes=(FormParser, MultiPartParser,)
-    def post(self, request):
-        file = request.FILES.get('myfile')
-        dictionary = {}
-        dictionary['name'] = str(file)
-        dictionary['file'] = file
-        file_serializer = FileSerializer(data=dictionary)
-        if file_serializer.is_valid():
-            file_serializer.save()
-            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def put(self,request):
-        artID = request.POST.get("ArticleID")
-        FileID = request.POST.get("FileID")
-        article_link = ArticleLink(article=Article.objects.get(id= artID), filepath=File.objects.get(id = FileID))
-        article_link.save()
-        return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
-
-    # GET: Get individual article object by ID.
-class IndividualNewsView(APIView):
+# GET: Get individual article object by ID.
+# http://127.0.0.1:7000/v1/article/<id>/
+class GetArticleById(APIView):
     def get(self, request, id):
         user = request.GET.get('User') 
         article = Article.objects.get(id= id)
@@ -137,41 +142,16 @@ class IndividualNewsView(APIView):
             serializer = NewsSerializer(article, many=False)
             return Response({'article' : serializer.data, 'filepath': None, 'done': done})
 
-    # GET: Get an entire quiz by article ID.
-class IndividualNewsViewQuiz(APIView):
-    lookup_field = 'id'
+# GET: Pass
+# POST: Set the initial user score for a specific quiz.
+# PATCH: Update the initial user score for a specific quiz.
+# http://127.0.0.1:7000/v1/article/<id>/score/
+class GetAndSetScoreForArticle(APIView):
+
     def get(self, request, id):
-        quizes = set()
-        quizentries = set()
-        for item in QuizLink.objects.filter(article= id):
-            quizes.add(item.quiz)
-            # print(item.quiz.id)
-            for nrquiz in QuizEntry.objects.filter(quiz= item.quiz):
-                quizentries.add(nrquiz)
-        serializer = QuizSerializer(quizes, many=True)
-        serializer2 = QuizEntrySerializer(quizentries, many=True)
-        return Response({
-            'quiz': serializer.data,
-            'quizentry': serializer2.data
-            })
-
-    # GET: get file links for a specifc article
-class IndividualNewsViewFiles(APIView):
-    def get(self, request, id):
-        files = set()
-        for fileLink in ArticleLink.objects.filter(article= id):
-            files.add(fileLink.filePath)
-        serializer = FileSerializer(files, many=True)
-        return Response(serializer.data)
-
-    # GET: Pass
-    # POST: Set the user score for a specific quiz.
-class ArticleScoreView(APIView):
-
-    def get(self, request):
         pass
 
-    def post(self, request,*args, **kwargs):
+    def post(self, request, id,*args, **kwargs):
         articleID = request.POST.get('ArticleID') 
         creator = request.POST.get('Creator')
         article = Article.objects.get(id = articleID)
@@ -187,28 +167,19 @@ class ArticleScoreView(APIView):
             articleScore.save()
         return Response("", status=status.HTTP_200_OK)
 
-    def patch(self, request,*args, **kwargs):
-        articleID = request.POST.get('articleID') 
-        creator = request.POST.get('Creator')
-        article = Article.objects.get(id = articleID)
-        articleScore = ArticleScore.objects.get(article = article, username=creator)
-        past = articleScore.date
-        print(past)
-        present = timezone.now()
-        time = present - past
-        print(time)
+    def patch(self, request, id, *args, **kwargs):
+        # TODO: ADD SAFETYCHECKS FOR THESE!
+        article = Article.objects.get(id = request.POST.get('articleID'))
+        articleScore = ArticleScore.objects.get(article = article, username=request.POST.get('Creator'))
+        time = timezone.now() - articleScore.date
         if time > timedelta(seconds= 600):
-            print("ToO LONG ")
             articleScore.done = True
             articleScore.save()
-            return Response("", status=status.HTTP_200_OK)
         if articleScore.done:
-            return Response("", status=status.HTTP_405_METHOD_NOT_ALLOWED)
-        score=0
+            return Response("Saved", status=status.HTTP_405_METHOD_NOT_ALLOWED)
         i=0
         quizanswers = []
-        length = int(len(request.POST))
-        while i< length-3:
+        while i< int(len(request.POST))-3:
             quizanswers.append(request.POST.get(str(i)))
             i += 1
         correctquizanswers = []
@@ -218,10 +189,44 @@ class ArticleScoreView(APIView):
         i=0
         for answere in quizanswers:
             if correctquizanswers[i]== answere:
-                score+=1
-            i+=1
-        articleScore.score = score
+                i+=1
+        articleScore.score = i
         articleScore.done = True
-        print(articleScore)
         articleScore.save()
-        return Response("GREAT SUCCEsSS!!sadas", status=status.HTTP_201_CREATED)
+        return Response("Saved", status=status.HTTP_201_CREATED)
+
+#################################################################################
+# File part
+
+# POST: Create a file object
+# PUT: Link created file object to article
+# http://127.0.0.1:7000/v1/fileupload/
+class FileUpload(APIView):
+    parser_classes=(FormParser, MultiPartParser,)
+    def post(self, request):
+        file_serializer = FileSerializer(data={'name': str(file), 'file': request.FILES.get('myfile')})
+        if file_serializer.is_valid():
+            file_serializer.save()
+            return Response(file_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self,request):
+        #TODO: ADD SAFETYCHECKS HERE
+        article_link = ArticleLink(article=Article.objects.get(id= request.POST.get("ArticleID")),filepath=File.objects.get(id = request.POST.get("FileID")))
+        article_link.save()
+        return Response("Created", status=status.HTTP_201_CREATED)
+
+
+
+# GET: get file links for a specifc article
+# http://127.0.0.1:7000/v1/news/quiz/files/
+class GetFileLinksByArticle(APIView):
+    def get(self, request, id):
+        files = set()
+        for fileLink in ArticleLink.objects.filter(article= id):
+            files.add(fileLink.filePath)
+        serializer = FileSerializer(files, many=True)
+        return Response(serializer.data)
+
+#################################################################################
