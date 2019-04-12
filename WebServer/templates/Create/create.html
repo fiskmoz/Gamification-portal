@@ -5,6 +5,11 @@
 
 <!DOCTYPE HTML>
 <html>
+<style>
+#alternatives a{
+    color: white;
+}
+</style>
 	<!-- Head -->
 	<head>
 		<title>Visualize by TEMPLATED</title>
@@ -21,13 +26,13 @@
             <!-- Thumbnails --> 
             <section class="thumbnails" id="alternatives">
             <div>
-                    <a href="{% url 'create_article' %}" name ="article" ">
+                    <a href="{% url 'create_article' %}" name ="article">
                         <img src="{% static 'images/png/edit.png' %}" alt="" />
                         <h3>News Article</h3>
                     </a>
                 </div>
                 <div>
-                    <a href="{% url 'create_quiz' %}" name ="quiz" ">
+                    <a href="{% url 'create_quiz' %}" name ="quiz">
                         <img src="{% static 'images/png/share.png' %}" alt="" />
                         <h3>Quiz</h3>
                     </a>
