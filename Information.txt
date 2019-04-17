@@ -18,13 +18,8 @@ Backlog:
 - Checkboxes för vilka artikar man är klar med 
 
 Säkerhet: 
-
 - Sätta limit på antalet quiz entires.
 - Inputs för quiz och artiklar.
-
-Refactoring:
-- Formattera article created on.
-
 
 Highscores:
 

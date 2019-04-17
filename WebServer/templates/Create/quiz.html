@@ -134,17 +134,8 @@
 
             repeats = repeats +1;
             $(window).scrollTop(0);
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
-            });
             
-            Toast.fire({
-                type: 'success',
-                title: 'Information valid!'
-            })
+            DisplayInputSuccess();
             $('#quizexitbutton').show();
             $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
         }
@@ -165,9 +156,11 @@
         function validateInput()
         {
             if($('#quizTitle').val()==""){
+                DisplayInputFailed();
                 return false;
             }    
             if($('#quizTimer').val()==""){
+                DisplayInputFailed();
                 return false;
             }
             return true;
