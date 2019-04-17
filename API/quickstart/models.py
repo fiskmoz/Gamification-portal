@@ -6,6 +6,7 @@ class Quiz(models.Model):
     name = models.CharField(max_length=250)
     creator = models.CharField(max_length=250)
     description = models.CharField(max_length = 4000, default = "")
+    quiztimer = models.IntegerField(default=10)
     date = models.CharField(max_length=100, default = timezone.now)
 
     def __str__(self):

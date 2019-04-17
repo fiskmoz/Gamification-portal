@@ -25,6 +25,11 @@
                 <h4> Description </h4>
                 <div style="height: 250px" id="quizDescription">
                 </div>
+                <br/>
+                <h4> Time to be allowed: </h4>
+                <input id="quizTimer" 
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                type="number" maxlength="2"></input>
                 </div>
                 <br/>
                 <button onclick="quizstage1();"> Submit </button>
@@ -104,6 +109,7 @@
             $('#section2').fadeIn(200).removeClass('hidden');
             submitData['Quizname'] = $('#quizTitle').val();
             submitData['Description'] = quillDescription.container.innerHTML;
+            submitData['Quiztimer'] = $('#quizTimer').val();
             submitData['Creator'] = "{{ me }}";
             $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
             $('#headerText2').fadeOut(function (){ $(this).html("Please fill out the form!");}).fadeIn();
