@@ -120,6 +120,7 @@
 
         function quizstage2()
         {
+            //TODO: fixa input check innan man går vidare
             quizEntryArray.push($('#question').val());
             quizEntryArray.push($('#id_A').val());
             quizEntryArray.push($('#id_B').val());
@@ -162,6 +163,22 @@
             DisplayResults(request);
         }
         //TODO: Inte nöjd med detta, kolla på annan lösning
+        function validateEntryInput()
+        {
+            if($('#question').val()==""){
+                return false;
+            }  
+            if($('#id_A').val()==""){
+                return false;
+            }  
+            if($('#id_B').val()==""){
+                return false;
+            }  
+            if($('#id_C').val()==""){
+                return false;
+            }  
+        return true;
+        }
         function validateInput()
         {
             if($('#quizTitle').val()==""){
