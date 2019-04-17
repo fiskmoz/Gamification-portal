@@ -117,23 +117,36 @@
 
     function submitArticle()
     {
-        var request = $.ajax({
-            url: APIUrl + "article/",
-            type: "POST",
-            data: {
-                'ArticleTitle' : $('#articleTitle').val(),
-                'ArticleDescription' : articleDescription.container.innerHTML,
-                'ArticleShortDescription': $('#shortArticleDescription').val(),
-                'ArticleQuiz' : $('select#quizSelection option:selected').val(),
-                'Creator' : "{{ me }}",
-                'APISession' : "{{APISession|safe}}",
-            },
-            success: function(data) {
-                articleID = data;
-                uploadObj.startUpload();
-                DisplayResults(request);
-            }
+        if(validateInput()){
+            var request = $.ajax({
+                url: APIUrl + "article/",
+                type: "POST",
+                data: {
+                    'ArticleTitle' : $('#articleTitle').val(),
+                    'ArticleDescription' : articleDescription.container.innerHTML,
+                    'ArticleShortDescription': $('#shortArticleDescription').val(),
+                    'ArticleQuiz' : $('select#quizSelection option:selected').val(),
+                    'Creator' : "{{ me }}",
+                    'APISession' : "{{APISession|safe}}",
+                },
+                success: function(data) {
+                    articleID = data;
+                    uploadObj.startUpload();
+                    DisplayResults(request);
+                }
             });
+        }
+    }
+    function validateInput()
+    {
+        //TODO: Visa errors, eller lös på ett snyggare sätt (ganska fult detta faktiskt)
+        if($('#articleTitle').val() == ""){
+            return false;
+        }    
+        if($('#shortArticleDescription').val() == ""){
+            return false;
+        }
+        return true;
     }
     </script>
 </html>
