@@ -120,24 +120,26 @@
 
         function quizstage2()
         {
-            quizEntryArray.push($('#question').val());
-            quizEntryArray.push($('#id_A').val());
-            quizEntryArray.push($('#id_B').val());
-            quizEntryArray.push($('#id_C').val());
-            quizEntryArray.push($('input[name=correctanswer]:checked').val());
+            if(validateEntryInput()){
+                quizEntryArray.push($('#question').val());
+                quizEntryArray.push($('#id_A').val());
+                quizEntryArray.push($('#id_B').val());
+                quizEntryArray.push($('#id_C').val());
+                quizEntryArray.push($('input[name=correctanswer]:checked').val());
 
-            $('#question').val("");
-            $('#id_A').val("");
-            $('#id_B').val("");
-            $('#id_C').val("");
-            $('input[name="correctanswer"]').prop('checked', false);
+                $('#question').val("");
+                $('#id_A').val("");
+                $('#id_B').val("");
+                $('#id_C').val("");
+                $('input[name="correctanswer"]').prop('checked', false);
 
-            repeats = repeats +1;
-            $(window).scrollTop(0);
-            
-            DisplayInputSuccess();
-            $('#quizexitbutton').show();
-            $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
+                repeats = repeats +1;
+                $(window).scrollTop(0);
+                
+                DisplayInputSuccess();
+                $('#quizexitbutton').show();
+                $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
+            }
         }
         function quizexit()
         {
@@ -153,6 +155,26 @@
             DisplayResults(request);
         }
         //TODO: Inte nöjd med detta, kolla på annan lösning
+        function validateEntryInput()
+        {
+            if($('#question').val()==""){
+                DisplayInputFailed()
+                return false;
+            }  
+            if($('#id_A').val()==""){
+                DisplayInputFailed()
+                return false;
+            }  
+            if($('#id_B').val()==""){
+                DisplayInputFailed()
+                return false;
+            }  
+            if($('#id_C').val()==""){
+                DisplayInputFailed()
+                return false;
+            }  
+        return true;
+        }
         function validateInput()
         {
             if($('#quizTitle').val()==""){
