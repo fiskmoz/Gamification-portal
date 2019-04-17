@@ -100,7 +100,7 @@
             $select.append('<option></option>');
             
             $.ajax({
-                url: $select.attr('data-source'),
+                url: $select.attr('data-source'), dataType: "json", data:{'APISession' : "{{APISession|safe}}"},
             }).then(function(options) {
                 options.map(function(option) {
                 var $option = $('<option>');
