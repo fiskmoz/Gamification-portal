@@ -18,7 +18,7 @@ def homepage_view(request):
 
 def display404(request):
     template = loader.get_template('404.html')
-    return HttpResponse(template.render(getContext(request, id ),request))
+    return HttpResponse(template.render({},request))
 
 def news_view(request):
     if not request.user.is_authenticated:
@@ -60,7 +60,7 @@ def highscores_view(request):
 def create_view(request):
     if not request.user.is_authenticated: 
         return display404(request)
-    if not request.session['Role'] != "superuser":
+    if not request.session['Role'] == "superuser":
         template = loader.get_template('index.html')
         return HttpResponse(template.render(getContext(request, id ), request))
     if request.method == "GET": 
@@ -71,7 +71,7 @@ def create_view(request):
 def create_view_quiz(request):
     if not request.user.is_authenticated: 
         return display404(request)
-    if not request.session['Role'] != "superuser":
+    if not request.session['Role'] == "superuser":
         template = loader.get_template('index.html')
         return HttpResponse(template.render(getContext(request, id ), request))
     if request.method == "GET": 
@@ -81,7 +81,7 @@ def create_view_quiz(request):
 def create_view_article(request):
     if not request.user.is_authenticated: 
         return display404(request)
-    if not request.session['Role'] != "superuser":
+    if not request.session['Role'] == "superuser":
         template = loader.get_template('index.html')
         return HttpResponse(template.render(getContext(request, id ), request))
     if request.method == "GET": 
@@ -90,5 +90,4 @@ def create_view_article(request):
 
 
 def getContext(request, id):
-    print(request.session['Role'])
     return {'me' : request.user, 'ID': id, 'APISession' : request.session['APISession'].replace('"', ''), 'role' : request.session['Role']}
