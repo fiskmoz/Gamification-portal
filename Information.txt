@@ -15,14 +15,7 @@ Postgre:
 - för django?
 
 Backlog: 
-<<<<<<< HEAD
-- lägga in tider på quiz
 - Checkboxes för vilka artikar man är klar med 
-- Filuppladningskrash?? xD 
-=======
-- Checkboxes om quiz klara
-- Fileupload?
->>>>>>> dc4308863b4cf1e86f66c7f0429450e44dfb78a6
 
 
 Säkerhet: 
