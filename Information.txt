@@ -18,6 +18,10 @@ Backlog:
 - Checkboxes för vilka artikar man är klar med 
 
 Säkerhet: 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f6fafe76d16a7fdffaafbbe031b9c75643110c9
 - Sätta limit på antalet quiz entires.
 - Inputs för quiz och artiklar.
 
