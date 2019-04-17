@@ -90,7 +90,7 @@
                 var responses = uploadObj.getResponses();
                 $.ajax({
                     url: APIUrl + "fileupload/",
-                    type: "PUT",
+                    type: "PATCH",
                     data : {'ArticleID':articleID, 'FileID': responses[0].id, 'APISession' : "{{APISession|safe}}"}
                 })
             }
@@ -141,9 +141,11 @@
     {
         //TODO: Visa errors, eller lös på ett snyggare sätt (ganska fult detta faktiskt)
         if($('#articleTitle').val() == ""){
+            DisplayInputFailed();
             return false;
         }    
         if($('#shortArticleDescription').val() == ""){
+            DisplayInputFailed();
             return false;
         }
         return true;

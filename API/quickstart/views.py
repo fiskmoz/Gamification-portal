@@ -229,7 +229,7 @@ class FileUpload(APIView):
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self,request):
+    def PATCH(self,request):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         if not checkPriveledge(request):

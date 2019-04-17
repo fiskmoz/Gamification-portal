@@ -6,7 +6,7 @@ function DisplayResults(request)
             type: 'success',
             showCancelButton: false,
           }).then(() => {
-            window.location.replace("http://127.0.0.1:8000/");
+            window.location.replace(HOMEURL);
           })
     });
     
@@ -18,6 +18,34 @@ function DisplayResults(request)
           })
     });
 }
+function DisplayInputSuccess()
+{
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  })
+  Toast.fire({
+      type: 'success',
+      title: 'Information valid!'
+  });
+}
+
+function DisplayInputFailed()
+{
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  })
+  Toast.fire({
+      type: 'error',
+      title: 'Check your input again!'
+  });
+}
+
 
 var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {

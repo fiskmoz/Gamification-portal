@@ -55,4 +55,6 @@ def getKey(request):
         key = request.POST.get('APISession')
     if(request.method == "GET"):
         key = request.GET.get('APISession')
+    if(request.method == "PATCH"):
+        key = request.POST.get('APISession')
     return key
