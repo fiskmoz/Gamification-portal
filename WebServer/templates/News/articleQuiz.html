@@ -24,7 +24,7 @@
                     <h1 id = "id_shorttext" style="color:white"></h1>
                     <p id="longQuizDescription" class="container"></p>
                 </ul>
-                <div>Registration closes in <span id="time"></span> minutes!</div>
+                <div> Time left: <span id="time"></span> minutes!</div>
                 <script>
                     var len = 0; 
                     $(document).ready(function () 
@@ -63,6 +63,9 @@
                                 
                                 }
                                 $('#list').append(articleHTML);
+                                var Quiztimer = data.quiz[0].quiztimer * 60,
+                                display = $('#time');
+                                startTimer(Quiztimer, display);
                         // ...
                         }
                         });
@@ -85,7 +88,7 @@
                         })
                         function startTimer(duration, display) {
                         var timer = duration, minutes, seconds;
-                        setInterval(function () {
+                        var quizTimer = setInterval(function () {
                             minutes = parseInt(timer / 60, 10);
                             seconds = parseInt(timer % 60, 10);
 
@@ -95,16 +98,10 @@
                             display.text(minutes + ":" + seconds);
 
                             if (--timer < 0) {
-                                timer = duration;
+                                clearInterval(quizTimer);
                             }
                         }, 1000);
                         }
-
-                        jQuery(function ($) {
-                            var tenMinutes = 60 * 10,
-                                display = $('#time');
-                            startTimer(tenMinutes, display);
-                        });
                     });
                 </script>
                 <button id="completeQuizButton" onclick="completeQuiz()">Submit!</button> 

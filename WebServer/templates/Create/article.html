@@ -78,6 +78,7 @@
             articleDescription = new Quill('#quillDescription', {
             theme: 'snow'
         });
+        // Här bestämmer man vad som skall vara tillåtet när det kommer till fileuploads.
         uploadObj = $("#fileuploader").uploadFile({
             allowedTypes:"jpg,txt,pdf,docx",
             url:APIUrl + "fileupload/",
@@ -90,7 +91,7 @@
                 $.ajax({
                     url: APIUrl + "fileupload/",
                     type: "PUT",
-                    data : {'ArticleId':articleID, 'FileID': responses[0].id}
+                    data : {'ArticleID':articleID, 'FileID': responses[0].id}
                 })
             }
         });

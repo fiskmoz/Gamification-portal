@@ -12,6 +12,9 @@ VIsual template:
 https://templated.co/visualize
 
 Backlog: 
+- Checkboxes om quiz klara
+- Fileupload?
+
 
 Säkerhet: 
 - Restriktioner för personer som inte är superuser

@@ -41,9 +41,10 @@ class GetAllOrAppendQuiz(APIView):
         name = request.POST.get("Quizname")
         desc = request.POST.get("Description")
         creator = request.POST.get("Creator")
+        timer = request.POST.get("Quiztimer")
         if name == "":
             return
-        quiz = Quiz(name=name, description = desc , creator = creator) 
+        quiz = Quiz(name=name, description = desc , creator = creator, quiztimer = timer) 
         quiz.save() 
         myList = []
         length = int(len(request.POST))-2
@@ -197,7 +198,7 @@ class GetAndSetScoreForArticle(APIView):
 class FileUpload(APIView):
     parser_classes=(FormParser, MultiPartParser,)
     def post(self, request):
-        file_serializer = FileSerializer(data={'name': str(file), 'file': request.FILES.get('myfile')})
+        file_serializer = FileSerializer(data={'name': request.FILES.get('myfile').name, 'file': request.FILES.get('myfile')})
         if file_serializer.is_valid():
             file_serializer.save()
             return Response(file_serializer.data, status=status.HTTP_201_CREATED)
