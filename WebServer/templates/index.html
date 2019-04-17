@@ -38,12 +38,14 @@
 						</a>
 
 					</div>
-					<div>
-						<a href="{% url 'create' %}">
-							<img src="{% static 'images/png/atomic.png' %}" alt="" />
-							<h3 style="color:white">Create!</h3>
-						</a>
-					</div>
+					{% if role == "superuser" %}
+						<div>
+							<a href="{% url 'create' %}">
+								<img src="{% static 'images/png/atomic.png' %}" alt="" />
+								<h3 style="color:white">Create!</h3>
+							</a>
+						</div>
+					{% endif %}
 				</section>
 			</section>
 		</div>

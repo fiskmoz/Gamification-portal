@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from rest_framework import status
-from quickstart.auth import validate
+from quickstart.auth import validate, checkPriveledge
 from quickstart.models import Quiz, QuizEntry, Article, ArticleLink, QuizLink, ArticleScore
 from django.utils import timezone
 from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
@@ -42,6 +42,8 @@ class GetAllOrAppendQuiz(APIView):
     def post(self, request, format=None): 
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        if not checkPriveledge(request):
+            return Response("Not enough priveledge", status=status.HTTP_401_UNAUTHORIZED)
         name = request.POST.get("Quizname")
         desc = request.POST.get("Description")
         creator = request.POST.get("Creator")
@@ -107,7 +109,6 @@ class GetAllOrAppendArticle(APIView):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         if not validate(request):
             return Response("Auth failed", status = status.HTTP_405_METHOD_NOT_ALLOWED)
-        print("Passed valid")
         news = Article.objects.all().order_by("-date")
         serializer = NewsSerializer(news, many=True)
         return Response(serializer.data)
@@ -115,6 +116,8 @@ class GetAllOrAppendArticle(APIView):
     def post(self, request, format=None):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        if not checkPriveledge(request):
+            return Response("Not enough priveledge", status=status.HTTP_401_UNAUTHORIZED)
         #TODO: SAFETYCHECKS.
         quizID = request.POST.get("ArticleQuiz")
         Title = request.POST.get("ArticleTitle")
@@ -229,6 +232,8 @@ class FileUpload(APIView):
     def put(self,request):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        if not checkPriveledge(request):
+            return Response("Not enough priveledge", status=status.HTTP_401_UNAUTHORIZED)
         #TODO: ADD SAFETYCHECKS HERE
         article_link = ArticleLink(article=Article.objects.get(id= request.POST.get("ArticleID")),filepath=File.objects.get(id = request.POST.get("FileID")))
         article_link.save()

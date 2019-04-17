@@ -6,40 +6,32 @@ from rest_framework.views import APIView
 from django.contrib import auth
 from django.contrib.sessions.models import Session
 from django.utils import timezone
+from django.contrib.auth.models import Permission
 
 class Auth(APIView): 
     def post(self, request, format=None): 
-        response = LoginValidate(request.user.username, request.user.password)
-        if response is True :
-            auth.login(request, request.user)
-            return Response(data=request.session.session_key, status=status.HTTP_200_OK)
-        else :
-            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+        return LoginValidation(request)
 
     def get(self, request, format=None ): 
-        response = LoginValidate(request.user.username, request.user.password)
-        if response is True :
-            auth.login(request, request.user)
-            return Response(data=request.session.session_key, status=status.HTTP_200_OK)
-        else :
-            return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+        return LoginValidation(request)
+        
 
-
-def LoginValidate(username, password):
+def LoginValidation(request):
+    user = None
     try:
-        user = User.objects.get(username=username)
+        user = User.objects.get(username=request.user.username)
     except user.DoesNotExist:
-        return False
-    if not user.password == password:
-        return False
-    return True
+        return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+    if not user.password == request.user.password:
+        return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+    auth.login(request, request.user)
+    role = "user"
+    if request.user.is_superuser:
+        role = "superuser"
+    return Response(data={'APISession' : request.session.session_key, 'Role' : role}, status=status.HTTP_200_OK)
 
 def validate(request):
-    key = None
-    if(request.method == "POST"):
-        key = request.POST.get('APISession')
-    if(request.method == "GET"):
-        key = request.GET.get('APISession')
+    key = getKey(request)
     try:
         session = Session.objects.get(session_key = key)
         if session is None:
@@ -47,3 +39,20 @@ def validate(request):
         return True
     except:
         return False
+
+def checkPriveledge(request):
+    key = getKey(request)
+    session = Session.objects.get(session_key = key)
+    session_data = session.get_decoded()
+    user = User.objects.get(id=session_data.get('_auth_user_id'))
+    if user.is_superuser:
+        return True
+    return False
+
+def getKey(request):
+    key = None
+    if(request.method == "POST"):
+        key = request.POST.get('APISession')
+    if(request.method == "GET"):
+        key = request.GET.get('APISession')
+    return key
