@@ -91,7 +91,7 @@
                 $.ajax({
                     url: APIUrl + "fileupload/",
                     type: "PUT",
-                    data : {'ArticleID':articleID, 'FileID': responses[0].id}
+                    data : {'ArticleID':articleID, 'FileID': responses[0].id, 'APISession' : "{{APISession|safe}}"}
                 })
             }
         });
@@ -126,6 +126,7 @@
                 'ArticleShortDescription': $('#shortArticleDescription').val(),
                 'ArticleQuiz' : $('select#quizSelection option:selected').val(),
                 'Creator' : "{{ me }}",
+                'APISession' : "{{APISession|safe}}",
             },
             success: function(data) {
                 articleID = data;

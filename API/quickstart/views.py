@@ -33,11 +33,15 @@ class Home(APIView):
 # http://127.0.0.1:7000/v1/quiz/
 class GetAllOrAppendQuiz(APIView): 
     def get(self, request, format=None): 
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         quizes = Quiz.objects.all()
         serializer = QuizSerializer(quizes, many = True)
         return Response(serializer.data)
 
     def post(self, request, format=None): 
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         name = request.POST.get("Quizname")
         desc = request.POST.get("Description")
         creator = request.POST.get("Creator")
@@ -65,6 +69,8 @@ class GetAllOrAppendQuiz(APIView):
 class GetQuizByArticleId(APIView):
     lookup_field = 'id'
     def get(self, request, id):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         quizes = set()
         quizentries = set()
         for item in QuizLink.objects.filter(article= id):
@@ -98,6 +104,8 @@ class GetAllOrAppendArticle(APIView):
 
     def get(self, request, format=None):
         if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        if not validate(request):
             return Response("Auth failed", status = status.HTTP_405_METHOD_NOT_ALLOWED)
         print("Passed valid")
         news = Article.objects.all().order_by("-date")
@@ -105,6 +113,8 @@ class GetAllOrAppendArticle(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         #TODO: SAFETYCHECKS.
         quizID = request.POST.get("ArticleQuiz")
         Title = request.POST.get("ArticleTitle")
@@ -126,6 +136,8 @@ class GetAllOrAppendArticle(APIView):
 # http://127.0.0.1:7000/v1/article/<id>/
 class GetArticleById(APIView):
     def get(self, request, id):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         article = Article.objects.get(id= id)
         done = False
         try:
@@ -152,6 +164,8 @@ class GetAndSetScoreForArticle(APIView):
         pass
 
     def post(self, request, id,*args, **kwargs):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         article = Article.objects.get(id = id)
         try:
             articleScore = ArticleScore.objects.get(article = article, username = request.POST.get('Creator'))
@@ -165,6 +179,8 @@ class GetAndSetScoreForArticle(APIView):
         return Response("Quiz Started", status=status.HTTP_200_OK)
 
     def patch(self, request, id, *args, **kwargs):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         # TODO: ADD SAFETYCHECKS FOR THESE!
         article = Article.objects.get(id = id)
         articleScore = ArticleScore.objects.get(article = article, username=request.POST.get('Creator'))
@@ -201,6 +217,8 @@ class GetAndSetScoreForArticle(APIView):
 class FileUpload(APIView):
     parser_classes=(FormParser, MultiPartParser,)
     def post(self, request):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         file_serializer = FileSerializer(data={'name': request.FILES.get('myfile').name, 'file': request.FILES.get('myfile')})
         if file_serializer.is_valid():
             file_serializer.save()
@@ -209,6 +227,8 @@ class FileUpload(APIView):
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self,request):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         #TODO: ADD SAFETYCHECKS HERE
         article_link = ArticleLink(article=Article.objects.get(id= request.POST.get("ArticleID")),filepath=File.objects.get(id = request.POST.get("FileID")))
         article_link.save()
@@ -220,6 +240,8 @@ class FileUpload(APIView):
 # http://127.0.0.1:7000/v1/files/article/<id>/
 class GetFileLinksByArticle(APIView):
     def get(self, request, id):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         files = set()
         for fileLink in ArticleLink.objects.filter(article= id):
             files.add(fileLink.filePath)
@@ -233,6 +255,8 @@ class GetFileLinksByArticle(APIView):
 # http://127.0.0.1:7000/v1/highscores/
 class GetAllHighScores(APIView):
     def get(self, request):
+        if not validate(request):
+            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         articleScores = ArticleScore.objects.values("username").annotate(score=Sum('score')).order_by("-score")
         serializer = ArticleScoreSerializer(articleScores, many=True)
         return Response(serializer.data)

@@ -33,6 +33,7 @@
                         type: "GET",
                         url: APIUrl + "quiz/article/{{ID}}/",                            
                         dataType: "json",
+                        data: {'APISession' : "{{APISession|safe}}"},
                         success: function(data) {
                             articleHTML = '<br>'
                             $('#id_shorttext').text(data.quiz[0].name.toString());
@@ -69,14 +70,16 @@
                         // ...
                         }
                         });
-                        myJson = {}
-                        myJson['ArticleID'] = "{{ ID }}";
-                        myJson['Creator'] = "{{ me }}";
+
                         $.ajax({
                             type: "POST", 
                             url: APIUrl + "article/{{ID}}/score/",
                             dataType: "json",
-                            data: myJson,
+                            data: {
+                                'APISession' : "{{APISession|safe}}",
+                                'ArticleID' : "{{ ID }}",
+                                'Creator' : "{{ me }}",
+                            },
                             success: function(data) {
                                 // alert("quiz started!");
                             },
@@ -111,11 +114,10 @@
                         myJson = {};
                         myJson['articleID'] = '{{ ID }}';
                         myJson['Creator'] = "{{ me }}";
-                        myJson['csrfmiddlewaretoken'] = '{{ csrf_token }}';
+                        myJson['APISession'] = "{{APISession|safe}}";
                         for(i=0; i<len;i++){
                             myJson[i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
                         }
-                        // alert(JSON.stringify(myJson));
                         var request = $.ajax({
                             type: "PATCH", 
                             url: APIUrl + "article/{{ID}}/score/",

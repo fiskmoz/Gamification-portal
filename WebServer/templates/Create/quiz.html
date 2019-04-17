@@ -150,6 +150,7 @@
         {
             for(i=0; i<quizEntryArray.length;i++)
                 submitData[i] = quizEntryArray[i];
+            submitData['APISession'] = "{{APISession|safe}}";
             var request = $.ajax({
             url: "http://127.0.0.1:7000/v1/quiz/",
             type: "POST",

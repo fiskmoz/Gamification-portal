@@ -53,7 +53,7 @@
 							type: "GET",
 							url: APIUrl + "article/{{ ID }}/",
 							dataType: "json",
-							data: {'User': "{{ me }}" },
+							data: {'User': "{{ me }}" , 'APISession' : "{{APISession|safe}}"},
 							success: function(data) {
                                 $('#id_headertext').text(data.article.title.toString());
                                 $('#id_shorttext').text(data.article.subtitle.toString());

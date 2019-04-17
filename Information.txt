@@ -21,6 +21,7 @@ Backlog:
 Säkerhet: 
 - Res+triktioner för personer som inte är superuser
 - Restriktioner på POST API calls.
+
 - Sätta limit på antalet quiz entires.
 - Inputs för quiz och artiklar.
 - selects måste auto välja ett korrekt värde annars ej ok.

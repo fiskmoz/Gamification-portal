@@ -78,4 +78,4 @@ def highscores_view(request):
 
 
 def getContext(request, id):
-    return {'me' : request.user, 'ID': id, 'APISession' : request.session['APISession']}
+    return {'me' : request.user, 'ID': id, 'APISession' : request.session['APISession'].replace('"', '')}
