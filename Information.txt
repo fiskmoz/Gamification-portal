@@ -16,10 +16,8 @@ Postgre:
 
 Backlog: 
 - Checkboxes för vilka artikar man är klar med 
-
-Säkerhet: 
-- Sätta limit på antalet quiz entires.
-- Inputs för quiz och artiklar.
+- Inputs för quiz och artiklar på API:et
+- Limit på antal quiz och användarvänlighet för skapande av quiz.
 
 Highscores:
 
