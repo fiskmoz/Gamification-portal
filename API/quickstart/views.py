@@ -40,6 +40,7 @@ class GetAllOrAppendQuiz(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None): 
+        print(request.POST)
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         if not checkPriveledge(request):
@@ -48,14 +49,21 @@ class GetAllOrAppendQuiz(APIView):
         desc = request.POST.get("Description")
         creator = request.POST.get("Creator")
         timer = request.POST.get("Quiztimer")
-        if name == "":
-            return
+        if not InputCheck(name) or not InputCheck(creator) or not InputCheck(timer):
+            print("QUIZ IS NOT FINE")
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
+        length = int(len(request.POST))-5
+        if (length)%5 != 0: 
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
+        i = 0
+        while i < length:
+            if not InputCheck(request.POST.get(str(i))):
+                return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
+            i += 1
         quiz = Quiz(name=name, description = desc , creator = creator, quiztimer = timer) 
         quiz.save() 
         myList = []
-        length = int(len(request.POST))-2
         i = 0
-        print(request.POST)
         while i < length:
             myList.append(request.POST.get(str(i)))
             i += 1
@@ -123,8 +131,8 @@ class GetAllOrAppendArticle(APIView):
         Title = request.POST.get("ArticleTitle")
         Description = request.POST.get("ArticleDescription")
         ShortDesc = request.POST.get("ArticleShortDescription")
-        if Title == "":
-            return
+        if not InputCheck(Title):
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         article = Article(title=Title, description=Description, subtitle = ShortDesc, date = timezone.now(), creator= request.POST.get("Creator"))
         article.save()
         #TODO:Fixa "unika" namn
@@ -169,7 +177,10 @@ class GetAndSetScoreForArticle(APIView):
     def post(self, request, id,*args, **kwargs):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        article = Article.objects.get(id = id)
+        try:
+            article = Article.objects.get(id = id)
+        except: 
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         try:
             articleScore = ArticleScore.objects.get(article = article, username = request.POST.get('Creator'))
         except:
@@ -184,16 +195,26 @@ class GetAndSetScoreForArticle(APIView):
     def patch(self, request, id, *args, **kwargs):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        # TODO: ADD SAFETYCHECKS FOR THESE!
-        article = Article.objects.get(id = id)
-        articleScore = ArticleScore.objects.get(article = article, username=request.POST.get('Creator'))
+        if not InputCheck(request.POST.get('Creator')):
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
+        try:
+            article = Article.objects.get(id = id)
+        except:
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
+        try:
+            articleScore = ArticleScore.objects.get(article = article, username=request.POST.get('Creator'))
+        except:
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         time = timezone.now() - articleScore.date
         if time > timedelta(seconds= 600):
             articleScore.done = True
             articleScore.save()
         if articleScore.done:
-            return Response("Saved", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            return Response("Saved", status=status.HTTP_200_OK)
         i=0
+        while i < int(len(request.POST))-3:
+            if not InputCheck(request.POST.get(str(i))):
+                return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         quizanswers = []
         while i< int(len(request.POST))-3:
             quizanswers.append(request.POST.get(str(i)))
@@ -267,3 +288,8 @@ class GetAllHighScores(APIView):
         return Response(serializer.data)
 
 #################################################################################
+
+def InputCheck(value):
+    if value is None  or value == "" or len(value) > 25:
+        return False;
+    return True
