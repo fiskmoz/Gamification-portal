@@ -104,16 +104,18 @@
 
         function quizstage1()
         {
-            // CHECK MISSION NAME UNIQUE¨
-            $('#section1').hide();
-            $('#section2').fadeIn(200).removeClass('hidden');
-            submitData['Quizname'] = $('#quizTitle').val();
-            submitData['Description'] = quillDescription.container.innerHTML;
-            submitData['Quiztimer'] = $('#quizTimer').val();
-            submitData['Creator'] = "{{ me }}";
-            $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
-            $('#headerText2').fadeOut(function (){ $(this).html("Please fill out the form!");}).fadeIn();
-            $(window).scrollTop(0);
+            if(validateInput()){
+                // CHECK MISSION NAME UNIQUE¨
+                $('#section1').hide();
+                $('#section2').fadeIn(200).removeClass('hidden');
+                submitData['Quizname'] = $('#quizTitle').val();
+                submitData['Description'] = quillDescription.container.innerHTML;
+                submitData['Quiztimer'] = $('#quizTimer').val();
+                submitData['Creator'] = "{{ me }}";
+                $('#headerText').fadeOut(function (){ $(this).html("Question nr: " + repeats.toString());}).fadeIn();
+                $('#headerText2').fadeOut(function (){ $(this).html("Please fill out the form!");}).fadeIn();
+                $(window).scrollTop(0);
+            }
         }
 
         function quizstage2()
@@ -158,6 +160,17 @@
             });
             
             DisplayResults(request);
+        }
+        //TODO: Inte nöjd med detta, kolla på annan lösning
+        function validateInput()
+        {
+            if($('#quizTitle').val()==""){
+                return false;
+            }    
+            if($('#quizTimer').val()==""){
+                return false;
+            }
+            return true;
         }
     </script>
 </html>
