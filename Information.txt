@@ -17,16 +17,11 @@ Postgre:
 Backlog: 
 - Checkboxes för vilka artikar man är klar med 
 
-
 Säkerhet: 
-- Res+triktioner för personer som inte är superuser
-
 - Sätta limit på antalet quiz entires.
 - Inputs för quiz och artiklar.
-- selects måste auto välja ett korrekt värde annars ej ok.
 
 Refactoring:
-- Kolla view och url på webserver
 - Formattera article created on.
 
 

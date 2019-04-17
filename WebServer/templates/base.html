@@ -45,9 +45,9 @@
         <li class="nav-item">
           <a href="{% url 'highscores' %}" class="nav-link">Scoreboard<img src="{% static 'images/png/trophy.png' %}" width="40" height="40"></a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="{% url 'home' %}" class="nav-link">Settings<img src="{% static 'images/png/settings.png' %}" width="40" height="40"></a>
-        </li>
+        </li> -->
       </ul>
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
