@@ -12,6 +12,7 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         r = requests.post(APIaddr + 'auth/', auth=(username, password))
+        print(r.text)
         if r.ok: 
             user = None
             try:
@@ -22,6 +23,7 @@ def login_view(request):
             if user is None or not user.is_active:
                 return redirect('login')
             auth.login(request, user)
+            request.session['APISession'] = r.text
             return redirect('home')
         template = loader.get_template('404.html')
         context = {}

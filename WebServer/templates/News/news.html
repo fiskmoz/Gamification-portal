@@ -61,6 +61,7 @@
 							type: "GET",
 							url: APIUrl + "article/",
 							dataType: "json",
+							data: {'APISession': {{APISession|safe}}},
 							success: function(data) {
 								articles = data
 								jQuery(articles).each(function(index, data){

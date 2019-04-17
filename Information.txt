@@ -11,22 +11,25 @@ admin, auth, contenttypes, sessions
 VIsual template: 
 https://templated.co/visualize
 
+Postgre:
+- för django?
+
 Backlog: 
+- lägga in tider på quiz
+- Checkboxes för vilka artikar man är klar med 
+- Filuppladningskrash?? xD 
+
 
 Säkerhet: 
-- Restriktioner för personer som inte är superuser
-- Ändra så alla API calls använder variabel isället för hårdkodade länkar.
+- Res+triktioner för personer som inte är superuser
 - Restriktioner på POST API calls.
 - Sätta limit på antalet quiz entires.
 - Inputs för quiz och artiklar.
 - selects måste auto välja ett korrekt värde annars ej ok.
 
 Refactoring:
-- Variabel namn
-- Modeller och attributer
-- Snygga till parsing
-- Snygga till JS
-- Optimisering
+- Kolla view och url på webserver
+- Formattera article created on.
 
 
 Highscores:

@@ -25,60 +25,57 @@ def create_view(request):
     if request.method == "GET": 
         template = loader.get_template('Create/create.html')
         context = {}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def create_view_quiz(request):
     if not request.user.is_authenticated: 
         return display404(request)
     if request.method == "GET": 
         template = loader.get_template('Create/quiz.html')
-        context = {'me' : request.user.username}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def create_view_article(request):
     if not request.user.is_authenticated: 
         return display404(request)
     if request.method == "GET": 
         template = loader.get_template('Create/article.html')
-        context = {'me' : request.user.username}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def news_view(request):
     if not request.user.is_authenticated:
         return display404(request)
     if request.method == "GET":
         template = loader.get_template('News/news.html')
-        context = {'me' : request.user}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def article_view(request,id):
     if not request.user.is_authenticated:
         return display404(request)
     if request.method == "GET":
         template = loader.get_template('News/article.html')
-        context = {'me' : request.user, 'ID' : id}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def articleQuiz_view(request,id):
     if not request.user.is_authenticated:
         return display404(request)
     if request.method == "GET":
         template = loader.get_template('News/articleQuiz.html')
-        context = {'me': request.user, 'ID' : id}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def getNews_view(request):
     if not request.user.is_authenticated:
         return display404
     if request.method == "GET":
         template = loader.get_template('News.html')
-        context = {'me': request.user, 'ID' : id}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
 
 def highscores_view(request):
     if not request.user.is_authenticated:
         return display404
     if request.method == "GET":
         template = loader.get_template('highscores.html')
-        context = {'me': request.user, 'ID' : id}
-        return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(getContext(request, id ), request))
+
+
+def getContext(request, id):
+    return {'me' : request.user, 'ID': id, 'APISession' : request.session['APISession']}
