@@ -92,6 +92,7 @@
         var quillDescription;
         var submitData = {};
         var quizEntryArray = [];
+        var maxQuizEnrty = 21;
         var repeats = 1;
 
         $(document).ready(function()
@@ -120,7 +121,7 @@
 
         function quizstage2()
         {
-            if(validateEntryInput()){
+            if(validateEntryInput() && repeats < maxQuizEnrty){
                 quizEntryArray.push($('#question').val());
                 quizEntryArray.push($('#id_A').val());
                 quizEntryArray.push($('#id_B').val());
