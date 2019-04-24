@@ -21,9 +21,9 @@ def LoginValidation(request):
     try:
         user = User.objects.get(username=request.user.username)
     except user.DoesNotExist:
-        return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+        return Response(data='You are not authenticated!', status=status.HTTP_401_UNAUTHORIZED)
     if not user.password == request.user.password:
-        return Response(data='You are not authenticated!', status=status.HTTP_400_BAD_REQUEST)
+        return Response(data='You are not authenticated!', status=status.HTTP_401_UNAUTHORIZED)
     auth.login(request, request.user)
     role = "user"
     if request.user.is_superuser:

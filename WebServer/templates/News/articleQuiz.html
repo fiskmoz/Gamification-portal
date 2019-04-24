@@ -119,9 +119,10 @@
                             myJson[i.toString()] = $('input[name=QuizAlternative]:checked', '#quizQuestion'+i.toString()).val()
                         }
                         var request = $.ajax({
-                            type: "PATCH", 
+                            type: 'PATCH', 
                             url: APIUrl + "article/{{ID}}/score/",
                             dataType: "json",
+                            crossDomain: true,
                             data : myJson,
                             success: function(data) {
                                 DisplayResults(request);

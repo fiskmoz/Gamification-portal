@@ -53,6 +53,8 @@ class GetAllOrAppendQuiz(APIView):
             print("QUIZ IS NOT FINE")
             return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         length = int(len(request.POST))-5
+        if length > 20*5:
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         if (length)%5 != 0: 
             return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         i = 0
@@ -212,9 +214,6 @@ class GetAndSetScoreForArticle(APIView):
         if articleScore.done:
             return Response("Saved", status=status.HTTP_200_OK)
         i=0
-        while i < int(len(request.POST))-3:
-            if not InputCheck(request.POST.get(str(i))):
-                return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         quizanswers = []
         while i< int(len(request.POST))-3:
             quizanswers.append(request.POST.get(str(i)))
@@ -241,8 +240,8 @@ class GetAndSetScoreForArticle(APIView):
 class FileUpload(APIView):
     parser_classes=(FormParser, MultiPartParser,)
     def post(self, request):
-        if not validate(request):
-            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
+        # if not validate(request):
+        #     return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         file_serializer = FileSerializer(data={'name': request.FILES.get('myfile').name, 'file': request.FILES.get('myfile')})
         if file_serializer.is_valid():
             file_serializer.save()

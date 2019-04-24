@@ -29,7 +29,7 @@
                 <h4> Time to be allowed: </h4>
                 <input id="quizTimer" 
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                type="number" maxlength="2"></input>
+                type="number" maxlength="2" min="1"></input>
                 </div>
                 <br/>
                 <button onclick="quizstage1();"> Submit </button>
@@ -147,7 +147,7 @@
                 submitData[i] = quizEntryArray[i];
             submitData['APISession'] = "{{APISession|safe}}";
             var request = $.ajax({
-            url: "http://127.0.0.1:7000/v1/quiz/",
+            url: APIUrl + "quiz/",
             type: "POST",
             data: submitData,
             });
