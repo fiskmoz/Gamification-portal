@@ -73,7 +73,7 @@ class GetAllOrAppendQuiz(APIView):
                 quizentry = QuizEntry(quiz = quiz, question = myList[0], alta = myList[1], altb = myList[2], altc = myList[3], correct = myList[4])
                 myList.clear()
                 quizentry.save()
-        return Response(data="Created", status = status.HTTP_200_OK)
+        return Response(data="Created", status = status.HTTP_201_CREATED)
 
 
 # GET: Get an entire quiz by article ID.
@@ -117,8 +117,6 @@ class GetAllOrAppendArticle(APIView):
     def get(self, request, format=None):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        if not validate(request):
-            return Response("Auth failed", status = status.HTTP_405_METHOD_NOT_ALLOWED)
         news = Article.objects.all().order_by("-date")
         serializer = NewsSerializer(news, many=True)
         return Response(serializer.data)
@@ -143,7 +141,7 @@ class GetAllOrAppendArticle(APIView):
             articleID = Article.objects.get(title = Title)
             quizLink = QuizLink(article=articleID, quiz=quiz)
             quizLink.save()
-        return Response(data=article.id, status = status.HTTP_200_OK)
+        return Response(data=article.id, status = status.HTTP_201_CREATED)
 
 # GET: Get individual article object by ID.
 # http://127.0.0.1:7000/v1/article/<id>/
@@ -152,6 +150,8 @@ class GetArticleById(APIView):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         article = Article.objects.get(id= id)
+        if article is None :
+             return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         done = False
         try:
             articleScore = ArticleScore.objects.get(article=article, username= request.GET.get('User') )
@@ -215,6 +215,8 @@ class GetAndSetScoreForArticle(APIView):
             return Response("Saved", status=status.HTTP_200_OK)
         i=0
         quizanswers = []
+        if int(len(request.POST))-3 >= 20:
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         while i< int(len(request.POST))-3:
             quizanswers.append(request.POST.get(str(i)))
             i += 1
@@ -249,29 +251,17 @@ class FileUpload(APIView):
         else:
             return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def PATCH(self,request):
+    def patch(self,request):
         if not validate(request):
             return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
         if not checkPriveledge(request):
             return Response("Not enough priveledge", status=status.HTTP_401_UNAUTHORIZED)
-        #TODO: ADD SAFETYCHECKS HERE
-        article_link = ArticleLink(article=Article.objects.get(id= request.POST.get("ArticleID")),filepath=File.objects.get(id = request.POST.get("FileID")))
+        try :
+            article_link = ArticleLink(article=Article.objects.get(id= request.POST.get("ArticleID")),filepath=File.objects.get(id = request.POST.get("FileID")))
+        except:
+            return Response("Invalid Input", status=status.HTTP_406_NOT_ACCEPTABLE)
         article_link.save()
         return Response("Created", status=status.HTTP_201_CREATED)
-
-
-
-# GET: get file links for a specifc article
-# http://127.0.0.1:7000/v1/files/article/<id>/
-class GetFileLinksByArticle(APIView):
-    def get(self, request, id):
-        if not validate(request):
-            return Response(data='Not authorized', status=status.HTTP_401_UNAUTHORIZED)
-        files = set()
-        for fileLink in ArticleLink.objects.filter(article= id):
-            files.add(fileLink.filePath)
-        serializer = FileSerializer(files, many=True)
-        return Response(serializer.data)
 
 #################################################################################
 # Highscores part
